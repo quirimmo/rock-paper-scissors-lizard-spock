@@ -1,0 +1,32 @@
+sudo: required
+dist: trusty
+
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
+language: node_js
+node_js:
+  - '6.11'
+
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
+
+install:
+  - npm install
+  
+script:
+  # here run unit tests
+  # here run e2e tests
+  # here publish the app
+
+after_success:
+  - TRAVIS_MAIN_FOLDER=./travis
+  - TRAVIS_FTP_SCRIPT=$TRAVIS_MAIN_FOLDER/ftp-deployer.sh
+  - chmod ugo+x $TRAVIS_FTP_SCRIPT
+  - $TRAVIS_FTP_SCRIPT
