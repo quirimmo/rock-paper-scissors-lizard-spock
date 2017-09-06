@@ -1,7 +1,10 @@
 {
     "env": {
         "browser": true,
-        "jasmine": true
+		"jasmine": true,
+		"protractor": true,
+		"amd": true,
+		"node": true
     },
 
     "extends": [
@@ -14,6 +17,10 @@
         "module": false,
         "inject": false,
         "_": false
+    },
+
+    "parserOptions": {
+        "ecmaVersion": 6
     },
 
     "rules": {
