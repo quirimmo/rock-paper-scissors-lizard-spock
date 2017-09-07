@@ -6,6 +6,8 @@
 
     const gulp = require('gulp');
     const clean = require('gulp-clean');
+    const gls = require('gulp-live-server');
+    const runSequence = require('run-sequence');
 
     // List of all the static paths 
     // ============================================================
@@ -33,13 +35,17 @@
         ALL_IMAGES: [
             './assets/images/*.*'
         ],
-        IMAGES_PATH: './assets/images'
+        IMAGES_PATH: './assets/images',
+        MAIN_INDEX: './src/index.html',
+        SOURCE_FILES: './src/**/*.*'
     };
 
     // List of all the available tasks
     // ============================================================
 
     gulp.task('clean-tmp', cleanFolder.bind(null, PATHS.TMP_APP));
+    gulp.task('inject-main-html', injectMainHTML);
+    gulp.task('serve', ['clean-tmp'], serve);
 
     // Private functions
     // ============================================================
@@ -47,6 +53,26 @@
     function cleanFolder(folderToClean) {
         return gulp.src(folderToClean, { read: false })
             .pipe(clean());
+    }
+
+    function injectMainHTML() {
+        let target = gulp.src(PATHS.MAIN_INDEX);
+
+        return target
+            .pipe(gulp.dest(PATHS.TMP_APP));
+    }
+
+    function serve(done) {
+        runSequence('inject-main-html', afterSequence);
+
+        function afterSequence() {
+            let server = gls.static([PATHS.ROOT_APP, PATHS.TMP_APP]);
+            server.start();
+            gulp.watch(PATHS.SOURCE_FILES, function(file) {
+                server.notify.apply(server, [file]);
+            });
+            done();
+        }
     }
 
 })();
