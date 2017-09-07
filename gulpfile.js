@@ -57,7 +57,6 @@
 
     function injectMainHTML() {
         let target = gulp.src(PATHS.MAIN_INDEX);
-
         return target
             .pipe(gulp.dest(PATHS.TMP_APP));
     }
