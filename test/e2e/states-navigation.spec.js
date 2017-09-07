@@ -22,11 +22,11 @@ describe('Navigation Between States', () => {
     fdescribe('RockPaperScissors State', () => {
 
         beforeAll(() => {
-            browser.get('/rock-paper-scissors');
+            browser.get('#!/rock-paper-scissors');
         });
 
         it('should be loaded typing the right address', () => {
-            browser.getCurrentUrl().should.become('http://localhost:3000/rock-paper-scissors');
+            browser.getCurrentUrl().should.become('http://localhost:3000/#!/rock-paper-scissors');
         });
 
         it('should display the right title of the page', () => {

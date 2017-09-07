@@ -34,7 +34,7 @@ describe('config.js', function() {
 
     });
 
-    fdescribe('Rock Paper Scissors State', function() {
+    describe('Rock Paper Scissors State', function() {
 
         it('should load the URL', function() {
             $state.go('rock-paper-scissors');
@@ -49,7 +49,7 @@ describe('config.js', function() {
 
     });
 
-    describe('Rock Paper Scissors Lizard Spock State', function() {
+    fdescribe('Rock Paper Scissors Lizard Spock State', function() {
 
         it('should load the URL', function() {
             $state.go('rock-paper-scissors-lizard-spock');
