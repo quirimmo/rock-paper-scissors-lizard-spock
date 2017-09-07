@@ -1,4 +1,4 @@
-describe('config.js', function() {
+fdescribe('config.js', function() {
 
     let $state, $rootScope;
 
@@ -49,7 +49,7 @@ describe('config.js', function() {
 
     });
 
-    fdescribe('Rock Paper Scissors Lizard Spock State', function() {
+    describe('Rock Paper Scissors Lizard Spock State', function() {
 
         it('should load the URL', function() {
             $state.go('rock-paper-scissors-lizard-spock');

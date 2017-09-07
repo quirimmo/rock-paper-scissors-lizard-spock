@@ -30,8 +30,18 @@
             // templateUrl: 'src/templates/main.html',
             // controller: 'HomeController',
             // controllerAs: 'vm'
+		};
+		let rockPaperScissorsLizardSpockState = {
+            name: 'rock-paper-scissors-lizard-spock',
+            url: '/rock-paper-scissors-lizard-spock',
+            data: {
+                title: 'Rock Paper Scissors Lizard Spock'
+            }
+            // templateUrl: 'src/templates/main.html',
+            // controller: 'HomeController',
+            // controllerAs: 'vm'
         };
-        $stateProvider.state(mainState).state(rockPaperScissorsState);
+        $stateProvider.state(mainState).state(rockPaperScissorsState).state(rockPaperScissorsLizardSpockState);
         $urlRouterProvider.otherwise('/');
     }
 

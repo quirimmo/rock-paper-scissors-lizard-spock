@@ -19,7 +19,7 @@ describe('Navigation Between States', () => {
 
     });
 
-    fdescribe('RockPaperScissors State', () => {
+    describe('RockPaperScissors State', () => {
 
         beforeAll(() => {
             browser.get('#!/rock-paper-scissors');
@@ -35,21 +35,21 @@ describe('Navigation Between States', () => {
 
     });
 
-    // describe('RockPaperScissorsLizardSpock State', () => {
+    describe('RockPaperScissorsLizardSpock State', () => {
 
-    //     beforeAll(() => {
-    //         browser.get('/rock-paper-scissors-lizard-spock');
-    //     });
+        beforeAll(() => {
+            browser.get('#!/rock-paper-scissors-lizard-spock');
+        });
 
-    //     it('should be loaded typing the right address', () => {
-    //         browser.getCurrentUrl().should.become('http://localhost:3000/rock-paper-scissors-lizard-spock');
-    //     });
+        it('should be loaded typing the right address', () => {
+            browser.getCurrentUrl().should.become('http://localhost:3000/#!/rock-paper-scissors-lizard-spock');
+        });
 
-    //     it('should display the right title of the page', () => {
-    //         browser.getTitle().should.become('Rock Paper Scissors Lizard Spock');
-    //     });
+        it('should display the right title of the page', () => {
+            browser.getTitle().should.become('Rock Paper Scissors Lizard Spock');
+        });
 
-    // });
+    });
 
 
 });
