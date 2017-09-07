@@ -24,6 +24,8 @@ module.exports = function(config) {
             './node_modules/angular-aria/angular-aria.js',
             './node_modules/angular-animate/angular-animate.js',
 
+            './src/app.js',
+
             './test/unit/**/*.spec.js',
 
             './src/**/*.html'
