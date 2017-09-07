@@ -17,7 +17,7 @@ describe('config.js', function() {
     describe('Home State', function() {
 
         it('should load the URL', function() {
-            expect($state.href('')).toEqual('');
+            expect($state.href('home')).toEqual('#!/');
         });
 
         it('should go the state', function() {
@@ -29,12 +29,12 @@ describe('config.js', function() {
         it('should return the URL as default if wrong url has been provided', function() {
             $state.go('nomatchedurl');
             $rootScope.$apply();
-            expect($state.current.name).toEqual('home');
+            expect($state.current.url).toEqual('/');
         });
 
     });
 
-    describe('Rock Paper Scissors State', function() {
+    fdescribe('Rock Paper Scissors State', function() {
 
         it('should load the URL', function() {
             $state.go('rock-paper-scissors');

@@ -26,6 +26,7 @@ module.exports = function(config) {
             './node_modules/angular-animate/angular-animate.js',
 
             './src/app.js',
+            './src/config.js',
 
             './test/unit/**/*.spec.js',
 

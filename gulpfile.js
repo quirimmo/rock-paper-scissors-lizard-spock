@@ -42,7 +42,8 @@
         MAIN_INDEX: './src/index.html',
         SOURCE_FILES: './src/**/*.*',
         ANGULAR_SOURCE_ORDER: [
-            'src/app.js'
+            'src/app.js',
+            'src/config.js'
         ]
     };
 
