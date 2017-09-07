@@ -10,6 +10,7 @@
     const gls = require('gulp-live-server');
     const runSequence = require('run-sequence');
     const KarmaServer = require('karma').Server;
+    const protractor = require('gulp-protractor').protractor;
 
     // List of all the static paths 
     // ============================================================
@@ -51,8 +52,10 @@
     gulp.task('clean-tmp', cleanFolder.bind(null, PATHS.TMP_APP));
     gulp.task('inject-dependencies', injectDependencies);
     gulp.task('serve', ['clean-tmp'], serve);
+    gulp.task('serve-no-watch', ['clean-tmp'], serveNoWatch);
     gulp.task('unit-test', startKarmaServer);
     gulp.task('unit-test-watch', startKarmaServer.bind(null, true));
+    gulp.task('protractor-test', ['serve-no-watch'], runProtractorTests);
     gulp.task('default', ['serve']);
 
     // Private functions
@@ -85,6 +88,29 @@
             });
             done();
         }
+    }
+
+    let serverNoWatch;
+
+    function serveNoWatch(done) {
+        runSequence('inject-dependencies', afterSequence);
+
+        function afterSequence() {
+            serverNoWatch = gls.static([PATHS.ROOT_APP, PATHS.TMP_APP]);
+            serverNoWatch.start();
+            done();
+        }
+    }
+
+    function runProtractorTests() {
+        return gulp.src(PATHS.E2E_TESTS)
+            .pipe(protractor({
+                configFile: PATHS.PROTRACTOR_CONFIG_FILE
+            }))
+            .on('close', function() {
+                serverNoWatch.stop();
+            })
+            .on('error', function(e) { throw e; });
     }
 
     function startKarmaServer(done, watch = false) {
