@@ -5,6 +5,7 @@
     // ============================================================
 
     const gulp = require('gulp');
+    const inject = require('gulp-inject');
     const clean = require('gulp-clean');
     const gls = require('gulp-live-server');
     const runSequence = require('run-sequence');
@@ -37,14 +38,17 @@
         ],
         IMAGES_PATH: './assets/images',
         MAIN_INDEX: './src/index.html',
-        SOURCE_FILES: './src/**/*.*'
+        SOURCE_FILES: './src/**/*.*',
+        ANGULAR_SOURCE_ORDER: [
+            'src/app.js'
+        ]
     };
 
     // List of all the available tasks
     // ============================================================
 
     gulp.task('clean-tmp', cleanFolder.bind(null, PATHS.TMP_APP));
-    gulp.task('inject-main-html', injectMainHTML);
+    gulp.task('inject-dependencies', injectDependencies);
     gulp.task('serve', ['clean-tmp'], serve);
 
     // Private functions
@@ -55,14 +59,19 @@
             .pipe(clean());
     }
 
-    function injectMainHTML() {
+    function injectDependencies() {
         let target = gulp.src(PATHS.MAIN_INDEX);
+        let nodeSources = gulp.src(PATHS.NODE_MODULES_COMPONENTS, { read: false });
+        let angularSources = gulp.src(PATHS.ANGULAR_SOURCE_ORDER);
+
         return target
+            .pipe(inject(nodeSources, { name: 'node' }))
+            .pipe(inject(angularSources, { name: 'angular' }))
             .pipe(gulp.dest(PATHS.TMP_APP));
     }
 
     function serve(done) {
-        runSequence('inject-main-html', afterSequence);
+        runSequence('inject-dependencies', afterSequence);
 
         function afterSequence() {
             let server = gls.static([PATHS.ROOT_APP, PATHS.TMP_APP]);
