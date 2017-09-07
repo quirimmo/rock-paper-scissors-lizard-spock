@@ -11,8 +11,13 @@
     const runSequence = require('run-sequence');
     const KarmaServer = require('karma').Server;
     const protractor = require('gulp-protractor').protractor;
+    const less = require('gulp-less');
+    const concat = require('gulp-concat');
+    const cleanCSS = require('gulp-clean-css');
 
     // List of all the static paths 
+    // These constant variables could be considered "useless", but I love to define constant variables at the beginning in order to improve the readability, to improve 
+    // the maintenance of the code, so you can easily change the values from the beginning of the file, and because actually I hate hardcoded strings
     // ============================================================
 
     const PATHS = {
@@ -25,7 +30,10 @@
             './node_modules/angular-material/angular-material.min.js',
             './node_modules/angular-ui-router/release/angular-ui-router.min.js'
         ],
-        APP_STYLES: './src/**/*.less',
+        STYLES_FOLDER: './assets/styles',
+        APP_STYLES: './assets/styles/*.less',
+        APP_STYLES_EXTENSION: '.less',
+        GENERATED_STYLES: './assets/styles/*.css',
         EXTERNAL_STYLES: [
             './node_modules/angular-material/angular-material.min.css'
         ],
@@ -40,11 +48,14 @@
         ],
         IMAGES_PATH: './assets/images',
         MAIN_INDEX: './src/index.html',
-        SOURCE_FILES: './src/**/*.*',
+        SOURCE_FILES: ['./src/**/*.*', './assets/styles/*.less'],
         ANGULAR_SOURCE_ORDER: [
             'src/app.js',
             'src/config.js'
-        ]
+        ],
+        OUTPUT_STYLES_FOLDER: '/assets/styles',
+        GLOBAL_OUTPUT_STYLE: 'global-style.css',
+        GLOBAL_OUTPUT_EXTERNAL_STYLE: 'global-external-style.css'
     };
 
     // List of all the available tasks
@@ -57,6 +68,9 @@
     gulp.task('unit-test', startKarmaServer);
     gulp.task('unit-test-watch', startKarmaServer.bind(null, true));
     gulp.task('protractor-test', ['serve-no-watch'], runProtractorTests);
+    gulp.task('less', compileLess);
+    gulp.task('publish-styles', ['less'], publishStyles);
+    gulp.task('publish-external-styles', publishExternalStyles);
     gulp.task('default', ['serve']);
 
     // Private functions
@@ -74,27 +88,39 @@
 
         return target
             .pipe(inject(nodeSources, { name: 'node' }))
+            .pipe(inject(gulp.src(`${PATHS.TMP_APP}${PATHS.OUTPUT_STYLES_FOLDER}/${PATHS.GLOBAL_OUTPUT_EXTERNAL_STYLE}`, { read: false }), { name: 'external', ignorePath: 'tmp/', addRootSlash: false }))
+            .pipe(inject(gulp.src(`${PATHS.TMP_APP}${PATHS.OUTPUT_STYLES_FOLDER}/${PATHS.GLOBAL_OUTPUT_STYLE}`, { read: false }), { ignorePath: 'tmp/', addRootSlash: false }))
             .pipe(inject(angularSources, { name: 'angular' }))
             .pipe(gulp.dest(PATHS.TMP_APP));
     }
 
     function serve(done) {
-        runSequence('inject-dependencies', afterSequence);
+        runSequence('publish-external-styles', 'publish-styles', 'inject-dependencies', afterSequence);
 
         function afterSequence() {
             let server = gls.static([PATHS.ROOT_APP, PATHS.TMP_APP]);
             server.start();
-            gulp.watch(PATHS.SOURCE_FILES, function(file) {
-                server.notify.apply(server, [file]);
-            });
+            gulp.watch(PATHS.SOURCE_FILES, onFileChanged);
             done();
+
+            function onFileChanged(file) {
+                if (file.path.endsWith(PATHS.APP_STYLES_EXTENSION)) {
+                    gulp.start('publish-styles', reloadServer.bind(null, file));
+                } else {
+                    reloadServer(file);
+                }
+
+                function reloadServer(file) {
+                    server.notify.apply(server, [file]);
+                }
+            }
         }
     }
 
     let serverNoWatch;
 
     function serveNoWatch(done) {
-        runSequence('inject-dependencies', afterSequence);
+        runSequence('publish-external-styles', 'publish-styles', 'inject-dependencies', afterSequence);
 
         function afterSequence() {
             serverNoWatch = gls.static([PATHS.ROOT_APP, PATHS.TMP_APP]);
@@ -125,6 +151,29 @@
             done();
             process.exit(exitCode);
         }
+    }
+
+    function compileLess() {
+        return gulp.src(PATHS.APP_STYLES)
+            .pipe(less())
+            .pipe(gulp.dest(PATHS.STYLES_FOLDER));
+    }
+
+    function publishStyles() {
+        let stylesSource = gulp.src(PATHS.GENERATED_STYLES);
+
+        return stylesSource
+            .pipe(concat(PATHS.GLOBAL_OUTPUT_STYLE))
+            .pipe(cleanCSS())
+            .pipe(gulp.dest(`${PATHS.TMP_APP}${PATHS.OUTPUT_STYLES_FOLDER}`));
+    }
+
+    function publishExternalStyles() {
+        let stylesSource = gulp.src(PATHS.EXTERNAL_STYLES);
+
+        return stylesSource
+            .pipe(concat(PATHS.GLOBAL_OUTPUT_EXTERNAL_STYLE))
+            .pipe(gulp.dest(`${PATHS.TMP_APP}${PATHS.OUTPUT_STYLES_FOLDER}`));
     }
 
 })();

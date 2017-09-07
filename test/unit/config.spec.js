@@ -1,4 +1,4 @@
-fdescribe('config.js', function() {
+describe('config.js', function() {
 
     let $state, $rootScope;
 
