@@ -16,6 +16,8 @@
     const cleanCSS = require('gulp-clean-css');
 
     // List of all the static paths 
+    // These constant variables could be considered "useless", but I love to define constant variables at the beginning in order to improve the readability, to improve 
+    // the maintenance of the code, so you can easily change the values from the beginning of the file, and because actually I hate hardcoded strings
     // ============================================================
 
     const PATHS = {
@@ -30,6 +32,7 @@
         ],
         STYLES_FOLDER: './assets/styles',
         APP_STYLES: './assets/styles/*.less',
+        APP_STYLES_EXTENSION: '.less',
         GENERATED_STYLES: './assets/styles/*.css',
         EXTERNAL_STYLES: [
             './node_modules/angular-material/angular-material.min.css'
@@ -51,7 +54,8 @@
             'src/config.js'
         ],
         OUTPUT_STYLES_FOLDER: '/assets/styles',
-        GLOBAL_OUTPUT_STYLE: 'global-style.css'
+        GLOBAL_OUTPUT_STYLE: 'global-style.css',
+        GLOBAL_OUTPUT_EXTERNAL_STYLE: 'global-external-style.css'
     };
 
     // List of all the available tasks
@@ -66,6 +70,7 @@
     gulp.task('protractor-test', ['serve-no-watch'], runProtractorTests);
     gulp.task('less', compileLess);
     gulp.task('publish-styles', ['less'], publishStyles);
+    gulp.task('publish-external-styles', publishExternalStyles);
     gulp.task('default', ['serve']);
 
     // Private functions
@@ -83,13 +88,14 @@
 
         return target
             .pipe(inject(nodeSources, { name: 'node' }))
+            .pipe(inject(gulp.src(`${PATHS.TMP_APP}${PATHS.OUTPUT_STYLES_FOLDER}/${PATHS.GLOBAL_OUTPUT_EXTERNAL_STYLE}`, { read: false }), { name: 'external', ignorePath: 'tmp/', addRootSlash: false }))
             .pipe(inject(gulp.src(`${PATHS.TMP_APP}${PATHS.OUTPUT_STYLES_FOLDER}/${PATHS.GLOBAL_OUTPUT_STYLE}`, { read: false }), { ignorePath: 'tmp/', addRootSlash: false }))
             .pipe(inject(angularSources, { name: 'angular' }))
             .pipe(gulp.dest(PATHS.TMP_APP));
     }
 
     function serve(done) {
-        runSequence('publish-styles', 'inject-dependencies', afterSequence);
+        runSequence('publish-external-styles', 'publish-styles', 'inject-dependencies', afterSequence);
 
         function afterSequence() {
             let server = gls.static([PATHS.ROOT_APP, PATHS.TMP_APP]);
@@ -98,7 +104,7 @@
             done();
 
             function onFileChanged(file) {
-                if (file.path.endsWith('.less')) {
+                if (file.path.endsWith(PATHS.APP_STYLES_EXTENSION)) {
                     gulp.start('publish-styles', reloadServer.bind(null, file));
                 } else {
                     reloadServer(file);
@@ -114,7 +120,7 @@
     let serverNoWatch;
 
     function serveNoWatch(done) {
-        runSequence('publish-styles', 'inject-dependencies', afterSequence);
+        runSequence('publish-external-styles', 'publish-styles', 'inject-dependencies', afterSequence);
 
         function afterSequence() {
             serverNoWatch = gls.static([PATHS.ROOT_APP, PATHS.TMP_APP]);
@@ -154,11 +160,19 @@
     }
 
     function publishStyles() {
-        let stylesSource = gulp.src(PATHS.EXTERNAL_STYLES.concat(PATHS.GENERATED_STYLES));
+        let stylesSource = gulp.src(PATHS.GENERATED_STYLES);
 
         return stylesSource
             .pipe(concat(PATHS.GLOBAL_OUTPUT_STYLE))
             .pipe(cleanCSS())
+            .pipe(gulp.dest(`${PATHS.TMP_APP}${PATHS.OUTPUT_STYLES_FOLDER}`));
+    }
+
+    function publishExternalStyles() {
+        let stylesSource = gulp.src(PATHS.EXTERNAL_STYLES);
+
+        return stylesSource
+            .pipe(concat(PATHS.GLOBAL_OUTPUT_EXTERNAL_STYLE))
             .pipe(gulp.dest(`${PATHS.TMP_APP}${PATHS.OUTPUT_STYLES_FOLDER}`));
     }
 
