@@ -30,7 +30,8 @@
 
         "no-console": 0,
         "no-undef": "error",
-        "no-unused-vars": ["error", { "vars": "all", "args": "none" }],
+        // adding to turn off the unused variables for should|expect|assert introduced by chai
+        "no-unused-vars": ["error", { "vars": "all", "args": "none", "varsIgnorePattern": "chai|should|expect|assert" }],
         "no-extra-boolean-cast": "error",
         "eqeqeq": ["error", "smart"],
         "complexity": ["off", { "max": 7 }],

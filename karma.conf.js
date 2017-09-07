@@ -1,9 +1,10 @@
 module.exports = function(config) {
     config.set({
         browsers: ['Chrome'],
-        frameworks: ['jasmine'],
+        frameworks: ['jasmine', 'chai'],
         plugins: [
             'karma-jasmine',
+            'karma-chai',
             'karma-chrome-launcher',
             'karma-ng-html2js-preprocessor'
         ],
@@ -25,6 +26,7 @@ module.exports = function(config) {
             './node_modules/angular-animate/angular-animate.js',
 
             './src/app.js',
+            './src/config.js',
 
             './test/unit/**/*.spec.js',
 
