@@ -9,6 +9,7 @@
     const clean = require('gulp-clean');
     const gls = require('gulp-live-server');
     const runSequence = require('run-sequence');
+    const KarmaServer = require('karma').Server;
 
     // List of all the static paths 
     // ============================================================
@@ -50,6 +51,9 @@
     gulp.task('clean-tmp', cleanFolder.bind(null, PATHS.TMP_APP));
     gulp.task('inject-dependencies', injectDependencies);
     gulp.task('serve', ['clean-tmp'], serve);
+    gulp.task('unit-test', startKarmaServer);
+    gulp.task('unit-test-watch', startKarmaServer.bind(null, true));
+    gulp.task('default', ['serve']);
 
     // Private functions
     // ============================================================
@@ -80,6 +84,19 @@
                 server.notify.apply(server, [file]);
             });
             done();
+        }
+    }
+
+    function startKarmaServer(done, watch = false) {
+        new KarmaServer({
+            configFile: PATHS.KARMA_CONFIG_FILE,
+            singleRun: !watch,
+            autoWatch: watch
+        }, onKarmaFinished).start();
+
+        function onKarmaFinished(exitCode) {
+            done();
+            process.exit(exitCode);
         }
     }
 
