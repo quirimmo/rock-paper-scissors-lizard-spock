@@ -29,7 +29,7 @@ exports.config = {
     ],
     onPrepare: function() {
         // including the base exports for chai, chai-as-promised
-        require('./test/base-exports.js');
+        require('./test/e2e/base-exports.js');
         browser.waitForAngularEnabled(true);
     }
 };

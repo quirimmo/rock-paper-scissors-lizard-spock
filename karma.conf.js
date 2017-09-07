@@ -1,9 +1,10 @@
 module.exports = function(config) {
     config.set({
         browsers: ['Chrome'],
-        frameworks: ['jasmine'],
+        frameworks: ['jasmine', 'chai'],
         plugins: [
             'karma-jasmine',
+            'karma-chai',
             'karma-chrome-launcher',
             'karma-ng-html2js-preprocessor'
         ],
