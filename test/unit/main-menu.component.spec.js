@@ -13,7 +13,7 @@ describe('trainInfoItem', function() {
 
     describe('init', function() {
 
-        beforeAll(() => {
+        beforeEach(() => {
             controller = $componentController('mainMenu', null, {
                 activeItem: 'blablabla'
             });
@@ -33,7 +33,7 @@ describe('trainInfoItem', function() {
 
     describe('Personal Profile', function() {
 
-        beforeAll(() => {
+        beforeEach(() => {
             controller = $componentController('mainMenu', null, {
                 activeItem: 'Personal Profile'
             });
@@ -67,7 +67,7 @@ describe('trainInfoItem', function() {
 
     describe('Rock Paper Scissors', function() {
 
-        beforeAll(() => {
+        beforeEach(() => {
             controller = $componentController('mainMenu', null, {
                 activeItem: 'Rock Paper Scissors'
             });
@@ -101,7 +101,7 @@ describe('trainInfoItem', function() {
 
     describe('Rock Paper Scissors Lizard Spock', function() {
 
-        beforeAll(() => {
+        beforeEach(() => {
             controller = $componentController('mainMenu', null, {
                 activeItem: 'Rock Paper Scissors Lizard Spock'
             });
