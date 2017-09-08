@@ -119,6 +119,8 @@
             function onFileChanged(file) {
                 if (file.path.endsWith(PATHS.APP_STYLES_EXTENSION)) {
                     gulp.start('publish-styles', reloadServer.bind(null, file));
+                } else if (file.path.endsWith('.html')) {
+                    gulp.start('compile-templates', reloadServer.bind(null, file));
                 } else {
                     reloadServer(file);
                 }
