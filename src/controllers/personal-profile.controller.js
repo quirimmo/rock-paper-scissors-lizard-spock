@@ -12,9 +12,9 @@
         vm.numOfVictories;
         vm.numOfLoses;
         vm.numOfDraws;
-        vm.consecutiveNumOfVictories;
-        vm.consecutiveNumOfLoses;
-        vm.consecutiveNumOfDraws;
+        vm.numOfConsecutiveVictories;
+        vm.numOfConsecutiveLoses;
+        vm.numOfConsecutiveDraws;
 
         vm.$onInit = onInit;
 
@@ -23,9 +23,9 @@
             vm.numOfVictories = gameService.getNumOfVictories() || 0;
             vm.numOfLoses = gameService.getNumOfLoses() || 0;
             vm.numOfDraws = gameService.getNumOfDraws() || 0;
-            vm.consecutiveNumOfVictories = gameService.getNumOfConsecutiveVictories() || 0;
-            vm.consecutiveNumOfLoses = gameService.getNumOfConsecutiveLoses() || 0;
-            vm.consecutiveNumOfDraws = gameService.getNumOfConsecutiveDraws() || 0;
+            vm.numOfConsecutiveVictories = gameService.getNumOfConsecutiveVictories() || 0;
+            vm.numOfConsecutiveLoses = gameService.getNumOfConsecutiveLoses() || 0;
+            vm.numOfConsecutiveDraws = gameService.getNumOfConsecutiveDraws() || 0;
         }
 
     }

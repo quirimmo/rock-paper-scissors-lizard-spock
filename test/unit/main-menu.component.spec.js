@@ -1,4 +1,4 @@
-fdescribe('trainInfoItem', function() {
+describe('trainInfoItem', function() {
 
     let $componentController, controller, $state;
 

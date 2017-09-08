@@ -1,13 +1,13 @@
 describe('MainController', function() {
 
-    let controller, gameService;
+    let controller, gameService, $scope;
 
     beforeEach(function() {
         module('myApp');
         module('templates');
 
         module(function($provide) {
-            $provide('gameService', {
+            $provide.value('gameService', {
                 getNumOfMatches: function() {},
                 getNumOfVictories: function() {},
                 getNumOfLoses: function() {},
@@ -19,9 +19,10 @@ describe('MainController', function() {
         });
 
         inject(function(_$rootScope_, _$controller_, _gameService_) {
-            let $scope = _$rootScope_.$new();
+            $scope = _$rootScope_.$new();
             gameService = _gameService_;
             controller = _$controller_('PersonalProfileController', { $scope: $scope });
+            $scope.$apply();
         });
     });
 
@@ -33,9 +34,9 @@ describe('MainController', function() {
             expect(controller.numOfVictories).toBeDefined();
             expect(controller.numOfLoses).toBeDefined();
             expect(controller.numOfDraws).toBeDefined();
-            expect(controller.consecutiveNumOfVictories).toBeDefined();
-            expect(controller.consecutiveNumOfLoses).toBeDefined();
-            expect(controller.consecutiveNumOfDraws).toBeDefined();
+            expect(controller.numOfConsecutiveVictories).toBeDefined();
+            expect(controller.numOfConsecutiveLoses).toBeDefined();
+            expect(controller.numOfConsecutiveDraws).toBeDefined();
         });
 
         it('should call the methods in order to retrieve the stored values in the local storage', () => {
@@ -62,16 +63,14 @@ describe('MainController', function() {
 
     describe('numOfMatches', () => {
 
-        beforeAll(() => {
-            controller.$onInit();
-        });
-
         it('should be 0 if there are no stored values yet in the local storage', () => {
+            controller.$onInit();
             expect(controller.numOfMatches).toEqual(0);
         });
 
         it('should be equal to the value presents in the local storage', () => {
             spyOn(gameService, 'getNumOfMatches').and.returnValue(5);
+            controller.$onInit();
             expect(controller.numOfMatches).toEqual(5);
         });
 
@@ -79,16 +78,14 @@ describe('MainController', function() {
 
     describe('numOfVictories', () => {
 
-        beforeAll(() => {
-            controller.$onInit();
-        });
-
         it('should be 0 if there are no stored values yet in the local storage', () => {
+            controller.$onInit();
             expect(controller.numOfVictories).toEqual(0);
         });
 
         it('should be equal to the value presents in the local storage', () => {
             spyOn(gameService, 'getNumOfVictories').and.returnValue(5);
+            controller.$onInit();
             expect(controller.numOfVictories).toEqual(5);
         });
 
@@ -96,16 +93,14 @@ describe('MainController', function() {
 
     describe('numOfLoses', () => {
 
-        beforeAll(() => {
-            controller.$onInit();
-        });
-
         it('should be 0 if there are no stored values yet in the local storage', () => {
+            controller.$onInit();
             expect(controller.numOfLoses).toEqual(0);
         });
 
         it('should be equal to the value presents in the local storage', () => {
             spyOn(gameService, 'getNumOfLoses').and.returnValue(5);
+            controller.$onInit();
             expect(controller.numOfLoses).toEqual(5);
         });
 
@@ -113,16 +108,14 @@ describe('MainController', function() {
 
     describe('numOfDraws', () => {
 
-        beforeAll(() => {
-            controller.$onInit();
-        });
-
         it('should be 0 if there are no stored values yet in the local storage', () => {
+            controller.$onInit();
             expect(controller.numOfDraws).toEqual(0);
         });
 
         it('should be equal to the value presents in the local storage', () => {
             spyOn(gameService, 'getNumOfDraws').and.returnValue(5);
+            controller.$onInit();
             expect(controller.numOfDraws).toEqual(5);
         });
 
@@ -130,16 +123,14 @@ describe('MainController', function() {
 
     describe('numOfConsecutiveVictories', () => {
 
-        beforeAll(() => {
-            controller.$onInit();
-        });
-
         it('should be 0 if there are no stored values yet in the local storage', () => {
+            controller.$onInit();
             expect(controller.numOfConsecutiveVictories).toEqual(0);
         });
 
         it('should be equal to the value presents in the local storage', () => {
             spyOn(gameService, 'getNumOfConsecutiveVictories').and.returnValue(5);
+            controller.$onInit();
             expect(controller.numOfConsecutiveVictories).toEqual(5);
         });
 
@@ -147,16 +138,14 @@ describe('MainController', function() {
 
     describe('numOfConsecutiveLoses', () => {
 
-        beforeAll(() => {
-            controller.$onInit();
-        });
-
         it('should be 0 if there are no stored values yet in the local storage', () => {
+            controller.$onInit();
             expect(controller.numOfConsecutiveLoses).toEqual(0);
         });
 
         it('should be equal to the value presents in the local storage', () => {
             spyOn(gameService, 'getNumOfConsecutiveLoses').and.returnValue(5);
+            controller.$onInit();
             expect(controller.numOfConsecutiveLoses).toEqual(5);
         });
 
@@ -164,16 +153,14 @@ describe('MainController', function() {
 
     describe('numOfConsecutiveDraws', () => {
 
-        beforeAll(() => {
-            controller.$onInit();
-        });
-
         it('should be 0 if there are no stored values yet in the local storage', () => {
+            controller.$onInit();
             expect(controller.numOfConsecutiveDraws).toEqual(0);
         });
 
         it('should be equal to the value presents in the local storage', () => {
             spyOn(gameService, 'getNumOfConsecutiveDraws').and.returnValue(5);
+            controller.$onInit();
             expect(controller.numOfConsecutiveDraws).toEqual(5);
         });
 

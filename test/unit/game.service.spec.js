@@ -163,6 +163,5 @@ describe('gameService', function() {
             });
         });
     });
-
-
+    
 });
