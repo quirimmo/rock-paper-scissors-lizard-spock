@@ -1,16 +1,17 @@
 fdescribe('config.js', function() {
 
-    let $state, $rootScope, $httpBackend;
+    let $state, $rootScope, $httpBackend, $location;
 
     beforeEach(function() {
         module('myApp');
 
         module(function($provide) {});
 
-        inject(function(_$state_, _$rootScope_, _$httpBackend_) {
+        inject(function(_$state_, _$rootScope_, _$httpBackend_, _$location_) {
             $state = _$state_;
             $rootScope = _$rootScope_;
             $httpBackend = _$httpBackend_;
+            $location = _$location_;
             $httpBackend.whenGET(/(.*)/).respond(200, 'aaaaaaa');
         });
 
@@ -46,7 +47,7 @@ fdescribe('config.js', function() {
         });
 
         it('should go the rock paper scissors state', function() {
-            $state.go('rock-paper-scissors');
+            $location.url('/rock-paper-scissors');
             $rootScope.$apply();
             $httpBackend.flush();
             expect($state.current.name).toEqual('rock-paper-scissors');
@@ -61,7 +62,7 @@ fdescribe('config.js', function() {
         });
 
         it('should go the home state', function() {
-            $state.go('rock-paper-scissors-lizard-spock');
+            $location.url('/rock-paper-scissors-lizard-spock');
             $rootScope.$apply();
             $httpBackend.flush();
             expect($state.current.name).toEqual('rock-paper-scissors-lizard-spock');
