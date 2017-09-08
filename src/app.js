@@ -1,6 +1,6 @@
 (function() {
     'use strict';
 
-    angular.module('myApp', ['ui.router', 'ngMaterial', 'ngMessages']);
+    angular.module('myApp', ['ui.router', 'ngMaterial', 'ngMessages', 'partials']);
 
 })();

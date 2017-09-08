@@ -14,6 +14,9 @@
     const less = require('gulp-less');
     const concat = require('gulp-concat');
     const cleanCSS = require('gulp-clean-css');
+    const htmlMinify = require('gulp-htmlmin');
+    const ngHtml2Js = require('gulp-ng-html2js');
+    const minify = require('gulp-minify');
 
     // List of all the static paths 
     // These constant variables could be considered "useless", but I love to define constant variables at the beginning in order to improve the readability, to improve 
@@ -57,7 +60,12 @@
         ],
         OUTPUT_STYLES_FOLDER: '/assets/styles',
         GLOBAL_OUTPUT_STYLE: 'global-style.css',
-        GLOBAL_OUTPUT_EXTERNAL_STYLE: 'global-external-style.css'
+        GLOBAL_OUTPUT_EXTERNAL_STYLE: 'global-external-style.css',
+        PARTIALS_HTML_SOURCES: [
+            'src/**/*.html',
+            '!src/index.html'
+        ],
+        SRC_PREFIX: 'src/'
     };
 
     // List of all the available tasks
@@ -67,12 +75,13 @@
     gulp.task('inject-dependencies', injectDependencies);
     gulp.task('serve', ['clean-tmp'], serve);
     gulp.task('serve-no-watch', ['clean-tmp'], serveNoWatch);
-    gulp.task('unit-test', startKarmaServer);
-    gulp.task('unit-test-watch', startKarmaServer.bind(null, true));
+    gulp.task('unit-test', ['compile-templates'], startKarmaServer);
+    gulp.task('unit-test-watch', ['compile-templates'], startKarmaServer.bind(null, true));
     gulp.task('protractor-test', ['serve-no-watch'], runProtractorTests);
     gulp.task('less', compileLess);
     gulp.task('publish-styles', ['less'], publishStyles);
     gulp.task('publish-external-styles', publishExternalStyles);
+    gulp.task('compile-templates', compileTemplates.bind(null, PATHS.TMP_APP));
     gulp.task('default', ['serve']);
 
     // Private functions
@@ -87,8 +96,10 @@
         let target = gulp.src(PATHS.MAIN_INDEX);
         let nodeSources = gulp.src(PATHS.NODE_MODULES_COMPONENTS, { read: false });
         let angularSources = gulp.src(PATHS.ANGULAR_SOURCE_ORDER);
+        let templatesSources = gulp.src(`${PATHS.TMP_APP}/partials.min.js`, { read: false });
 
         return target
+            .pipe(inject(templatesSources, { name: 'templates', ignorePath: 'tmp/' }))
             .pipe(inject(nodeSources, { name: 'node' }))
             .pipe(inject(gulp.src(`${PATHS.TMP_APP}${PATHS.OUTPUT_STYLES_FOLDER}/${PATHS.GLOBAL_OUTPUT_EXTERNAL_STYLE}`, { read: false }), { name: 'external', ignorePath: 'tmp/', addRootSlash: false }))
             .pipe(inject(gulp.src(`${PATHS.TMP_APP}${PATHS.OUTPUT_STYLES_FOLDER}/${PATHS.GLOBAL_OUTPUT_STYLE}`, { read: false }), { ignorePath: 'tmp/', addRootSlash: false }))
@@ -97,7 +108,7 @@
     }
 
     function serve(done) {
-        runSequence('publish-external-styles', 'publish-styles', 'inject-dependencies', afterSequence);
+        runSequence('compile-templates', 'publish-external-styles', 'publish-styles', 'inject-dependencies', afterSequence);
 
         function afterSequence() {
             let server = gls.static([PATHS.ROOT_APP, PATHS.TMP_APP]);
@@ -122,7 +133,7 @@
     let serverNoWatch;
 
     function serveNoWatch(done) {
-        runSequence('publish-external-styles', 'publish-styles', 'inject-dependencies', afterSequence);
+        runSequence('compile-templates', 'publish-external-styles', 'publish-styles', 'inject-dependencies', afterSequence);
 
         function afterSequence() {
             serverNoWatch = gls.static([PATHS.ROOT_APP, PATHS.TMP_APP]);
@@ -176,6 +187,15 @@
         return stylesSource
             .pipe(concat(PATHS.GLOBAL_OUTPUT_EXTERNAL_STYLE))
             .pipe(gulp.dest(`${PATHS.TMP_APP}${PATHS.OUTPUT_STYLES_FOLDER}`));
+    }
+
+    function compileTemplates(destinationPath) {
+        return gulp.src(PATHS.PARTIALS_HTML_SOURCES)
+            .pipe(htmlMinify({ removeComments: true, collapseWhitespace: true }))
+            .pipe(ngHtml2Js({ moduleName: 'partials', prefix: PATHS.SRC_PREFIX }))
+            .pipe(concat('partials.js'))
+            .pipe(minify({ ext: { min: '.min.js' }, noSource: true }))
+            .pipe(gulp.dest(destinationPath));
     }
 
 })();

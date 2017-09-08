@@ -25,6 +25,8 @@ module.exports = function(config) {
             './node_modules/angular-aria/angular-aria.js',
             './node_modules/angular-animate/angular-animate.js',
 
+            './tmp/partials.min.js',
+
             './src/app.js',
             './src/components/**/*.js',
             './src/config.js',

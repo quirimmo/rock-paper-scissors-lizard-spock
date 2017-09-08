@@ -3,7 +3,7 @@ describe('trainInfoItem', function() {
     let $componentController, controller;
 
     beforeEach(module('myApp'));
-    beforeEach(module('templates'));
+    beforeEach(module('partials'));
 
     beforeEach(module(function($provide) {}));
 
