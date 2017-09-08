@@ -1,7 +1,7 @@
 describe('Main Menu', () => {
 
     let mainMenu = element(by.id('main-menu'));
-    let mainMenuItems = element(by.class('main-menu-items'));
+    let mainMenuItems = element.all(by.className('main-menu-items'));
 
 
     describe('General', () => {
@@ -19,25 +19,25 @@ describe('Main Menu', () => {
         });
 
         it('should show the 3 menu labels', () => {
-            mainMenuItems.text().should.become(['Personal Profile', 'Rock Paper Scissors', 'Rock Paper Scissors Lizard Spock']);
+            mainMenuItems.getText().should.become(['PERSONAL PROFILE', 'ROCK PAPER SCISSORS', 'ROCK PAPER SCISSORS LIZARD SPOCK']);
         });
 
         it('should navigate to the Rock Paper Scissors page', (done) => {
-            mainMenuItems[1].click().then(() => {
+            mainMenuItems.get(1).click().then(() => {
                 browser.getCurrentUrl().should.become('http://localhost:3000/#!/rock-paper-scissors');
                 done();
             });
         });
 
         it('should navigate to the Rock Paper Scissors Lizard Spock page', (done) => {
-            mainMenuItems[2].click().then(() => {
+            mainMenuItems.get(2).click().then(() => {
                 browser.getCurrentUrl().should.become('http://localhost:3000/#!/rock-paper-scissors-lizard-spock');
                 done();
             });
         });
 
         it('should navigate to the Personal Profile page', (done) => {
-            mainMenuItems[2].click().then(() => {
+            mainMenuItems.get(2).click().then(() => {
                 browser.getCurrentUrl().should.become('http://localhost:3000/#!/');
                 done();
             });
