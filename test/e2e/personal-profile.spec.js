@@ -1,5 +1,6 @@
 describe('Personal Profile', () => {
 
+    let numOfMatches = element(by.id('num-of-matches'));
     let numOfVictories = element(by.id('num-of-victories'));
     let numOfLoses = element(by.id('num-of-loses'));
     let numOfDraws = element(by.id('num-of-draws'));
@@ -9,6 +10,10 @@ describe('Personal Profile', () => {
 
     beforeAll(() => {
         browser.get('/');
+    });
+
+    it('should display the number of matches', () => {
+        numOfMatches.isDisplayed().should.become(true);
     });
 
     it('should display the number of victories', () => {
