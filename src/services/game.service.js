@@ -1,9 +1,9 @@
 (function() {
     'use strict';
 
-    angular.module('myApp').service('gameService', distanceService);
+    angular.module('myApp').service('gameService', gameService);
 
-    function distanceService(sessionStorage) {
+    function gameService($localStorage) {
 
         // list of the exposed methods
         // ============================================================
@@ -29,59 +29,59 @@
         // ============================================================
 
         function getNumOfMatches() {
-            return sessionStorage.numOfMatches;
+            return $localStorage.numOfMatches;
         }
 
         function getNumOfVictories() {
-            return sessionStorage.numOfVictories;
+            return $localStorage.numOfVictories;
         }
 
         function getNumOfLoses() {
-            return sessionStorage.numOfLoses;
+            return $localStorage.numOfLoses;
         }
 
         function getNumOfDraws() {
-            return sessionStorage.numOfDraws;
+            return $localStorage.numOfDraws;
         }
 
         function getNumOfConsecutiveVictories() {
-            return sessionStorage.numOfConsecutiveVictories;
+            return $localStorage.numOfConsecutiveVictories;
         }
 
         function getNumOfConsecutiveLoses() {
-            return sessionStorage.numOfConsecutiveLoses;
+            return $localStorage.numOfConsecutiveLoses;
         }
 
         function getNumOfConsecutiveDraws() {
-            return sessionStorage.numOfConsecutiveDraws;
+            return $localStorage.numOfConsecutiveDraws;
         }
 
         function incrementNumOfMatches() {
-            sessionStorage.numOfMatches++;
+            $localStorage.numOfMatches++;
         }
 
         function incrementNumOfVictories() {
-            sessionStorage.numOfVictories++;
+            $localStorage.numOfVictories++;
         }
 
         function incrementNumOfLoses() {
-            sessionStorage.numOfLoses++;
+            $localStorage.numOfLoses++;
         }
 
         function incrementNumOfDraws() {
-            sessionStorage.numOfDraws++;
+            $localStorage.numOfDraws++;
         }
 
         function incrementNumOfConsecutiveVictories() {
-            sessionStorage.numOfConsecutiveVictories++;
+            $localStorage.numOfConsecutiveVictories++;
         }
 
         function incrementNumOfConsecutiveLoses() {
-            sessionStorage.numOfConsecutiveLoses++;
+            $localStorage.numOfConsecutiveLoses++;
         }
 
         function incrementNumOfConsecutiveDraws() {
-            sessionStorage.numOfConsecutiveDraws++;
+            $localStorage.numOfConsecutiveDraws++;
         }
 
     }

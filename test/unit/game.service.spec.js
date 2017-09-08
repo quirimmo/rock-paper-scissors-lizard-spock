@@ -1,12 +1,12 @@
-fdescribe('gameService', function() {
+describe('gameService', function() {
 
-    let gameService, sessionStorage;
+    let gameService, $localStorage;
 
     beforeEach(function() {
         module('myApp');
 
         module(function($provide) {
-            $provide.value('sessionStorage', {
+            $provide.value('$localStorage', {
                 numOfMatches: 1,
                 numOfVictories: 2,
                 numOfLoses: 3,
@@ -17,9 +17,9 @@ fdescribe('gameService', function() {
             });
         });
 
-        inject(function(_gameService_, _sessionStorage_) {
+        inject(function(_gameService_, _$localStorage_) {
             gameService = _gameService_;
-            sessionStorage = _sessionStorage_;
+            $localStorage = _$localStorage_;
         });
 
     });
@@ -57,64 +57,64 @@ fdescribe('gameService', function() {
         
         describe('incrementNumOfMatches', function() {
             it('should increment the value in the service and the storage', function() {
-                let beforeSessionStorageValue = sessionStorage.numOfMatches;
-                expect(gameService.getNumOfMatches()).toEqual(beforeSessionStorageValue);
+                let beforeLocalStorageValue = $localStorage.numOfMatches;
+                expect(gameService.getNumOfMatches()).toEqual(beforeLocalStorageValue);
                 gameService.incrementNumOfMatches();
-                expect(gameService.getNumOfMatches()).toEqual(beforeSessionStorageValue + 1);
+                expect(gameService.getNumOfMatches()).toEqual(beforeLocalStorageValue + 1);
             });
         });
 
         describe('incrementNumOfVictories', function() {
             it('should increment the value in the service and the storage', function() {
-                let beforeSessionStorageValue = sessionStorage.numOfVictories;
-                expect(gameService.getNumOfVictories()).toEqual(beforeSessionStorageValue);
+                let beforeLocalStorageValue = $localStorage.numOfVictories;
+                expect(gameService.getNumOfVictories()).toEqual(beforeLocalStorageValue);
                 gameService.incrementNumOfVictories();
-                expect(gameService.getNumOfVictories()).toEqual(beforeSessionStorageValue + 1);
+                expect(gameService.getNumOfVictories()).toEqual(beforeLocalStorageValue + 1);
             });
         });
 
         describe('incrementNumOfLoses', function() {
             it('should increment the value in the service and the storage', function() {
-                let beforeSessionStorageValue = sessionStorage.numOfLoses;
-                expect(gameService.getNumOfLoses()).toEqual(beforeSessionStorageValue);
+                let beforeLocalStorageValue = $localStorage.numOfLoses;
+                expect(gameService.getNumOfLoses()).toEqual(beforeLocalStorageValue);
                 gameService.incrementNumOfLoses();
-                expect(gameService.getNumOfLoses()).toEqual(beforeSessionStorageValue + 1);
+                expect(gameService.getNumOfLoses()).toEqual(beforeLocalStorageValue + 1);
             });
         });
 
         describe('incrementNumOfDraws', function() {
             it('should increment the value in the service and the storage', function() {
-                let beforeSessionStorageValue = sessionStorage.numOfDraws;
-                expect(gameService.getNumOfDraws()).toEqual(beforeSessionStorageValue);
+                let beforeLocalStorageValue = $localStorage.numOfDraws;
+                expect(gameService.getNumOfDraws()).toEqual(beforeLocalStorageValue);
                 gameService.incrementNumOfDraws();
-                expect(gameService.getNumOfDraws()).toEqual(beforeSessionStorageValue + 1);
+                expect(gameService.getNumOfDraws()).toEqual(beforeLocalStorageValue + 1);
             });
         });
 
         describe('incrementNumOfConsecutiveVictories', function() {
             it('should increment the value in the service and the storage', function() {
-                let beforeSessionStorageValue = sessionStorage.numOfConsecutiveVictories;
-                expect(gameService.getNumOfConsecutiveVictories()).toEqual(beforeSessionStorageValue);
+                let beforeLocalStorageValue = $localStorage.numOfConsecutiveVictories;
+                expect(gameService.getNumOfConsecutiveVictories()).toEqual(beforeLocalStorageValue);
                 gameService.incrementNumOfConsecutiveVictories();
-                expect(gameService.getNumOfConsecutiveVictories()).toEqual(beforeSessionStorageValue + 1);
+                expect(gameService.getNumOfConsecutiveVictories()).toEqual(beforeLocalStorageValue + 1);
             });
         });
 
         describe('incrementNumOfConsecutiveLoses', function() {
             it('should increment the value in the service and the storage', function() {
-                let beforeSessionStorageValue = sessionStorage.numOfConsecutiveLoses;
-                expect(gameService.getNumOfConsecutiveLoses()).toEqual(beforeSessionStorageValue);
+                let beforeLocalStorageValue = $localStorage.numOfConsecutiveLoses;
+                expect(gameService.getNumOfConsecutiveLoses()).toEqual(beforeLocalStorageValue);
                 gameService.incrementNumOfConsecutiveLoses();
-                expect(gameService.getNumOfConsecutiveLoses()).toEqual(beforeSessionStorageValue + 1);
+                expect(gameService.getNumOfConsecutiveLoses()).toEqual(beforeLocalStorageValue + 1);
             });
         });
 
         describe('incrementNumOfConsecutiveDraws', function() {
             it('should increment the value in the service and the storage', function() {
-                let beforeSessionStorageValue = sessionStorage.numOfConsecutiveDraws;
-                expect(gameService.getNumOfConsecutiveDraws()).toEqual(beforeSessionStorageValue);
+                let beforeLocalStorageValue = $localStorage.numOfConsecutiveDraws;
+                expect(gameService.getNumOfConsecutiveDraws()).toEqual(beforeLocalStorageValue);
                 gameService.incrementNumOfConsecutiveDraws();
-                expect(gameService.getNumOfConsecutiveDraws()).toEqual(beforeSessionStorageValue + 1);
+                expect(gameService.getNumOfConsecutiveDraws()).toEqual(beforeLocalStorageValue + 1);
             });
         });
 
@@ -123,43 +123,43 @@ fdescribe('gameService', function() {
     describe('getters methods', () => {
         describe('getNumOfMatches', function() {
             it('should return the value stored in the local storage', function() {
-                expect(gameService.getNumOfMatches()).toEqual(sessionStorage.numOfMatches);
+                expect(gameService.getNumOfMatches()).toEqual($localStorage.numOfMatches);
             });
         });
 
         describe('getNumOfVictories', function() {
             it('should return the value stored in the local storage', function() {
-                expect(gameService.getNumOfVictories()).toEqual(sessionStorage.numOfVictories);
+                expect(gameService.getNumOfVictories()).toEqual($localStorage.numOfVictories);
             });
         });
 
         describe('getNumOfLoses', function() {
             it('should return the value stored in the local storage', function() {
-                expect(gameService.getNumOfLoses()).toEqual(sessionStorage.numOfLoses);
+                expect(gameService.getNumOfLoses()).toEqual($localStorage.numOfLoses);
             });
         });
 
         describe('getNumOfDraws', function() {
             it('should return the value stored in the local storage', function() {
-                expect(gameService.getNumOfDraws()).toEqual(sessionStorage.numOfDraws);
+                expect(gameService.getNumOfDraws()).toEqual($localStorage.numOfDraws);
             });
         });
 
         describe('getNumOfConsecutiveVictories', function() {
             it('should return the value stored in the local storage', function() {
-                expect(gameService.getNumOfConsecutiveVictories()).toEqual(sessionStorage.numOfConsecutiveVictories);
+                expect(gameService.getNumOfConsecutiveVictories()).toEqual($localStorage.numOfConsecutiveVictories);
             });
         });
 
         describe('getNumOfConsecutiveLoses', function() {
             it('should return the value stored in the local storage', function() {
-                expect(gameService.getNumOfConsecutiveLoses()).toEqual(sessionStorage.numOfConsecutiveLoses);
+                expect(gameService.getNumOfConsecutiveLoses()).toEqual($localStorage.numOfConsecutiveLoses);
             });
         });
 
         describe('getNumOfConsecutiveDraws', function() {
             it('should return the value stored in the local storage', function() {
-                expect(gameService.getNumOfConsecutiveDraws()).toEqual(sessionStorage.numOfConsecutiveDraws);
+                expect(gameService.getNumOfConsecutiveDraws()).toEqual($localStorage.numOfConsecutiveDraws);
             });
         });
     });
