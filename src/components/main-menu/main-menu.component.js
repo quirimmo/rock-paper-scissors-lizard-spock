@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('myApp').component('mainMenu', {
-        // templateUrl: 'src/components/train-info-item/train-info-item.html',
+        templateUrl: 'src/components/main-menu/main-menu.html',
         controller: 'MainMenuController',
         controllerAs: 'vm',
         bindings: {

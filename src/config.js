@@ -16,10 +16,10 @@
             url: '/',
             data: {
                 title: 'Personal Profile Page'
-            }
-            // templateUrl: 'src/templates/main.html',
-            // controller: 'HomeController',
-            // controllerAs: 'vm'
+            },
+            templateUrl: 'src/templates/personal-profile.html',
+            controller: 'PersonalProfileController',
+            controllerAs: 'vm'
         };
         let rockPaperScissorsState = {
             name: 'rock-paper-scissors',

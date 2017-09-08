@@ -51,6 +51,8 @@
         SOURCE_FILES: ['./src/**/*.*', './assets/styles/*.less'],
         ANGULAR_SOURCE_ORDER: [
             'src/app.js',
+            'src/components/**/*.js',
+            'src/controllers/**/*.js',
             'src/config.js'
         ],
         OUTPUT_STYLES_FOLDER: '/assets/styles',
