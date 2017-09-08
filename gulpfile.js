@@ -54,6 +54,7 @@
         SOURCE_FILES: ['./src/**/*.*', './assets/styles/*.less'],
         ANGULAR_SOURCE_ORDER: [
             'src/app.js',
+            'src/services/**/*.js',
             'src/components/**/*.js',
             'src/controllers/**/*.js',
             'src/config.js'
