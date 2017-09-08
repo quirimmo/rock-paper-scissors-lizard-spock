@@ -3,7 +3,7 @@
 
     angular.module('myApp').controller('MainMenuController', MainMenuController);
 
-    function MainMenuController() {
+    function MainMenuController($state) {
 
         // bindings
         // activeItem: '='
@@ -13,6 +13,8 @@
         vm.isPersonalProfileActive = isPersonalProfileActive;
         vm.isRockPaperScissorActive = isRockPaperScissorActive;
         vm.isRockPaperScissorLizardSpockActive = isRockPaperScissorLizardSpockActive;
+        vm.openMobileMenu = openMobileMenu;
+        vm.navigateTo = navigateTo;
         vm.$onInit = onInit;
 
 
@@ -35,6 +37,14 @@
 
         function isRockPaperScissorLizardSpockActive() {
             return vm.activeItem === 'Rock Paper Scissors Lizard Spock';
+        }
+
+        function navigateTo(state) {
+            $state.go(state);
+        }
+
+        function openMobileMenu($mdMenu, ev) {
+            $mdMenu.open(ev);
         }
 
     }

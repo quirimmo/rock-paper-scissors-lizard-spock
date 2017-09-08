@@ -15,8 +15,7 @@
             name: 'home',
             url: '/',
             data: {
-                title: 'Personal Profile Page',
-                selectedItem: 'personal-profile'
+                title: 'Personal Profile Page'
             },
             templateUrl: 'src/templates/personal-profile.html',
             controller: 'PersonalProfileController',

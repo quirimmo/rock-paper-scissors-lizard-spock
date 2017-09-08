@@ -1,7 +1,8 @@
 <nav id="main-menu">
-    <md-content class="md-padding">
+    <!-- default menu -->
+    <md-content class="md-padding" hide-sm hide-xs>
         <md-nav-bar md-selected-nav-item="vm.selectedItem" nav-bar-aria-label="main menu navigation links">
-            <md-nav-item md-nav-sref="home" name="personal-profile" class="main-menu-items">
+            <md-nav-item md-nav-sref="home" name="personal-profile" class="main-menu-items md-caption">
                 Personal Profile
             </md-nav-item>
             <md-nav-item md-nav-sref="rock-paper-scissors" name="rock-paper-scissors" class="main-menu-items">
@@ -11,5 +12,33 @@
                 Rock Paper Scissors Lizard Spock
             </md-nav-item>
         </md-nav-bar>
+    </md-content>
+
+    <!-- menu < 960px -->
+    <md-content layout="column" class="md-padding" hide show-sm show-xs layout-align="center center">
+        <md-menu md-position-mode="target target">
+            <md-button aria-label="{{vm.activeItem}}" class="md-primary" ng-click="vm.openMobileMenu($mdMenu, $event)">
+                {{vm.activeItem}}
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item ng-if="vm.isPersonalProfileActive() === false">
+                    <md-button ng-click="vm.navigateTo('home')">
+                        Personal Profile
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item ng-if="vm.isRockPaperScissorActive() === false">
+                    <md-button ng-click="vm.navigateTo('rock-paper-scissors')">
+                        Rock Paper Scissors
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item ng-if="vm.isRockPaperScissorLizardSpockActive() === false">
+                    <md-button ng-click="vm.navigateTo('rock-paper-scissors-lizard-spock')">
+                        Rock Paper Scissors Lizard Spock
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
     </md-content>
 </nav>
