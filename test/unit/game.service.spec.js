@@ -1,4 +1,4 @@
-describe('gameService', function() {
+fdescribe('gameService', function() {
 
     let gameService, sessionStorage;
 
@@ -6,7 +6,7 @@ describe('gameService', function() {
         module('myApp');
 
         module(function($provide) {
-            $provide('sessionStorage', {
+            $provide.value('sessionStorage', {
                 numOfMatches: 1,
                 numOfVictories: 2,
                 numOfLoses: 3,
@@ -28,7 +28,7 @@ describe('gameService', function() {
     describe('init', function() {
 
         it('should be defined', function() {
-            expect(gameService).toEqualDefined();
+            expect(gameService).toBeDefined();
         });
 
         it('should define the exposed getter methods', function() {
