@@ -8,6 +8,7 @@ describe('MainController', function() {
 
         module(function($provide) {
             $provide('gameService', {
+                getNumOfMatches: function() {},
                 getNumOfVictories: function() {},
                 getNumOfLoses: function() {},
                 getNumOfDraws: function() {},
@@ -28,6 +29,7 @@ describe('MainController', function() {
 
         it('should define the exposed variables', () => {
             controller.$onInit();
+            expect(controller.numOfMatches).toBeDefined();
             expect(controller.numOfVictories).toBeDefined();
             expect(controller.numOfLoses).toBeDefined();
             expect(controller.numOfDraws).toBeDefined();
@@ -37,6 +39,7 @@ describe('MainController', function() {
         });
 
         it('should call the methods in order to retrieve the stored values in the local storage', () => {
+            spyOn(gameService, 'getNumOfMatches').and.callThrough();
             spyOn(gameService, 'getNumOfVictories').and.callThrough();
             spyOn(gameService, 'getNumOfLoses').and.callThrough();
             spyOn(gameService, 'getNumOfDraws').and.callThrough();
@@ -46,12 +49,30 @@ describe('MainController', function() {
 
             controller.$onInit();
 
+            expect(gameService.getNumOfMatches).toHaveBeenCalled();
             expect(gameService.getNumOfVictories).toHaveBeenCalled();
             expect(gameService.getNumOfLoses).toHaveBeenCalled();
             expect(gameService.getNumOfDraws).toHaveBeenCalled();
             expect(gameService.getNumOfConsecutiveVictories).toHaveBeenCalled();
             expect(gameService.getNumOfConsecutiveLoses).toHaveBeenCalled();
             expect(gameService.getNumOfConsecutiveDraws).toHaveBeenCalled();
+        });
+
+    });
+
+    describe('numOfMatches', () => {
+
+        beforeAll(() => {
+            controller.$onInit();
+        });
+
+        it('should be 0 if there are no stored values yet in the local storage', () => {
+            expect(controller.numOfMatches).toEqual(0);
+        });
+
+        it('should be equal to the value presents in the local storage', () => {
+            spyOn(gameService, 'getNumOfMatches').and.returnValue(5);
+            expect(controller.numOfMatches).toEqual(5);
         });
 
     });
