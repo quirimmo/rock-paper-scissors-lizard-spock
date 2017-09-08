@@ -25,14 +25,14 @@ fdescribe('config.js', function() {
         });
 
         it('should go the state', function() {
-            $state.go('home');
+            $location.url('/');
             $rootScope.$apply();
             $httpBackend.flush();
             expect($state.current.name).toEqual('home');
         });
 
         it('should return the URL as default if wrong url has been provided', function() {
-            $state.go('nomatchedurl');
+            $location.url('nomatchedurl');
             $rootScope.$apply();
             $httpBackend.flush();
             expect($state.current.url).toEqual('/');
