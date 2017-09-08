@@ -28,6 +28,8 @@ exports.config = {
         './test/e2e/**/*.spec.js'
     ],
     onPrepare: function() {
+        // make full screen
+        browser.driver.manage().window().maximize();
         // including the base exports for chai, chai-as-promised
         require('./test/e2e/base-exports.js');
         browser.waitForAngularEnabled(true);

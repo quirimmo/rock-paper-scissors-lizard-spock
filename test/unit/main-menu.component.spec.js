@@ -1,13 +1,14 @@
 describe('trainInfoItem', function() {
 
-    let $componentController, controller;
+    let $componentController, controller, $state;
 
     beforeEach(module('myApp'));
     beforeEach(module('partials'));
 
     beforeEach(module(function($provide) {}));
 
-    beforeEach(inject(function(_$componentController_) {
+    beforeEach(inject(function(_$componentController_, _$state_) {
+        $state = _$state_;
         $componentController = _$componentController_;
     }));
 
@@ -27,6 +28,8 @@ describe('trainInfoItem', function() {
             expect(controller.isPersonalProfileActive).toEqual(jasmine.any(Function));
             expect(controller.isRockPaperScissorActive).toEqual(jasmine.any(Function));
             expect(controller.isRockPaperScissorLizardSpockActive).toEqual(jasmine.any(Function));
+            expect(controller.openMobileMenu).toEqual(jasmine.any(Function));
+            expect(controller.navigateTo).toEqual(jasmine.any(Function));
         });
 
     });
@@ -129,6 +132,41 @@ describe('trainInfoItem', function() {
             it('should be true', function() {
                 expect(controller.isRockPaperScissorLizardSpockActive()).toEqual(true);
             });
+        });
+
+    });
+
+    describe('openMobileMenu', function() {
+
+        beforeEach(() => {
+            controller = $componentController('mainMenu', null, {
+                activeItem: 'Personal Profile'
+            });
+        });
+
+        it('should trigger the $mdMenu.open method', () => {
+            let menuInstance = {
+                open: function() {}
+            };
+            spyOn(menuInstance, 'open');
+            controller.openMobileMenu(menuInstance, 'event');
+            expect(menuInstance.open).toHaveBeenCalledWith('event');
+        });
+
+    });
+
+    describe('navigateTo', function() {
+
+        beforeEach(() => {
+            controller = $componentController('mainMenu', null, {
+                activeItem: 'Personal Profile'
+            });
+        });
+
+        it('should trigger the $state.go method', () => {
+            spyOn($state, 'go');
+            controller.navigateTo('mystate');
+            expect($state.go).toHaveBeenCalledWith('mystate');
         });
 
     });
