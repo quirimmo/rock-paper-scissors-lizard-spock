@@ -37,7 +37,7 @@ describe('Main Menu', () => {
         });
 
         it('should navigate to the Personal Profile page', (done) => {
-            mainMenuItems.get(2).click().then(() => {
+            mainMenuItems.get(0).click().then(() => {
                 browser.getCurrentUrl().should.become('http://localhost:3000/#!/');
                 done();
             });
@@ -56,7 +56,7 @@ describe('Main Menu', () => {
         });
 
         it('should active the item corresponding to the personal profile page', () => {
-            mainMenuItems.getAttribute('active').should.become(['true', 'false', 'false']);
+            mainMenuItems.getAttribute('aria-selected').should.become(['true', 'false', 'false']);
         });
 
     });
@@ -72,7 +72,7 @@ describe('Main Menu', () => {
         });
 
         it('should active the item corresponding to the personal profile page', () => {
-            mainMenuItems.getAttribute('active').should.become(['false', 'true', 'false']);
+            mainMenuItems.getAttribute('aria-selected').should.become(['false', 'true', 'false']);
         });
 
     });
@@ -88,7 +88,7 @@ describe('Main Menu', () => {
         });
 
         it('should active the item corresponding to the personal profile page', () => {
-            mainMenuItems.getAttribute('active').should.become(['false', 'false', 'true']);
+            mainMenuItems.getAttribute('aria-selected').should.become(['false', 'false', 'true']);
         });
 
     });

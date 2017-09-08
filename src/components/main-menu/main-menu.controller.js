@@ -13,12 +13,22 @@
         vm.isPersonalProfileActive = isPersonalProfileActive;
         vm.isRockPaperScissorActive = isRockPaperScissorActive;
         vm.isRockPaperScissorLizardSpockActive = isRockPaperScissorLizardSpockActive;
-        
+        vm.$onInit = onInit;
+
+
+        function onInit() {
+            vm.selectedItem =
+                vm.isRockPaperScissorActive() ?
+                'rock-paper-scissors' :
+                vm.isRockPaperScissorLizardSpockActive() ? 
+                'rock-paper-scissors-lizard-spock' :
+                'personal-profile';
+        }
 
         function isPersonalProfileActive() {
             return vm.activeItem === 'Personal Profile';
         }
-        
+
         function isRockPaperScissorActive() {
             return vm.activeItem === 'Rock Paper Scissors';
         }
