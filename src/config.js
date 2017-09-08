@@ -15,19 +15,20 @@
             name: 'home',
             url: '/',
             data: {
-                title: 'Personal Profile Page'
-            }
-            // templateUrl: 'src/templates/main.html',
-            // controller: 'HomeController',
-            // controllerAs: 'vm'
+                title: 'Personal Profile Page',
+                selectedItem: 'personal-profile'
+            },
+            templateUrl: 'src/templates/personal-profile.html',
+            controller: 'PersonalProfileController',
+            controllerAs: 'vm'
         };
         let rockPaperScissorsState = {
             name: 'rock-paper-scissors',
             url: '/rock-paper-scissors',
             data: {
                 title: 'Rock Paper Scissors'
-            }
-            // templateUrl: 'src/templates/main.html',
+            },
+            templateUrl: 'src/templates/rock-paper-scissors.html'
             // controller: 'HomeController',
             // controllerAs: 'vm'
 		};
@@ -36,8 +37,8 @@
             url: '/rock-paper-scissors-lizard-spock',
             data: {
                 title: 'Rock Paper Scissors Lizard Spock'
-            }
-            // templateUrl: 'src/templates/main.html',
+            },
+            templateUrl: 'src/templates/rock-paper-scissors-lizard-spock.html'
             // controller: 'HomeController',
             // controllerAs: 'vm'
         };
