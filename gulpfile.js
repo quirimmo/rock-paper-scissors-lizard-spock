@@ -31,7 +31,8 @@
             './node_modules/angular-aria/angular-aria.min.js',
             './node_modules/angular-animate/angular-animate.min.js',
             './node_modules/angular-material/angular-material.min.js',
-            './node_modules/angular-ui-router/release/angular-ui-router.min.js'
+            './node_modules/angular-ui-router/release/angular-ui-router.min.js',
+            './node_modules/ngstorage/ngStorage.min.js'
         ],
         STYLES_FOLDER: './assets/styles',
         APP_STYLES: './assets/styles/*.less',
@@ -54,6 +55,7 @@
         SOURCE_FILES: ['./src/**/*.*', './assets/styles/*.less'],
         ANGULAR_SOURCE_ORDER: [
             'src/app.js',
+            'src/services/**/*.js',
             'src/components/**/*.js',
             'src/controllers/**/*.js',
             'src/config.js'
