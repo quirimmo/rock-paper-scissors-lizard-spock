@@ -1,6 +1,6 @@
 describe('RockPaperScissorsController', function() {
 
-    let controller, gameEngineService, $scope;
+    let controller, gameEngineService, $scope, $mdBottomSheet, $mdDialog;
 
     beforeEach(function() {
         module('myApp');
@@ -11,11 +11,31 @@ describe('RockPaperScissorsController', function() {
                 getRockPaperScissorsSubset: function() {},
                 calculateResult: function() {}
             });
+            $provide.value('$mdBottomSheet', {
+                show: function() {},
+                hide: function() {}
+            });
+            $provide.value('$mdDialog', {
+                alert: function() {
+                    return {
+                        parent: function() {},
+                        clickOutsideToClose: function() {},
+                        title: function() {},
+                        textContent: function() {},
+                        ariaLabel: function() {},
+                        ok: function() {},
+                        targetEvent: function() {}
+                    };
+                },
+                show: function() {}
+            });
         });
 
-        inject(function(_$rootScope_, _$controller_, _gameEngineService_) {
+        inject(function(_$rootScope_, _$controller_, _gameEngineService_, _$mdBottomSheet_, _$mdDialog_) {
             $scope = _$rootScope_.$new();
             gameEngineService = _gameEngineService_;
+            $mdBottomSheet = _$mdBottomSheet_;
+            $mdDialog = _$mdDialog_;
             controller = _$controller_('RockPaperScissorsController', { $scope: $scope });
         });
     });
@@ -68,6 +88,7 @@ describe('RockPaperScissorsController', function() {
     describe('startGame', () => {
 
         it('should display and hide the right elements', () => {
+            controller.$onInit();
             controller.startGame();
             $scope.$apply();
             expect(controller.isGameStartedDisplayed).toEqual(false);
@@ -82,8 +103,18 @@ describe('RockPaperScissorsController', function() {
 
     describe('makeChoice', () => {
 
+        beforeEach(() => {
+            controller.$onInit();
+            spyOn($mdBottomSheet, 'show').and.callThrough();
+        });
+
+        it('should call the $mdBottomSheet.show method', () => {
+            controller.makeChoice();
+            $scope.$apply();
+            expect($mdBottomSheet.show).toHaveBeenCalled();
+        });
+
         it('should display and hide the right elements', () => {
-            controller.startGame();
             controller.makeChoice();
             $scope.$apply();
             expect(controller.isGameStartedDisplayed).toEqual(false);
@@ -98,12 +129,25 @@ describe('RockPaperScissorsController', function() {
 
     describe('chooseAction', () => {
 
+        let defaultChoice = {
+            id: 'rock'
+        };
+        
+        beforeEach(() => {
+            controller.$onInit();
+            spyOn($mdBottomSheet, 'show').and.callThrough();
+            spyOn($mdBottomSheet, 'hide').and.callThrough();
+            spyOn($mdDialog, 'alert').and.callThrough();
+        });
+
+        it('should call the $mdBottomSheet.hide method', () => {
+            controller.chooseAction(defaultChoice);
+            $scope.$apply();
+            expect($mdBottomSheet.hide).toHaveBeenCalled();
+        });
+
         it('should display and hide the right elements', () => {
-            controller.startGame();
-            controller.makeChoice();
-            controller.chooseAction({
-                id: 'rock'
-            });
+            controller.chooseAction(defaultChoice);
             $scope.$apply();
             expect(controller.isGameStartedDisplayed).toEqual(false);
             expect(controller.isMakeYourChoiceDisplayed).toEqual(false);
@@ -111,6 +155,12 @@ describe('RockPaperScissorsController', function() {
             expect(controller.isChosenIconDisplayed).toEqual(true);
             expect(controller.isComputerChosenIconDisplayed).toEqual(true);
             expect(controller.isResultMessageDisplayed).toEqual(true);
+        });
+
+        it('should call the $mdDialog.alert method', () => {
+            controller.chooseAction(defaultChoice);
+            $scope.$apply();
+            expect($mdDialog.alert).toHaveBeenCalled();
         });
 
     });
