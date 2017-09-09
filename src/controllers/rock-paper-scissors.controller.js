@@ -43,11 +43,16 @@
         }
 
         function startGame() {
-            // 
+            vm.isGameStartedDisplayed = false;
+            vm.isMakeYourChoiceDisplayed = true;
+            vm.isComputerChosenIconDisplayed = true;
         }
 
         function makeChoice() {
-            // 
+            vm.isChoicesPanelDisplayed = true;
+            $mdBottomSheet.show({
+                templateUrl: 'src/templates/available-choices-panel.html'
+            });
         }
 
         function chooseAction() {
