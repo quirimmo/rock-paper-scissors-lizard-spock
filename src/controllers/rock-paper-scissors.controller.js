@@ -10,13 +10,12 @@
         // using the reveal patter defining at the beginning all the used variables inside the view
         vm.isGameStartedDisplayed;
         vm.isMakeYourChoiceDisplayed;
-        vm.isChoicesPanelDisplayed;
-        vm.isChosenIconDisplayed;
         vm.isComputerChosenIconDisplayed;
         vm.isResultMessageDisplayed;
         vm.availableChoices;
-        vm.choseIconSrc;
         vm.computerChosenIconSrc;
+        vm.chosenAction;
+        vm.computerChosenAction;
 
         vm.startGame = startGame;
         vm.makeChoice = makeChoice;
@@ -33,8 +32,6 @@
         function onInit() {
             vm.isGameStartedDisplayed = true;
             vm.isMakeYourChoiceDisplayed = false;
-            vm.isChoicesPanelDisplayed = false;
-            vm.isChosenIconDisplayed = false;
             vm.isComputerChosenIconDisplayed = false;
             vm.isResultMessageDisplayed = false;
             vm.chosenIconSrc = undefined;
@@ -49,19 +46,26 @@
         }
 
         function makeChoice() {
-            vm.isChoicesPanelDisplayed = true;
             $mdBottomSheet.show({
                 templateUrl: 'src/templates/available-choices-panel.html',
                 controller: 'AvailableChoicesPanelController',
                 controllerAs: 'vm',
                 locals: {
-                    availableChoices: vm.availableChoices
+                    availableChoices: vm.availableChoices,
+                    chooseAction: chooseAction
                 }
             });
         }
 
-        function chooseAction() {
-            // 
+        function chooseAction(item) {
+            vm.isMakeYourChoiceDisplayed = false;
+            vm.chosenAction = item;
+            $mdBottomSheet.hide();
+            triggerComputerChoice();
+        }
+
+        function triggerComputerChoice() {
+            vm.computerChosenAction = vm.chosenAction;
         }
 
         function closeResultMessage() {

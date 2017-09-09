@@ -5,15 +5,28 @@
     <section layout="row" layout-align="center start" class="fill-all-height">
         <main class="fill-all">
             <article layout="column" layout-align="start center" class="md-padding fill-all-height">
-                <header flex="20">
+
+                <header ng-show="vm.isGameStartedDisplayed" flex="20">
                     <h1 class="page-main-title">Rock Paper Scissors</h1>
                 </header>
+
                 <section ng-show="vm.isGameStartedDisplayed" flex="80" layout="column" layout-align="center center">
                     <md-button class="md-primary md-raised" ng-click="vm.startGame()">Start Game</md-button>
                 </section>
-                <section ng-show="vm.isMakeYourChoiceDisplayed" flex="80" layout="column" layout-align="end center">
-                    <md-button class="md-primary md-raised" ng-click="vm.makeChoice()">Make your choice</md-button>
+
+                <section ng-hide="vm.isGameStartedDisplayed" flex="100" layout="column" layout-align="start center">
+                    <section ng-show="vm.isComputerChosenIconDisplayed" flex="20" layout="column" layout-align="end center">
+                        <img ng-hide="vm.computerChosenAction" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.computerChosenIconSrc}}.png"></md-icon>
+                        <img ng-show="vm.computerChosenAction" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.computerChosenAction.id}}.png"></md-icon>
+                    </section>
+                    <section ng-show="vm.isMakeYourChoiceDisplayed" flex="80" layout="column" layout-align="end center">
+                        <md-button class="md-primary md-raised" ng-click="vm.makeChoice()">Make your choice</md-button>
+                    </section>
+                    <section ng-show="vm.chosenAction" flex="80" layout="column" layout-align="end center">
+                        <img class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.chosenAction.id}}.png"></md-icon>
+                    </section>
                 </section>
+
             </article>
         </main>
     </section>
