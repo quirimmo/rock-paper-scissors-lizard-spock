@@ -13,6 +13,7 @@
         this.calculateResult = calculateResult;
         this.getWinText = getWinText;
         this.getLoseText = getLoseText;
+        this.getComputerRandomChoice = getComputerRandomChoice;
         
 
         const DRAW_TEXT = 'draw';
@@ -79,8 +80,37 @@
             return `${item1Label} has been ${losesAgainstRef.term} by ${item2Label}`;
         }
 
+        function getComputerRandomChoice(gameActions) {
+            if (angular.isUndefined(gameActions) || angular.isUndefined(gameActions.length)) {
+                return undefined;
+            }
+            let randomValue = +Math.random().toFixed(2);
+            let thresholdsList = getThresholds(gameActions);
+            let computerChoice = undefined;
+            // using some so it will stop when the first condition will be true, 
+            // avoiding to cycle for all the array
+            thresholdsList.some((element, index) => {
+                if (randomValue < element) {
+                    computerChoice = gameActions[index]; 
+                    return true;
+                }
+                return false;
+            });
+            return computerChoice;
+        }
+
         // private methods
         // ============================================================
+
+        function getThresholds(gameActions) {
+            let list = [];
+            let unit = 1 / gameActions.length;
+            unit = +unit.toFixed(2);
+            gameActions.forEach((element, index) => {
+                list.push(unit * (index + 1));
+            });
+            return list;
+        }
 
         function areInputsCorrect(item1, item2) {
             // if given items are not objects, return empty string

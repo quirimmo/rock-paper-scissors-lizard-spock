@@ -147,7 +147,11 @@ fdescribe('gameService', function() {
     describe('getComputerRandomChoice', function() {
 
         it('should return an Object', function() {
-            expect(gameEngineService.getComputerRandomChoice()).toEqual(jasmine.any(Object));
+            expect(gameEngineService.getComputerRandomChoice(rockPaperScissorsSubset)).toEqual(jasmine.any(Object));
+        });
+
+        it('should return undefined with invalid input', function() {
+            expect(gameEngineService.getComputerRandomChoice()).toBeUndefined();
         });
 
         it('should return the computer random action for Rock Paper Scissors', function() {
@@ -161,8 +165,8 @@ fdescribe('gameService', function() {
         });
 
         it('should return the computer random action for Rock Paper Scissors Lizard Spock Chuck', function() {
-            spyOn(Math, 'random').and.returnValue(0.17);
-            expect(gameEngineService.getComputerRandomChoice(rockPaperScissorsLizardSpockSubset)).toEqual(paper);
+            spyOn(Math, 'random').and.returnValue(0.18);
+            expect(gameEngineService.getComputerRandomChoice(rockPaperScissorsLizardSpockChuckSubset)).toEqual(paper);
         });
 
     });
