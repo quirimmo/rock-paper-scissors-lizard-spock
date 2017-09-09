@@ -13,7 +13,6 @@
         vm.isComputerChosenIconDisplayed;
         vm.isResultMessageDisplayed;
         vm.availableChoices;
-        vm.computerChosenIconSrc;
         vm.chosenAction;
         vm.computerChosenAction;
 
@@ -34,7 +33,6 @@
             vm.isMakeYourChoiceDisplayed = false;
             vm.isComputerChosenIconDisplayed = false;
             vm.isResultMessageDisplayed = false;
-            vm.computerChosenIconSrc = 'not-chosen-yet';
             vm.availableChoices = gameEngineService.getRockPaperScissorsSubset();
         }
 
