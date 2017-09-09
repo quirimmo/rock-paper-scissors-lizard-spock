@@ -119,7 +119,7 @@ fdescribe('gameService', function() {
 
     });
 
-    describe('getLoseText', function() {
+    fdescribe('getLoseText', function() {
 
         it('should return a string', function() {
             expect(gameEngineService.getLoseText({}, {})).toEqual(jasmine.any(String));

@@ -49,8 +49,8 @@
             }
             let item1Label = item1.label;
             let item2Label = item2.label;
-            let winsAgainstRef = item1.winsAgainst.find(element => element.id === item2.id);
-            return `${item1Label} ${winsAgainstRef.term} ${item2Label}`;
+            let losesAgainstRef = item1.losesAgainst.find(element => element.id === item2.id);
+            return `${item1Label} has been ${losesAgainstRef.term} by ${item2Label}`;
         }
         
         function areInputsCorrect(item1, item2) {
