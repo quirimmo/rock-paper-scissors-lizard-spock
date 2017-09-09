@@ -1,4 +1,4 @@
-fdescribe('gameService', function() {
+describe('gameService', function() {
 
     let gameEngineService, GAME_CONSTANTS;
 
@@ -33,7 +33,7 @@ fdescribe('gameService', function() {
     });
 
 
-    fdescribe('init', function() {
+    describe('init', function() {
 
         it('should be defined', function() {
             expect(gameEngineService).toBeDefined();
@@ -53,7 +53,7 @@ fdescribe('gameService', function() {
 
     });
 
-    fdescribe('getRockPaperScissorsSubset', function() {
+    describe('getRockPaperScissorsSubset', function() {
 
         it('should return an array', function() {
             expect(gameEngineService.getRockPaperScissorsSubset()).toEqual(jasmine.any(Array));
@@ -70,7 +70,7 @@ fdescribe('gameService', function() {
 
     });
 
-    fdescribe('getRockPaperScissorsLizardSpockSubset', function() {
+    describe('getRockPaperScissorsLizardSpockSubset', function() {
 
         it('should return an array', function() {
             expect(gameEngineService.getRockPaperScissorsLizardSpockSubset()).toEqual(jasmine.any(Array));
@@ -90,7 +90,7 @@ fdescribe('gameService', function() {
 
     });
 
-    fdescribe('getRockPaperScissorsLizardSpockChuckSubset', function() {
+    describe('getRockPaperScissorsLizardSpockChuckSubset', function() {
 
         it('should return an array', function() {
             expect(gameEngineService.getRockPaperScissorsLizardSpockChuckSubset()).toEqual(jasmine.any(Array));
@@ -110,7 +110,7 @@ fdescribe('gameService', function() {
 
     });
 
-    fdescribe('getWinText', function() {
+    describe('getWinText', function() {
 
         it('should return a string', function() {
             expect(gameEngineService.getWinText({}, {})).toEqual(jasmine.any(String));
@@ -126,7 +126,7 @@ fdescribe('gameService', function() {
 
     });
 
-    fdescribe('getLoseText', function() {
+    describe('getLoseText', function() {
 
         it('should return a string', function() {
             expect(gameEngineService.getLoseText({}, {})).toEqual(jasmine.any(String));
