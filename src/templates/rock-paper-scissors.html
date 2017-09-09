@@ -1,10 +1,20 @@
-<section>
+<section class="fill-all-height" layout="column" ng-cloak>
     <section>
         <main-menu active-item="'Rock Paper Scissors'"></main-menu>
     </section>
-    <article>
-        <header>
-            Rock Paper Scissors
-        </header>
-    </article>
+    <section layout="row" layout-align="center start" class="fill-all-height">
+        <main class="fill-all">
+            <article layout="column" layout-align="start center" class="md-padding fill-all-height">
+                <header flex="20">
+                    <h1 class="page-main-title">Rock Paper Scissors</h1>
+                </header>
+                <section ng-show="vm.isGameStartedDisplayed" flex="80" layout="column" layout-align="center center">
+                    <md-button class="md-primary md-raised" ng-click="vm.startGame()">Start Game</md-button>
+                </section>
+                <section ng-show="vm.isMakeYourChoiceDisplayed" flex="80" layout="column" layout-align="end center">
+                    <md-button class="md-primary md-raised" ng-click="vm.makeChoice()">Make your choice</md-button>
+                </section>
+            </article>
+        </main>
+    </section>
 </section>

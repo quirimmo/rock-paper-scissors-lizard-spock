@@ -51,7 +51,12 @@
         function makeChoice() {
             vm.isChoicesPanelDisplayed = true;
             $mdBottomSheet.show({
-                templateUrl: 'src/templates/available-choices-panel.html'
+                templateUrl: 'src/templates/available-choices-panel.html',
+                controller: 'AvailableChoicesPanelController',
+                controllerAs: 'vm',
+                locals: {
+                    availableChoices: vm.availableChoices
+                }
             });
         }
 

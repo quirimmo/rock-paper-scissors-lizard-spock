@@ -1,3 +1,11 @@
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
+}
 body {
   background: #30b87d;
 }
@@ -26,4 +34,18 @@ body {
 }
 .draw-scores {
   color: orange;
+}
+.fill-all-height {
+  height: 100%;
+}
+.fill-all {
+  height: 100%;
+  width: 100%;
+}
+md-bottom-sheet.md-grid md-list-item {
+  height: auto;
+}
+.game-choices-icons {
+  width: 64px;
+  height: 64px;
 }
