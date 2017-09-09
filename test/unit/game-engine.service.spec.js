@@ -1,4 +1,4 @@
-fdescribe('gameService', function() {
+describe('gameService', function() {
 
     let gameEngineService, GAME_CONSTANTS;
 

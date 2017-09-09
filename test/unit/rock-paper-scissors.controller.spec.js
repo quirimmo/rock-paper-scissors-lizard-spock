@@ -9,7 +9,8 @@ fdescribe('RockPaperScissorsController', function() {
         module(function($provide) {
             $provide.value('gameEngineService', {
                 getRockPaperScissorsSubset: function() {},
-                calculateResult: function() {}
+                calculateResult: function() {},
+                getComputerRandomChoice: function() {}
             });
             $provide.value('$mdBottomSheet', {
                 show: function() {},
@@ -151,6 +152,20 @@ fdescribe('RockPaperScissorsController', function() {
             controller.chooseAction(defaultChoice);
             $scope.$apply();
             expect(controller.chosenAction).toEqual(defaultChoice);
+        });
+
+        it('should init call the gameEngineService.getComputerRandomChoice', () => {
+            spyOn(gameEngineService, 'getComputerRandomChoice').and.callThrough();
+            controller.chooseAction(defaultChoice);
+            $scope.$apply();
+            expect(gameEngineService.getComputerRandomChoice).toHaveBeenCalledWith(controller.availableChoices);
+        });
+
+        it('should init the computerChosenAction with the returned value', () => {
+            spyOn(gameEngineService, 'getComputerRandomChoice').and.returnValue('paper');
+            controller.chooseAction(defaultChoice);
+            $scope.$apply();
+            expect(controller.computerChosenAction).toEqual('paper');
         });
 
     });
