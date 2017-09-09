@@ -26,13 +26,13 @@
                         Personal Profile
                     </md-button>
                 </md-menu-item>
-                <md-menu-divider></md-menu-divider>
+                <md-menu-divider ng-if="vm.isPersonalProfileActive() === false"></md-menu-divider>
                 <md-menu-item ng-if="vm.isRockPaperScissorActive() === false">
                     <md-button ng-click="vm.navigateTo('rock-paper-scissors')">
                         Rock Paper Scissors
                     </md-button>
                 </md-menu-item>
-                <md-menu-divider></md-menu-divider>
+                <md-menu-divider ng-if="vm.isRockPaperScissorActive() === false"></md-menu-divider>
                 <md-menu-item ng-if="vm.isRockPaperScissorLizardSpockActive() === false">
                     <md-button ng-click="vm.navigateTo('rock-paper-scissors-lizard-spock')">
                         Rock Paper Scissors Lizard Spock

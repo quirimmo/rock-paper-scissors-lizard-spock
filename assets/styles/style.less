@@ -1,5 +1,58 @@
-@mainBackgroundColor: #088b52;
+// global variables
+@mainBackgroundColor: #30b87d;
+@pageMainTitle: #eee;
+@mainTitleFontSize: 20px;
+@basicContainersRadius: 3%;
+@basicContainersOpacity: 0.95;
+@customBoxShadowValues: 2px 2px 2px rgba(0, 0, 0, 0.6);
+@customTextShadowValues: 1px 1px 2px rgba(0, 0, 0, 0.8);
+
+// functions
+.customBoxShadow() {
+    -webkit-box-shadow: @customBoxShadowValues;
+    -moz-box-shadow: @customBoxShadowValues;
+    box-shadow: @customBoxShadowValues;
+};
+.customTextShadow() {
+    text-shadow: @customTextShadowValues;
+};
+.boldify() {
+    font-weight: bold;
+};
+
+// rules
+// ====================================================
 
 body {
     background: @mainBackgroundColor;
+}
+
+.page-main-title {
+    color: @pageMainTitle;
+    font-size: @mainTitleFontSize;
+    text-transform: uppercase;
+    .customTextShadow();
+}
+
+.personal-profile-scores {
+    background: #fff;
+    border-radius: @basicContainersRadius;
+    opacity: @basicContainersOpacity;
+    .customBoxShadow();
+}
+
+.scores-values {
+    .boldify();
+}
+
+.win-scores {
+    color: green;
+}
+
+.lose-scores {
+    color: red;
+}
+
+.draw-scores {
+    color: orange;
 }

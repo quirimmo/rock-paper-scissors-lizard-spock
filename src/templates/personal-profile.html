@@ -1,35 +1,48 @@
 <section>
+    <!-- menu -->
     <section>
         <main-menu active-item="'Personal Profile'"></main-menu>
     </section>
-    <article class="md-padding">
-        <header>
-            Personal Profile Page
-        </header>
-        <section>
-            <main>
-                <article id="num-of-matches">
-                    <label>Total matches: {{vm.numOfMatches}}</label>
-                </article>
-                <article id="num-of-victories">
-                    <label>Total victories: {{vm.numOfVictories}}</label>
-                </article>
-                <article id="num-of-loses">
-                    <label>Total loses: {{vm.numOfLoses}}</label>
-                </article>
-                <article id="num-of-draws">
-                    <label>Total draws: {{vm.numOfDraws}}</label>
-                </article>
-                <article id="consecutive-num-of-victories">
-                    <label>Consecutive victories: {{vm.numOfConsecutiveVictories}}</label>
-                </article>
-                <article id="consecutive-num-of-loses">
-                    <label>Consecutive loses: {{vm.numOfConsecutiveLoses}}</label>
-                </article>
-                <article id="consecutive-num-of-draws">
-                    <label>Consecutive draws: {{vm.numOfConsecutiveDraws}}</label>
-                </article>
-            </main>
-        </section>
-    </article>
+    <!-- main content section -->
+    <section layout="column" layout-align="center center">
+        <main>
+            <article class="md-padding">
+                <header>
+                    <h1 class="page-main-title">Personal Profile Page</h1>
+                </header>
+                <section class="personal-profile-scores">
+                    <main layout="column">
+                        <article id="num-of-matches" layout="row" layout-margin>
+                            <label flex="65">Total matches:</label> 
+                            <label class="scores-values">{{vm.numOfMatches}}</label>
+                        </article>
+                        <article id="num-of-victories" layout="row" layout-margin>
+                            <label flex="65">Total victories:</label> 
+                            <label class="scores-values win-scores">{{vm.numOfVictories}}</label>
+                        </article>
+                        <article id="num-of-loses" layout="row" layout-margin>
+                            <label flex="65">Total loses:</label> 
+                            <label class="scores-values lose-scores">{{vm.numOfLoses}}</label>
+                        </article>
+                        <article id="num-of-draws" layout="row" layout-margin>
+                            <label flex="65">Total draws:</label> 
+                            <label class="scores-values draw-scores">{{vm.numOfDraws}}</label>
+                        </article>
+                        <article id="consecutive-num-of-victories" layout="row" layout-margin>
+                            <label flex="65">Consecutive victories:</label> 
+                            <label class="scores-values win-scores">{{vm.numOfConsecutiveVictories}}</label>
+                        </article>
+                        <article id="consecutive-num-of-loses" layout="row" layout-margin>
+                            <label flex="65">Consecutive loses:</label> 
+                            <label class="scores-values lose-scores">{{vm.numOfConsecutiveLoses}}</label>
+                        </article>
+                        <article id="consecutive-num-of-draws" layout="row" layout-margin>
+                            <label flex="65">Consecutive draws:</label> 
+                            <label class="scores-values draw-scores">{{vm.numOfConsecutiveDraws}}</label>
+                        </article>
+                    </main>
+                </section>
+            </article>
+        </main>
+    </section>
 </section>
