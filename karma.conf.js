@@ -29,6 +29,7 @@ module.exports = function(config) {
             './tmp/partials.min.js',
 
             './src/app.js',
+            './src/constants/**/*.js',
             './src/services/**/*.js',
             './src/components/**/*.js',
             './src/controllers/**/*.js',
