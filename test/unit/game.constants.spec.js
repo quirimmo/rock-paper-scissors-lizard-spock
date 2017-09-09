@@ -10,7 +10,7 @@ describe('GAME_CONSTANTS', function() {
         });
     });
 
-    describe('GAME_CONSTANTS', function() {
+    describe('general', function() {
 
         it('should be defined', function() {
             expect(GAME_CONSTANTS).toBeDefined();
@@ -31,7 +31,7 @@ describe('GAME_CONSTANTS', function() {
             });
 
             it('should have length 6', function() {
-                expect(GAME_CONSTANTS.actions.length).toEqual(7);
+                expect(GAME_CONSTANTS.actions.length).toEqual(6);
             });
 
             describe('rock', function() {
