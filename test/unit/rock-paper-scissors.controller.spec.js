@@ -73,9 +73,10 @@ fdescribe('RockPaperScissorsController', function() {
             expect(controller.isChosenIconDisplayed).toEqual(false);
             expect(controller.isComputerChosenIconDisplayed).toEqual(false);
             expect(controller.isResultMessageDisplayed).toEqual(false);
-            expect(controller.availableChoices).toEqual(['rock', 'paper', 'scissors']);
             expect(controller.chosenIconSrc).toBeUndefined();
             expect(controller.computerChosenIconSrc).to.contain('not-chosen-yet');
+            expect(gameEngineService.getRockPaperScissorsSubset).toHaveBeenCalled();
+            expect(controller.availableChoices).toEqual(['rock', 'paper', 'scissors']);
         });
 
         it('should call the gameEngineService.getRockPaperScissorsSubset', () => {

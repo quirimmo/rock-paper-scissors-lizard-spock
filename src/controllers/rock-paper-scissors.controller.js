@@ -22,27 +22,40 @@
         vm.makeChoice = makeChoice;
         vm.chooseAction = chooseAction;
         vm.closeResultMessage = closeResultMessage;
+        vm.$onInit = onInit;
+
+        // to remove
+        $mdBottomSheet;
+        $mdDialog;
 
         // ==========================================================
 
         function onInit() {
-            
+            vm.isGameStartedDisplayed = true;
+            vm.isMakeYourChoiceDisplayed = false;
+            vm.isChoicesPanelDisplayed = false;
+            vm.isChosenIconDisplayed = false;
+            vm.isComputerChosenIconDisplayed = false;
+            vm.isResultMessageDisplayed = false;
+            vm.chosenIconSrc = undefined;
+            vm.computerChosenIconSrc = 'not-chosen-yet';
+            vm.availableChoices = gameEngineService.getRockPaperScissorsSubset();
         }
 
         function startGame() {
-            
+            // 
         }
 
         function makeChoice() {
-            
+            // 
         }
 
         function chooseAction() {
-            
+            // 
         }
 
         function closeResultMessage() {
-            
+            // 
         }
 
     }
