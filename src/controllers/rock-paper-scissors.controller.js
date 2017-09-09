@@ -3,7 +3,7 @@
 
     angular.module('myApp').controller('RockPaperScissorsController', RockPaperScissorsController);
 
-    function RockPaperScissorsController(gameEngineService, $mdBottomSheet, $mdDialog) {
+    function RockPaperScissorsController(gameEngineService, $mdBottomSheet, $mdDialog, $document) {
 
         var vm = this;
 
@@ -15,6 +15,7 @@
         vm.availableChoices;
         vm.chosenAction;
         vm.computerChosenAction;
+        vm.result;
 
         vm.startGame = startGame;
         vm.makeChoice = makeChoice;
@@ -23,7 +24,6 @@
         vm.$onInit = onInit;
 
         // to remove
-        $mdBottomSheet;
         $mdDialog;
 
         // ==========================================================
@@ -54,19 +54,37 @@
             });
         }
 
-        function chooseAction(item) {
+        function chooseAction(item, $event) {
             vm.isMakeYourChoiceDisplayed = false;
             vm.chosenAction = item;
             $mdBottomSheet.hide();
-            triggerComputerChoice();
-        }
+            vm.computerChosenAction = gameEngineService.getComputerRandomChoice(vm.availableChoices);
+            vm.result = gameEngineService.calculateResult(vm.chosenAction, vm.computerChosenAction);
+            let titleText =
+                vm.result.result === 1 ?
+                'YOU WON!' :
+                vm.result.result === -1 ?
+                'YOU LOST!' :
+                'DRAW!';
+            let dialog = $mdDialog.alert()
+                .parent(angular.element($document[0].body))
+                .clickOutsideToClose(true)
+                .title(titleText)
+                .textContent(vm.result.text)
+                .ariaLabel(titleText)
+                .ok('Continue')
+                .targetEvent($event);
 
-        function triggerComputerChoice() {
-            vm.computerChosenAction = vm.chosenAction;
+            $mdDialog.show(dialog).then(closeResultMessage);
         }
 
         function closeResultMessage() {
-            // 
+            vm.chosenAction = undefined;
+            vm.computerChosenAction = undefined;
+            vm.isGameStartedDisplayed = true;
+            vm.isMakeYourChoiceDisplayed = false;
+            vm.isComputerChosenIconDisplayed = false;
+            vm.isResultMessageDisplayed = false;
         }
 
     }

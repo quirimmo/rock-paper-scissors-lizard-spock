@@ -4,7 +4,7 @@
             <md-list flex layout="row" layout-align="center center">
                 <md-list-item ng-repeat="item in vm.availableChoices track by $index">
                     <article>
-                        <md-button class="md-grid-item-content" ng-click="vm.chooseAction(item)">
+                        <md-button class="md-grid-item-content" ng-click="vm.chooseAction(item, $event)">
                             <img class="game-choices-icons" ng-src="assets/images/{{item.id}}.png"></md-icon>
                             <div class="md-grid-text"> {{ item.label | uppercase}} </div>
                         </md-button>
