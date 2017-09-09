@@ -1,4 +1,4 @@
-describe('gameService', function() {
+fdescribe('gameService', function() {
 
     let gameEngineService, GAME_CONSTANTS;
 
@@ -7,12 +7,12 @@ describe('gameService', function() {
         result: 0,
         text: DRAW_TEXT
     };
-    let rock = GAME_CONSTANTS.actions.find(element => element.id === 'rock');
-    let paper = GAME_CONSTANTS.actions.find(element => element.id === 'paper');
-    let scissors = GAME_CONSTANTS.actions.find(element => element.id === 'scissors');
-    let lizard = GAME_CONSTANTS.actions.find(element => element.id === 'lizard');
-    let spock = GAME_CONSTANTS.actions.find(element => element.id === 'spock');
-    let chuck = GAME_CONSTANTS.actions.find(element => element.id === 'chuck');
+    let rock;
+    let paper;
+    let scissors;
+    let lizard;
+    let spock;
+    let chuck;
 
     beforeEach(function() {
         module('myApp');
@@ -22,6 +22,12 @@ describe('gameService', function() {
         inject(function(_gameEngineService_, _GAME_CONSTANTS_) {
             gameEngineService = _gameEngineService_;
             GAME_CONSTANTS = _GAME_CONSTANTS_;
+            rock = GAME_CONSTANTS.actions.find(element => element.id === 'rock');
+            paper = GAME_CONSTANTS.actions.find(element => element.id === 'paper');
+            scissors = GAME_CONSTANTS.actions.find(element => element.id === 'scissors');
+            lizard = GAME_CONSTANTS.actions.find(element => element.id === 'lizard');
+            spock = GAME_CONSTANTS.actions.find(element => element.id === 'spock');
+            chuck = GAME_CONSTANTS.actions.find(element => element.id === 'chuck');
         });
 
     });
@@ -108,7 +114,7 @@ describe('gameService', function() {
         });
 
         it('should return the composed right text', function() {
-            expect(gameEngineService.getWinText(rock, scissors)).toEqual(rock.label + rock.winsAgainst.find(element => element.id === scissors.id).term + scissors.label);
+            expect(gameEngineService.getWinText(rock, scissors)).toEqual(`${rock.label} ${rock.winsAgainst.find(element => element.id === scissors.id).term} ${scissors.label}`);
         });
 
     });
