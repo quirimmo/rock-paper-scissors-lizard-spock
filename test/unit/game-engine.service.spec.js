@@ -33,7 +33,7 @@ fdescribe('gameService', function() {
     });
 
 
-    describe('init', function() {
+    fdescribe('init', function() {
 
         it('should be defined', function() {
             expect(gameEngineService).toBeDefined();
@@ -53,7 +53,7 @@ fdescribe('gameService', function() {
 
     });
 
-    describe('getRockPaperScissorsSubset', function() {
+    fdescribe('getRockPaperScissorsSubset', function() {
 
         it('should return an array', function() {
             expect(gameEngineService.getRockPaperScissorsSubset()).toEqual(jasmine.any(Array));
@@ -64,13 +64,13 @@ fdescribe('gameService', function() {
         });
 
         it('should return the right elements', function() {
-            let rockPaperScissorsSubset = GAME_CONSTANTS.filter(element => element.id === 'rock' || element.id === 'paper' || element.id === 'scissors');
+            let rockPaperScissorsSubset = GAME_CONSTANTS.actions.filter(element => element.id === 'rock' || element.id === 'paper' || element.id === 'scissors');
             expect(gameEngineService.getRockPaperScissorsSubset()).toEqual(rockPaperScissorsSubset);
         });
 
     });
 
-    describe('getRockPaperScissorsLizardSpockSubset', function() {
+    fdescribe('getRockPaperScissorsLizardSpockSubset', function() {
 
         it('should return an array', function() {
             expect(gameEngineService.getRockPaperScissorsLizardSpockSubset()).toEqual(jasmine.any(Array));
@@ -81,13 +81,16 @@ fdescribe('gameService', function() {
         });
 
         it('should return the right elements', function() {
-            let rockPaperScissorsLizardSpockSubset = GAME_CONSTANTS.filter(element => element.id !== 'chuck');
+            // here we could simply use the following, but this will make the code not easy to increase, because if you add new elements,
+            // for a new game, also the unit tests for the game rock paper scissors lizard spock will break 
+            // let rockPaperScissorsLizardSpockSubset = GAME_CONSTANTS.actions.filter(element => element.id !== 'chuck');
+            let rockPaperScissorsLizardSpockSubset = GAME_CONSTANTS.actions.filter(element => element.id === 'rock' || element.id === 'paper' || element.id === 'scissors' || element.id === 'lizard'  || element.id === 'spock');
             expect(gameEngineService.getRockPaperScissorsLizardSpockSubset()).toEqual(rockPaperScissorsLizardSpockSubset);
         });
 
     });
 
-    describe('getRockPaperScissorsLizardSpockChuckSubset', function() {
+    fdescribe('getRockPaperScissorsLizardSpockChuckSubset', function() {
 
         it('should return an array', function() {
             expect(gameEngineService.getRockPaperScissorsLizardSpockChuckSubset()).toEqual(jasmine.any(Array));
@@ -98,7 +101,11 @@ fdescribe('gameService', function() {
         });
 
         it('should return the right elements', function() {
-            expect(gameEngineService.getRockPaperScissorsLizardSpockChuckSubset()).toEqual(GAME_CONSTANTS.actions);
+            // here we could simply use the following, but this will make the code not easy to increase, because if you add new elements,
+            // for a new game, also the unit tests for the game rock paper scissors lizard spock chuck will break 
+            // let rockPaperScissorsLizardSpockChuckSubset = GAME_CONSTANTS.actions;
+            let rockPaperScissorsLizardSpockChuckSubset = GAME_CONSTANTS.actions.filter(element => element.id === 'rock' || element.id === 'paper' || element.id === 'scissors' || element.id === 'lizard'  || element.id === 'spock' || element.id === 'chuck');            
+            expect(gameEngineService.getRockPaperScissorsLizardSpockChuckSubset()).toEqual(rockPaperScissorsLizardSpockChuckSubset);
         });
 
     });

@@ -3,7 +3,7 @@
 
     angular.module('myApp').service('gameEngineService', gameEngineService);
 
-    function gameEngineService() {
+    function gameEngineService(GAME_CONSTANTS) {
 
         // list of the exposed methods
         // ============================================================
@@ -18,15 +18,15 @@
         // ============================================================
 
         function getRockPaperScissorsSubset() {
-
+            return GAME_CONSTANTS.actions.filter(isRockPaperScissors);
         }
 
         function getRockPaperScissorsLizardSpockSubset() {
-            
+            return GAME_CONSTANTS.actions.filter(isRockPaperScissorsLizardSpock);
         }
         
         function getRockPaperScissorsLizardSpockChuckSubset() {
-            
+            return GAME_CONSTANTS.actions.filter(isRockPaperScissorsLizardSpockChuck);
         }
 
         function calculateResult() {
@@ -53,6 +53,9 @@
             return `${item1Label} has been ${losesAgainstRef.term} by ${item2Label}`;
         }
         
+        // private methods
+        // ============================================================
+
         function areInputsCorrect(item1, item2) {
             // if given items are not objects, return empty string
             if (!angular.isObject(item1) || !angular.isObject(item1)) {
@@ -63,6 +66,24 @@
                 return false;
             }
             return true;
+        }
+
+        function isRockPaperScissors(element) {
+            return element.id === 'rock' || element.id === 'paper' || element.id === 'scissors';
+        }
+
+        function isRockPaperScissorsLizardSpock(element) {
+            // here we could simply use the following, but this will make the code not easy to increase, because if you add new elements,
+            // for a new game, also the rock paper scissors lizard spock game will break 
+            // return element.id !== 'chuck';
+            return isRockPaperScissors(element) || element.id === 'lizard'  || element.id === 'spock';
+        }
+
+        function isRockPaperScissorsLizardSpockChuck(element) {
+            // here we could simply use the following, but this will make the code not easy to increase, because if you add new elements,
+            // for a new game, also the rock paper scissors lizard spock chuck game will break 
+            // return GAME_CONSTANTS.actions;
+            return isRockPaperScissorsLizardSpock(element) || element.id === 'chuck';
         }
 
     }
