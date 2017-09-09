@@ -121,10 +121,7 @@
                 id: 'spock',
                 term: 'kills'
             }],
-            losesAgainst: [{
-                id: 'chuck',
-                term: 'killed'
-            }]
+            losesAgainst: []
         }]
     });
 

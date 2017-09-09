@@ -275,10 +275,7 @@ describe('GAME_CONSTANTS', function() {
                 });
 
                 it('should define the losesAgainst', function() {
-                    expect(chuck.losesAgainst).toEqual([{
-                        id: 'chuck',
-                        term: 'killed'
-                    }]);
+                    expect(chuck.losesAgainst).toEqual([]);
                 });
 
             });
