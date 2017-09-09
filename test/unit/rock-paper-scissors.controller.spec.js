@@ -1,4 +1,4 @@
-describe('RockPaperScissorsController', function() {
+fdescribe('RockPaperScissorsController', function() {
 
     let controller, gameEngineService, $scope, $mdBottomSheet, $mdDialog;
 
@@ -27,7 +27,8 @@ describe('RockPaperScissorsController', function() {
                         targetEvent: function() {}
                     };
                 },
-                show: function() {}
+                show: function() {},
+                cancel: function() {}
             });
         });
 
@@ -138,6 +139,7 @@ describe('RockPaperScissorsController', function() {
             spyOn($mdBottomSheet, 'show').and.callThrough();
             spyOn($mdBottomSheet, 'hide').and.callThrough();
             spyOn($mdDialog, 'alert').and.callThrough();
+            spyOn(gameEngineService, 'calculateResult').and.callThrough();
         });
 
         it('should call the $mdBottomSheet.hide method', () => {
@@ -163,6 +165,34 @@ describe('RockPaperScissorsController', function() {
             expect($mdDialog.alert).toHaveBeenCalled();
         });
 
+        it('should call the gameEngineService.calculateResult method', () => {
+            controller.chooseAction(defaultChoice);
+            $scope.$apply();
+            expect(gameEngineService.calculateResult).toHaveBeenCalled();
+        });
+
+    });
+
+    describe('closeResultMessage', () => {
+        beforeEach(() => {
+            controller.$onInit();
+            spyOn($mdDialog, 'cancel').and.callThrough();
+        });
+
+        it('should call the $mdDialog.cancel method', () => {
+            controller.closeResultMessage();
+            expect($mdDialog.cancel).toHaveBeenCalled();
+        });
+
+        it('should set the visibility of the elements', () => {
+            controller.closeResultMessage();
+            expect(controller.isGameStartedDisplayed).toEqual(true);
+            expect(controller.isMakeYourChoiceDisplayed).toEqual(false);
+            expect(controller.isChoicesPanelDisplayed).toEqual(false);
+            expect(controller.isChosenIconDisplayed).toEqual(false);
+            expect(controller.isComputerChosenIconDisplayed).toEqual(false);
+            expect(controller.isResultMessageDisplayed).toEqual(false);
+        });
     });
 
 });
