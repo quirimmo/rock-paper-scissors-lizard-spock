@@ -1,4 +1,4 @@
-describe('Rock Paper Scissors', () => {
+fdescribe('Rock Paper Scissors', () => {
 
     let makeChoice = element(by.id('make-choices'));
     let choicesPanel = element(by.id('choices-panel'));

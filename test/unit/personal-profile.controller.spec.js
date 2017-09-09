@@ -22,7 +22,6 @@ describe('MainController', function() {
             $scope = _$rootScope_.$new();
             gameService = _gameService_;
             controller = _$controller_('PersonalProfileController', { $scope: $scope });
-            $scope.$apply();
         });
     });
 
