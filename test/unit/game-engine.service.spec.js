@@ -1,4 +1,4 @@
-describe('gameService', function() {
+fdescribe('gameService', function() {
 
     let gameEngineService, GAME_CONSTANTS;
 
@@ -7,12 +7,8 @@ describe('gameService', function() {
         result: 0,
         text: DRAW_TEXT
     };
-    let rock;
-    let paper;
-    let scissors;
-    let lizard;
-    let spock;
-    let chuck;
+    let rock, paper, scissors, lizard, spock, chuck;
+    let rockPaperScissorsSubset, rockPaperScissorsLizardSpockSubset, rockPaperScissorsLizardSpockChuckSubset;
 
     beforeEach(function() {
         module('myApp');
@@ -28,6 +24,9 @@ describe('gameService', function() {
             lizard = GAME_CONSTANTS.actions.find(element => element.id === 'lizard');
             spock = GAME_CONSTANTS.actions.find(element => element.id === 'spock');
             chuck = GAME_CONSTANTS.actions.find(element => element.id === 'chuck');
+            rockPaperScissorsSubset = GAME_CONSTANTS.actions.filter(element => element.id === 'rock' || element.id === 'paper' || element.id === 'scissors');
+            rockPaperScissorsLizardSpockSubset = GAME_CONSTANTS.actions.filter(element => element.id === 'rock' || element.id === 'paper' || element.id === 'scissors' || element.id === 'lizard' || element.id === 'spock');
+            rockPaperScissorsLizardSpockChuckSubset = GAME_CONSTANTS.actions.filter(element => element.id === 'rock' || element.id === 'paper' || element.id === 'scissors' || element.id === 'lizard' || element.id === 'spock' || element.id === 'chuck');
         });
 
     });
@@ -51,6 +50,10 @@ describe('gameService', function() {
             expect(gameEngineService.getLoseText).toEqual(jasmine.any(Function));
         });
 
+        it('should define the getComputerRandomChoice', function() {
+            expect(gameEngineService.getComputerRandomChoice).toEqual(jasmine.any(Function));
+        });
+
     });
 
     describe('getRockPaperScissorsSubset', function() {
@@ -64,7 +67,6 @@ describe('gameService', function() {
         });
 
         it('should return the right elements', function() {
-            let rockPaperScissorsSubset = GAME_CONSTANTS.actions.filter(element => element.id === 'rock' || element.id === 'paper' || element.id === 'scissors');
             expect(gameEngineService.getRockPaperScissorsSubset()).toEqual(rockPaperScissorsSubset);
         });
 
@@ -84,7 +86,6 @@ describe('gameService', function() {
             // here we could simply use the following, but this will make the code not easy to increase, because if you add new elements,
             // for a new game, also the unit tests for the game rock paper scissors lizard spock will break 
             // let rockPaperScissorsLizardSpockSubset = GAME_CONSTANTS.actions.filter(element => element.id !== 'chuck');
-            let rockPaperScissorsLizardSpockSubset = GAME_CONSTANTS.actions.filter(element => element.id === 'rock' || element.id === 'paper' || element.id === 'scissors' || element.id === 'lizard'  || element.id === 'spock');
             expect(gameEngineService.getRockPaperScissorsLizardSpockSubset()).toEqual(rockPaperScissorsLizardSpockSubset);
         });
 
@@ -104,7 +105,6 @@ describe('gameService', function() {
             // here we could simply use the following, but this will make the code not easy to increase, because if you add new elements,
             // for a new game, also the unit tests for the game rock paper scissors lizard spock chuck will break 
             // let rockPaperScissorsLizardSpockChuckSubset = GAME_CONSTANTS.actions;
-            let rockPaperScissorsLizardSpockChuckSubset = GAME_CONSTANTS.actions.filter(element => element.id === 'rock' || element.id === 'paper' || element.id === 'scissors' || element.id === 'lizard'  || element.id === 'spock' || element.id === 'chuck');            
             expect(gameEngineService.getRockPaperScissorsLizardSpockChuckSubset()).toEqual(rockPaperScissorsLizardSpockChuckSubset);
         });
 
@@ -140,6 +140,29 @@ describe('gameService', function() {
             expect(gameEngineService.getLoseText(rock, paper)).toEqual(
                 `${rock.label} has been ${rock.losesAgainst.find(element => element.id === paper.id).term} by ${paper.label}`
             );
+        });
+
+    });
+
+    describe('getComputerRandomChoice', function() {
+
+        it('should return an Object', function() {
+            expect(gameEngineService.getComputerRandomChoice()).toEqual(jasmine.any(Object));
+        });
+
+        it('should return the computer random action for Rock Paper Scissors', function() {
+            spyOn(Math, 'random').and.returnValue(0.1);
+            expect(gameEngineService.getComputerRandomChoice(rockPaperScissorsSubset)).toEqual(rock);
+        });
+
+        it('should return the computer random action for Rock Paper Scissors Lizard Spock', function() {
+            spyOn(Math, 'random').and.returnValue(0.7);
+            expect(gameEngineService.getComputerRandomChoice(rockPaperScissorsLizardSpockSubset)).toEqual(lizard);
+        });
+
+        it('should return the computer random action for Rock Paper Scissors Lizard Spock Chuck', function() {
+            spyOn(Math, 'random').and.returnValue(0.17);
+            expect(gameEngineService.getComputerRandomChoice(rockPaperScissorsLizardSpockSubset)).toEqual(paper);
         });
 
     });

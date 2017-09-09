@@ -13,6 +13,7 @@
         this.calculateResult = calculateResult;
         this.getWinText = getWinText;
         this.getLoseText = getLoseText;
+        
 
         const DRAW_TEXT = 'draw';
         const DRAW_RESULT_OBJECT = {
