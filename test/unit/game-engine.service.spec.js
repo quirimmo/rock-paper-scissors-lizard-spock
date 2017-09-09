@@ -103,7 +103,7 @@ fdescribe('gameService', function() {
 
     });
 
-    describe('getWinText', function() {
+    fdescribe('getWinText', function() {
 
         it('should return a string', function() {
             expect(gameEngineService.getWinText({}, {})).toEqual(jasmine.any(String));
