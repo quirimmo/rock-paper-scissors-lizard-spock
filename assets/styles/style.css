@@ -6,7 +6,12 @@
 .x-ng-cloak {
   display: none !important;
 }
+html,
 body {
+  background: #30b87d;
+  overflow-y: auto;
+}
+.main-game-container {
   background: #30b87d;
 }
 .page-main-title {
@@ -61,6 +66,7 @@ md-bottom-sheet.md-grid md-list-item {
 }
 .choices-menu {
   padding-bottom: 0px;
+  bottom: 80px;
 }
 .game-choices-icons-mobile {
   height: 32px;
@@ -78,4 +84,8 @@ md-bottom-sheet.md-grid md-list-item {
 .label-choices-mobile {
   text-align: left;
   padding-left: 10px;
+}
+.computer-player-name {
+  color: white;
+  font-weight: bold;
 }
