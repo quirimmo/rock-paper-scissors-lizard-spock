@@ -1,4 +1,4 @@
-fdescribe('RockPaperScissorsLizardSpockController', function() {
+describe('RockPaperScissorsLizardSpockController', function() {
 
     let controller, gameEngineService, $scope, $mdBottomSheet, $mdDialog;
 
@@ -68,14 +68,14 @@ fdescribe('RockPaperScissorsLizardSpockController', function() {
         });
 
         it('should init the exposed variables correctly', () => {
-            spyOn(gameEngineService, 'getRockPaperScissorsSubset').and.returnValue(['rock', 'paper', 'scissors', 'lizard', 'spock']);
+            spyOn(gameEngineService, 'getRockPaperScissorsLizardSpockSubset').and.returnValue(['rock', 'paper', 'scissors', 'lizard', 'spock']);
             controller.$onInit();
             expect(controller.isGameStartedDisplayed).toEqual(true);
             expect(controller.isGameSimulatedDisplayed).toEqual(true);
             expect(controller.isGameSimulation).toEqual(false);
             expect(controller.isComputerChosenIconDisplayed).toBeDefined(false);
             expect(controller.isMakeYourChoiceDisplayed).toEqual(false);
-            expect(gameEngineService.getRockPaperScissorsSubset).toHaveBeenCalled();
+            expect(gameEngineService.getRockPaperScissorsLizardSpockSubset).toHaveBeenCalled();
             expect(controller.availableChoices).toEqual(['rock', 'paper', 'scissors', 'lizard', 'spock']);
             expect(controller.chosenAction).toBeUndefined();
             expect(controller.computerChosenAction).toBeUndefined();

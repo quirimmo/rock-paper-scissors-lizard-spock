@@ -37,9 +37,9 @@
             data: {
                 title: 'Rock Paper Scissors Lizard Spock'
             },
-            templateUrl: 'src/templates/rock-paper-scissors-lizard-spock.html'
-            // controller: 'HomeController',
-            // controllerAs: 'vm'
+            templateUrl: 'src/templates/rock-paper-scissors-lizard-spock.html',
+            controller: 'RockPaperScissorsLizardSpockController',
+            controllerAs: 'vm'
         };
         $stateProvider.state(mainState).state(rockPaperScissorsState).state(rockPaperScissorsLizardSpockState);
         $urlRouterProvider.otherwise('/');

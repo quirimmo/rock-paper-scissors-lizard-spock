@@ -1,4 +1,4 @@
-fdescribe('Rock Paper Scissors Lizard Spock', () => {
+describe('Rock Paper Scissors Lizard Spock', () => {
 
     let startGame = element(by.id('start-game'));
     let simulateGame = element(by.id('simulate-game'));
@@ -315,7 +315,7 @@ fdescribe('Rock Paper Scissors Lizard Spock', () => {
                                     contentResultMessage.getText().should.become('Rock has been vaporized by Spock');
                                 } else if (computer2Choice.includes('lizard')) {
                                     mainResultMessage.getText().should.become('COMPUTER 1 WON!');
-                                    contentResultMessage.getText().should.become('Spock crushes Lizard');
+                                    contentResultMessage.getText().should.become('Rock crushes Lizard');
                                 } else {
                                     mainResultMessage.getText().should.become('COMPUTER 1 WON!');
                                     contentResultMessage.getText().should.become('Rock crushes Scissors');
