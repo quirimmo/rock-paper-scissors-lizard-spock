@@ -13,9 +13,6 @@ describe('Rock Paper Scissors', () => {
     let closeResultPanelButton = element(by.className('md-confirm-button'));
 
 
-    // let closeResultMessage = element(by.id('close-result-message'));
-
-
     beforeEach(() => {
         browser.get('#!/rock-paper-scissors');
     });
@@ -59,7 +56,7 @@ describe('Rock Paper Scissors', () => {
         it('should display 3 choicesItems clicking on the make choice button', () => {
             startGame.click().then(() => {
                 makeChoice.click().then(() => {
-                    choicesItemsIcons.count().should.become(3);
+                    choicesItemsIcons.count().should.become(6);
                 });
             });
         });
@@ -68,6 +65,9 @@ describe('Rock Paper Scissors', () => {
             startGame.click().then(() => {
                 makeChoice.click().then(() => {
                     choicesItemsIcons.getAttribute('ng-src').should.become([
+                        'assets/images/rock.png',
+                        'assets/images/paper.png',
+                        'assets/images/scissors.png',
                         'assets/images/rock.png',
                         'assets/images/paper.png',
                         'assets/images/scissors.png'

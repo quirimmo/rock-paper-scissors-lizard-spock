@@ -88,15 +88,15 @@
         }
 
         function incrementNumOfConsecutiveVictories() {
-            $localStorage.numOfConsecutiveVictories = currentConsecutiveVictories > $localStorage.numOfConsecutiveVictories ? currentConsecutiveVictories : $localStorage.numOfConsecutiveVictories;
+            $localStorage.numOfConsecutiveVictories = currentConsecutiveVictories > this.getNumOfConsecutiveVictories() ? currentConsecutiveVictories : $localStorage.numOfConsecutiveVictories;
         }
 
         function incrementNumOfConsecutiveLoses() {
-            $localStorage.numOfConsecutiveLoses = currentConsecutiveLoses > $localStorage.numOfConsecutiveLoses ? currentConsecutiveLoses : $localStorage.numOfConsecutiveLoses;
+            $localStorage.numOfConsecutiveLoses = currentConsecutiveLoses > this.getNumOfConsecutiveLoses() ? currentConsecutiveLoses : $localStorage.numOfConsecutiveLoses;
         }
 
         function incrementNumOfConsecutiveDraws() {
-            $localStorage.numOfConsecutiveDraws = currentConsecutiveDraws > $localStorage.numOfConsecutiveDraws ? currentConsecutiveDraws : $localStorage.numOfConsecutiveDraws;
+            $localStorage.numOfConsecutiveDraws = currentConsecutiveDraws > this.getNumOfConsecutiveDraws() ? currentConsecutiveDraws : $localStorage.numOfConsecutiveDraws;
         }
 
     }
