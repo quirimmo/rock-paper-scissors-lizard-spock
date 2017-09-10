@@ -24,65 +24,79 @@
         this.incrementNumOfConsecutiveLoses = incrementNumOfConsecutiveLoses;
         this.incrementNumOfConsecutiveDraws = incrementNumOfConsecutiveDraws;
 
+        let currentConsecutiveVictories = 0;
+        let currentConsecutiveLoses = 0;
+        let currentConsecutiveDraws = 0;
 
         // list of the methods implementations
         // ============================================================
 
         function getNumOfMatches() {
-            return $localStorage.numOfMatches;
+            return $localStorage.numOfMatches || 0;
         }
 
         function getNumOfVictories() {
-            return $localStorage.numOfVictories;
+            return $localStorage.numOfVictories || 0;
         }
 
         function getNumOfLoses() {
-            return $localStorage.numOfLoses;
+            return $localStorage.numOfLoses || 0;
         }
 
         function getNumOfDraws() {
-            return $localStorage.numOfDraws;
+            return $localStorage.numOfDraws || 0;
         }
 
         function getNumOfConsecutiveVictories() {
-            return $localStorage.numOfConsecutiveVictories;
+            return $localStorage.numOfConsecutiveVictories || 0;
         }
 
         function getNumOfConsecutiveLoses() {
-            return $localStorage.numOfConsecutiveLoses;
+            return $localStorage.numOfConsecutiveLoses || 0;
         }
 
         function getNumOfConsecutiveDraws() {
-            return $localStorage.numOfConsecutiveDraws;
+            return $localStorage.numOfConsecutiveDraws || 0;
         }
 
         function incrementNumOfMatches() {
-            console.log($localStorage.numOfMatches);
             $localStorage.numOfMatches = $localStorage.numOfMatches ? $localStorage.numOfMatches + 1 : 1;
         }
 
         function incrementNumOfVictories() {
+            currentConsecutiveVictories++;
+            currentConsecutiveLoses = 0;
+            currentConsecutiveDraws = 0;
             $localStorage.numOfVictories = $localStorage.numOfVictories ? $localStorage.numOfVictories + 1 : 1;
+            this.incrementNumOfConsecutiveVictories();
         }
 
         function incrementNumOfLoses() {
+            currentConsecutiveVictories = 0;
+            currentConsecutiveLoses++;
+            currentConsecutiveDraws = 0;
             $localStorage.numOfLoses = $localStorage.numOfLoses ? $localStorage.numOfLoses + 1 : 1;
+            this.incrementNumOfConsecutiveLoses();
         }
 
         function incrementNumOfDraws() {
+            currentConsecutiveVictories = 0;
+            currentConsecutiveLoses = 0;
+            currentConsecutiveDraws++;
             $localStorage.numOfDraws = $localStorage.numOfDraws ? $localStorage.numOfDraws + 1 : 1;
+            this.incrementNumOfConsecutiveDraws();
         }
 
         function incrementNumOfConsecutiveVictories() {
-            $localStorage.numOfConsecutiveVictories++;
+            $localStorage.numOfConsecutiveVictories = currentConsecutiveVictories > $localStorage.numOfConsecutiveVictories ? currentConsecutiveVictories : $localStorage.numOfConsecutiveVictories;
         }
 
         function incrementNumOfConsecutiveLoses() {
-            $localStorage.numOfConsecutiveLoses++;
+            $localStorage.numOfConsecutiveLoses = currentConsecutiveLoses > $localStorage.numOfConsecutiveLoses ? currentConsecutiveLoses : $localStorage.numOfConsecutiveLoses;
         }
 
         function incrementNumOfConsecutiveDraws() {
-            $localStorage.numOfConsecutiveDraws++;
+            $localStorage.numOfConsecutiveDraws = currentConsecutiveDraws > $localStorage.numOfConsecutiveDraws ? currentConsecutiveDraws : $localStorage.numOfConsecutiveDraws;
         }
 
     }
