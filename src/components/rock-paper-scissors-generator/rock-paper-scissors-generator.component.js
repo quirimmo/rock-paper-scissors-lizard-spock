@@ -6,6 +6,8 @@
         controller: 'RockPaperScissorsGeneratorController',
         controllerAs: 'vm',
         bindings: {
+            pageTitle: '=',
+            availableChoices: '='
         }
     });
 
