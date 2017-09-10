@@ -3,7 +3,7 @@
 
     angular.module('myApp').controller('MainMenuController', MainMenuController);
 
-    function MainMenuController($state) {
+    function MainMenuController($state, gameService) {
 
         // bindings
         // activeItem: '='
@@ -15,6 +15,7 @@
         vm.isRockPaperScissorLizardSpockActive = isRockPaperScissorLizardSpockActive;
         vm.openMobileMenu = openMobileMenu;
         vm.navigateTo = navigateTo;
+        vm.restartGame = restartGame;
         vm.$onInit = onInit;
 
 
@@ -45,6 +46,10 @@
 
         function openMobileMenu($mdMenu, ev) {
             $mdMenu.open(ev);
+        }
+
+        function restartGame() {
+            gameService.restartGame();
         }
 
     }

@@ -1,15 +1,20 @@
 describe('trainInfoItem', function() {
 
-    let $componentController, controller, $state;
+    let $componentController, controller, $state, gameService;
 
     beforeEach(module('myApp'));
     beforeEach(module('partials'));
 
-    beforeEach(module(function($provide) {}));
+    beforeEach(module(function($provide) {
+        $provide.value(gameService, {
+            restartGame: function() {}
+        });
+    }));
 
-    beforeEach(inject(function(_$componentController_, _$state_) {
+    beforeEach(inject(function(_$componentController_, _$state_, _gameService_) {
         $state = _$state_;
         $componentController = _$componentController_;
+        gameService = _gameService_;
     }));
 
     describe('init', function() {
@@ -30,6 +35,23 @@ describe('trainInfoItem', function() {
             expect(controller.isRockPaperScissorLizardSpockActive).toEqual(jasmine.any(Function));
             expect(controller.openMobileMenu).toEqual(jasmine.any(Function));
             expect(controller.navigateTo).toEqual(jasmine.any(Function));
+            expect(controller.restartGame).toEqual(jasmine.any(Function));
+        });
+
+    });
+
+    describe('restartGame', function() {
+
+        beforeEach(() => {
+            controller = $componentController('mainMenu', null, {
+                activeItem: 'Personal Profile'
+            });
+        });
+
+        it('should call the gameService.restartGame method', () => {
+            spyOn(gameService, 'restartGame').and.callThrough();
+            controller.restartGame();
+            expect(gameService.restartGame).toHaveBeenCalled();
         });
 
     });
