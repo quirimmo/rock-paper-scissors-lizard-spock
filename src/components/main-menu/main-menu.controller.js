@@ -3,12 +3,14 @@
 
     angular.module('myApp').controller('MainMenuController', MainMenuController);
 
-    function MainMenuController($state, gameService) {
+    function MainMenuController($state, gameService, $mdDialog) {
 
         // bindings
         // activeItem: '='
 
         var vm = this;
+
+        vm.disableInkBar;
 
         vm.isPersonalProfileActive = isPersonalProfileActive;
         vm.isRockPaperScissorActive = isRockPaperScissorActive;
@@ -23,7 +25,7 @@
             vm.selectedItem =
                 vm.isRockPaperScissorActive() ?
                 'rock-paper-scissors' :
-                vm.isRockPaperScissorLizardSpockActive() ? 
+                vm.isRockPaperScissorLizardSpockActive() ?
                 'rock-paper-scissors-lizard-spock' :
                 'personal-profile';
         }
@@ -48,8 +50,19 @@
             $mdMenu.open(ev);
         }
 
-        function restartGame() {
-            gameService.restartGame();
+        function restartGame(ev) {
+            gameService;
+            var confirm = $mdDialog.confirm()
+                .title('Do you really want to restart the game?')
+                .textContent('Restarting the game you will loose all your current saved progresses and scores')
+                .ariaLabel('Restart Game')
+                .targetEvent(ev)
+                .ok('Yes I do')
+                .cancel('Nope I don\'t');
+
+            $mdDialog.show(confirm).then(() => {
+                gameService.restartGame();
+            });
         }
 
     }

@@ -1,9 +1,9 @@
-fdescribe('Restart Game', () => {
+describe('Restart Game', () => {
 
     let restartButton = element(by.id('restart-game'));
     let profileScoreValues = element.all(by.className('scores-values'));
-    let confirmRestartGamePanel = element(by.id('confirm-restart-game-panel'));
-    let confirmRestartPanelButton = element(by.id('confirm-restart-button'));
+    let confirmRestartGamePanel = element(by.className('md-dialog-content'));
+    let confirmRestartPanelButton = element(by.className('md-confirm-button'));
 
 
     beforeEach(() => {

@@ -2,7 +2,7 @@
 
     <!-- default menu -->
     <md-content class="md-padding" hide-sm hide-xs>
-        <md-nav-bar md-selected-nav-item="vm.selectedItem" nav-bar-aria-label="main menu navigation links">
+        <md-nav-bar md-no-ink-bar="$index === 3" md-selected-nav-item="vm.selectedItem" nav-bar-aria-label="main menu navigation links">
             <md-nav-item md-nav-sref="home" name="personal-profile" class="main-menu-items md-caption">
                 Personal Profile
             </md-nav-item>
@@ -12,9 +12,9 @@
             <md-nav-item md-nav-sref="rock-paper-scissors-lizard-spock" name="rock-paper-scissors-lizard-spock" class="main-menu-items">
                 Rock Paper Scissors Lizard Spock
             </md-nav-item>
-            <md-nav-item id="restart-game" ng-click="vm.restartGame()" md-nav-sref="rock-paper-scissors-lizard-spock" name="rock-paper-scissors-lizard-spock" class="main-menu-items">
+            <md-button id="restart-game" ng-click="vm.restartGame($event)">
                 Restart Game
-            </md-nav-item>
+            </md-button>
         </md-nav-bar>
     </md-content>
 
@@ -42,9 +42,9 @@
                         Rock Paper Scissors Lizard Spock
                     </md-button>
                 </md-menu-item>
-                <md-menu-divider></md-menu-divider>
+                <md-menu-divider ng-if="vm.isRockPaperScissorLizardSpockActive() === false"></md-menu-divider>
                 <md-menu-item>
-                    <md-button ng-click="vm.restartGame()">
+                    <md-button ng-click="vm.restartGame($event)">
                         Restart Game
                     </md-button>
                 </md-menu-item>
