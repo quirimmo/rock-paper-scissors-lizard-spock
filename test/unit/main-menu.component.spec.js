@@ -1,15 +1,35 @@
-describe('trainInfoItem', function() {
+describe('MainMenuComponent', function() {
 
-    let $componentController, controller, $state;
+    let $componentController, controller, $state, gameService, $mdDialog, $q, $scope;
+
+    let mocked$alertCancel = function() {};
+    let mocked$alertOK = function() { return { cancel: mocked$alertCancel }; };
+    let mocked$targetEvent = function() { return { ok: mocked$alertOK }; };
+    let mocked$alertAriaLabel = function() { return { targetEvent: mocked$targetEvent }; };
+    let mocked$alertTextContent = function() { return { ariaLabel: mocked$alertAriaLabel }; };
+    let mocked$alertTitle = function() { return { textContent: mocked$alertTextContent }; };
+    let mocked$confirm = { title: mocked$alertTitle };
 
     beforeEach(module('myApp'));
     beforeEach(module('partials'));
 
-    beforeEach(module(function($provide) {}));
+    beforeEach(module(function($provide) {
+        $provide.value(gameService, {
+            restartGame: function() {}
+        });
+        $provide.value($mdDialog, {
+            show: function() {},
+            confirm: function() {}
+        });
+    }));
 
-    beforeEach(inject(function(_$componentController_, _$state_) {
+    beforeEach(inject(function(_$rootScope_, _$componentController_, _$state_, _gameService_, _$mdDialog_, _$q_) {
+        $scope = _$rootScope_.$new();
         $state = _$state_;
         $componentController = _$componentController_;
+        gameService = _gameService_;
+        $mdDialog = _$mdDialog_;
+        $q = _$q_;
     }));
 
     describe('init', function() {
@@ -30,6 +50,43 @@ describe('trainInfoItem', function() {
             expect(controller.isRockPaperScissorLizardSpockActive).toEqual(jasmine.any(Function));
             expect(controller.openMobileMenu).toEqual(jasmine.any(Function));
             expect(controller.navigateTo).toEqual(jasmine.any(Function));
+            expect(controller.restartGame).toEqual(jasmine.any(Function));
+        });
+
+    });
+
+    describe('restartGame', function() {
+
+        beforeEach(() => {
+            controller = $componentController('mainMenu', null, {
+                activeItem: 'Personal Profile'
+            });
+        });
+
+        it('should show the confirm dialog', () => {
+            spyOn($mdDialog, 'confirm').and.returnValue(mocked$confirm);
+            spyOn($mdDialog, 'show').and.callThrough();
+            controller.restartGame();
+            $scope.$apply();
+            expect($mdDialog.confirm).toHaveBeenCalled();
+            expect($mdDialog.show).toHaveBeenCalled();
+        });
+
+        it('should not call the gameService.restartGame method if you didn\'t confirm the dialog', () => {
+            spyOn($mdDialog, 'confirm').and.returnValue(mocked$confirm);
+            spyOn(gameService, 'restartGame').and.callThrough();
+            controller.restartGame();
+            $scope.$apply();
+            expect(gameService.restartGame).not.toHaveBeenCalled();
+        });
+
+        it('should call the gameService.restartGame method if you confirmed the dialog', () => {
+            spyOn($mdDialog, 'confirm').and.returnValue(mocked$confirm);
+            spyOn($mdDialog, 'show').and.returnValue($q.resolve());
+            spyOn(gameService, 'restartGame').and.callThrough();
+            controller.restartGame();
+            $scope.$apply();
+            expect(gameService.restartGame).toHaveBeenCalled();
         });
 
     });

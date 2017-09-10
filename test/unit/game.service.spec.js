@@ -31,7 +31,7 @@ describe('gameService', function() {
             expect(gameService).toBeDefined();
         });
 
-        it('should define the exposed getter methods', function() {
+        it('should define the exposed getter methods', () => {
             expect(gameService.getNumOfMatches).toEqual(jasmine.any(Function));
             expect(gameService.getNumOfVictories).toEqual(jasmine.any(Function));
             expect(gameService.getNumOfLoses).toEqual(jasmine.any(Function));
@@ -41,7 +41,7 @@ describe('gameService', function() {
             expect(gameService.getNumOfConsecutiveDraws).toEqual(jasmine.any(Function));
         });
 
-        it('should define the exposed increment methods', function() {
+        it('should define the exposed increment methods', () => {
             expect(gameService.incrementNumOfMatches).toEqual(jasmine.any(Function));
             expect(gameService.incrementNumOfVictories).toEqual(jasmine.any(Function));
             expect(gameService.incrementNumOfLoses).toEqual(jasmine.any(Function));
@@ -49,6 +49,34 @@ describe('gameService', function() {
             expect(gameService.incrementNumOfConsecutiveVictories).toEqual(jasmine.any(Function));
             expect(gameService.incrementNumOfConsecutiveLoses).toEqual(jasmine.any(Function));
             expect(gameService.incrementNumOfConsecutiveDraws).toEqual(jasmine.any(Function));
+        });
+
+        it('should define the exposed restartGame method', () => {
+            expect(gameService.restartGame).toEqual(jasmine.any(Function));
+        });
+
+    });
+
+    describe('restartGame', () => {
+
+        it('should reset all the stored values', () => {
+            expect($localStorage.numOfMatches).toEqual(1);
+            expect($localStorage.numOfVictories).toEqual(2);
+            expect($localStorage.numOfLoses).toEqual(3);
+            expect($localStorage.numOfDraws).toEqual(4);
+            expect($localStorage.numOfConsecutiveVictories).toEqual(5);
+            expect($localStorage.numOfConsecutiveLoses).toEqual(6);
+            expect($localStorage.numOfConsecutiveDraws).toEqual(7);
+
+            gameService.restartGame();
+
+            expect($localStorage.numOfMatches).toEqual(0);
+            expect($localStorage.numOfVictories).toEqual(0);
+            expect($localStorage.numOfLoses).toEqual(0);
+            expect($localStorage.numOfDraws).toEqual(0);
+            expect($localStorage.numOfConsecutiveVictories).toEqual(0);
+            expect($localStorage.numOfConsecutiveLoses).toEqual(0);
+            expect($localStorage.numOfConsecutiveDraws).toEqual(0);
         });
 
     });
