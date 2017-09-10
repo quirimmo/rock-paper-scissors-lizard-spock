@@ -1,8 +1,8 @@
 <section layout="column">
     <!-- normal layout -->
-    <md-bottom-sheet class="md-grid" hide-xs layout="column">
+    <md-bottom-sheet class="md-grid choices-menu" hide-xs layout="column">
         <div ng-cloak>
-            <md-list flex layout="row" layout-align="center center">
+            <md-list flex layout="row" layout-align="center center" class="choices-list">
                 <md-list-item flex ng-repeat="item in vm.availableChoices track by $index">
                     <section>
                         <md-button id="choice-item-{{item.id}}" class="md-grid-item-content choice-item" ng-click="vm.chooseAction(item, $event)">
@@ -15,38 +15,14 @@
         </div>
     </md-bottom-sheet>
     <!-- mobile layout -->
-    <md-bottom-sheet class="md-list" hide show-xs layout="row" layout-wrap>
-        <md-list flex layout="row" layout-align="center center">
-            <md-list-item ng-repeat="item in vm.availableChoices track by $index" layout="column" layout-align="center center">
-                <section>
-                    <md-button id="choice-item-{{item.id}}" class="md-list-item-content choice-item" ng-click="vm.chooseAction(item, $event)">
-                        <img flex class="game-choices-icons choice-item-icons" ng-src="assets/images/{{item.id}}.png"></md-icon>
-                        <div flex> {{ item.label | uppercase}} </div>
-                    </md-button>
-                </section>
-            </md-list-item>
-            <md-list-item ng-repeat="item in vm.availableChoices track by $index" layout="column" layout-align="center center">
-                <section>
-                    <md-button id="choice-item-{{item.id}}" class="md-list-item-content choice-item" ng-click="vm.chooseAction(item, $event)">
-                        <img flex class="game-choices-icons choice-item-icons" ng-src="assets/images/{{item.id}}.png"></md-icon>
-                        <div flex> {{ item.label | uppercase}} </div>
-                    </md-button>
-                </section>
+    <md-bottom-sheet class="md-list choices-menu" hide show-xs>
+        <md-list ng-cloak class="choices-list">
+            <md-list-item ng-repeat="item in vm.availableChoices track by $index" layout="column" layout-align="center center" layout-wrap>
+                <md-button layout="row" layout-align="center center" layout-wrap id="choice-item-{{item.id}}" class="md-list-item-content choice-item choice-item-mobile" ng-click="vm.chooseAction(item, $event)">
+                    <img flex="20" class="game-choices-icons game-choices-icons-mobile choice-item-icons" ng-src="assets/images/{{item.id}}.png"></img>
+                    <span flex="80" layout-align="start center" class="md-inline-list-icon-label label-choices-mobile">{{ item.label | uppercase}}</span>
+                </md-button>
             </md-list-item>
         </md-list>
     </md-bottom-sheet>
-    <!-- <md-bottom-sheet class="md-list" hide show-xs layout="column">
-        <div ng-cloak>
-            <md-list flex layout="column" layout-align="center center">
-                <md-list-item flex ng-repeat="item in vm.availableChoices track by $index">
-                    <section layout="column">
-                        <md-button id="choice-item-{{item.id}}" class="md-list-item-content choice-item" ng-click="vm.chooseAction(item, $event)">
-                            <img flex class="game-choices-icons choice-item-icons" ng-src="assets/images/{{item.id}}.png"></md-icon>
-                            <div flex> {{ item.label | uppercase}} </div>
-                        </md-button>
-                    </section>
-                </md-list-item>
-            </md-list>
-        </div>
-    </md-bottom-sheet> -->
 </section>

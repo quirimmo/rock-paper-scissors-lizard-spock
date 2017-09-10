@@ -42,8 +42,13 @@ body {
   height: 100%;
   width: 100%;
 }
+md-bottom-sheet.md-grid {
+  padding: 5px 12px;
+}
 md-bottom-sheet.md-grid md-list-item {
   height: auto;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 .game-choices-icons {
   width: 64px;
@@ -53,4 +58,24 @@ md-bottom-sheet.md-grid md-list-item {
   background: white;
   border-radius: 50%;
   padding: 5px;
+}
+.choices-menu {
+  padding-bottom: 0px;
+}
+.game-choices-icons-mobile {
+  height: 32px;
+  width: 32px;
+}
+.choice-item {
+  margin-bottom: 0px;
+}
+.choice-item-mobile {
+  width: 200px;
+}
+.choices-list {
+  padding: 0;
+}
+.label-choices-mobile {
+  text-align: left;
+  padding-left: 10px;
 }
