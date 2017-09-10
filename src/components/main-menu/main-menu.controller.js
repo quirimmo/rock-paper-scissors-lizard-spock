@@ -10,8 +10,6 @@
 
         var vm = this;
 
-        vm.disableInkBar;
-
         vm.isPersonalProfileActive = isPersonalProfileActive;
         vm.isRockPaperScissorActive = isRockPaperScissorActive;
         vm.isRockPaperScissorLizardSpockActive = isRockPaperScissorLizardSpockActive;
