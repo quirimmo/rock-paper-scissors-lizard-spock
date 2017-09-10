@@ -57,19 +57,20 @@
         }
 
         function incrementNumOfMatches() {
-            $localStorage.numOfMatches++;
+            console.log($localStorage.numOfMatches);
+            $localStorage.numOfMatches = $localStorage.numOfMatches ? $localStorage.numOfMatches + 1 : 1;
         }
 
         function incrementNumOfVictories() {
-            $localStorage.numOfVictories++;
+            $localStorage.numOfVictories = $localStorage.numOfVictories ? $localStorage.numOfVictories + 1 : 1;
         }
 
         function incrementNumOfLoses() {
-            $localStorage.numOfLoses++;
+            $localStorage.numOfLoses = $localStorage.numOfLoses ? $localStorage.numOfLoses + 1 : 1;
         }
 
         function incrementNumOfDraws() {
-            $localStorage.numOfDraws++;
+            $localStorage.numOfDraws = $localStorage.numOfDraws ? $localStorage.numOfDraws + 1 : 1;
         }
 
         function incrementNumOfConsecutiveVictories() {
