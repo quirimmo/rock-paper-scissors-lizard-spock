@@ -20,7 +20,7 @@ exports.config = {
         defaultTimeoutInterval: 5000
     },
     capabilities: {
-        'browserName': 'chrome'
+        browserName: 'chrome'
     },
     baseUrl: 'http://localhost:3000',
     seleniumServerJar: `./node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-${seleniumVersion}.jar`,

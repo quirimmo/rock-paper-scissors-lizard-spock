@@ -14,7 +14,7 @@
         this.getWinText = getWinText;
         this.getLoseText = getLoseText;
         this.getComputerRandomChoice = getComputerRandomChoice;
-        
+
 
         const DRAW_TEXT = 'draw';
         const DRAW_RESULT_OBJECT = {
@@ -37,15 +37,21 @@
             return GAME_CONSTANTS.actions.filter(isRockPaperScissorsLizardSpockChuck);
         }
 
-        function calculateResult(item1, item2) {
+        function calculateResult(item1, item2, isGameSimulation = false) {
             if (!areInputsCorrect(item1, item2)) {
                 return DRAW_RESULT_OBJECT;
             }
-            // if items are correct, increment the number of matches
-            gameService.incrementNumOfMatches();
+            // if is not game simulation
+            if (!isGameSimulation) {
+                // if items are correct, increment the number of matches
+                gameService.incrementNumOfMatches();
+            }
             // if item1 won
             if (hasWon(item1, item2)) {
-                gameService.incrementNumOfVictories();
+                // if is not game simulation
+                if (!isGameSimulation) {
+                    gameService.incrementNumOfVictories();
+                }
                 return {
                     result: 1,
                     text: this.getWinText(item1, item2)
@@ -53,14 +59,19 @@
             }
             // else if item1 lost
             else if (hasLost(item1, item2)) {
-                gameService.incrementNumOfLoses();
+                // if is not game simulation
+                if (!isGameSimulation) {
+                    gameService.incrementNumOfLoses();
+                }
                 return {
                     result: -1,
                     text: this.getLoseText(item1, item2)
                 };
-            }
-            else {
-                gameService.incrementNumOfDraws();
+            } else {
+                // if is not game simulation
+                if (!isGameSimulation) {
+                    gameService.incrementNumOfDraws();
+                }
                 return DRAW_RESULT_OBJECT;
             }
         }
@@ -96,7 +107,7 @@
             // avoiding to cycle for all the array
             thresholdsList.some((element, index) => {
                 if (randomValue < element) {
-                    computerChoice = gameActions[index]; 
+                    computerChoice = gameActions[index];
                     return true;
                 }
                 return false;
