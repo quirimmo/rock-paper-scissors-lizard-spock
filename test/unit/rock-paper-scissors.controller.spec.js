@@ -1,6 +1,6 @@
 describe('RockPaperScissorsController', function() {
 
-    let controller, gameEngineService, $scope, $mdBottomSheet, $mdDialog, $q;
+    let controller, gameEngineService, $scope, $mdBottomSheet, $mdDialog;
 
     beforeEach(function() {
         module('myApp');
@@ -33,10 +33,9 @@ describe('RockPaperScissorsController', function() {
             });
         });
 
-        inject(function(_$rootScope_, _$controller_, _gameEngineService_, _$mdBottomSheet_, _$mdDialog_, _$q_) {
+        inject(function(_$rootScope_, _$controller_, _gameEngineService_, _$mdBottomSheet_, _$mdDialog_) {
             $scope = _$rootScope_.$new();
             gameEngineService = _gameEngineService_;
-            $q = _$q_;
             $mdBottomSheet = _$mdBottomSheet_;
             $mdDialog = _$mdDialog_;
             controller = _$controller_('RockPaperScissorsController', { $scope: $scope });

@@ -1,4 +1,4 @@
-describe('gameEngineService', function() {
+fdescribe('gameEngineService', function() {
 
     let gameEngineService, gameService, GAME_CONSTANTS;
 
@@ -18,10 +18,7 @@ describe('gameEngineService', function() {
                 incrementNumOfMatches: function() {},
                 incrementNumOfVictories: function() {},
                 incrementNumOfLoses: function() {},
-                incrementNumOfDraws: function() {},
-                incrementNumOfConsecutiveVictories: function() {},
-                incrementNumOfConsecutiveLoses: function() {},
-                incrementNumOfConsecutiveDraws: function() {}
+                incrementNumOfDraws: function() {}
             });
         });
 
@@ -184,8 +181,11 @@ describe('gameEngineService', function() {
 
     describe('calculateResult', function() {
 
-        it('should return an object', function() {
-            expect(gameEngineService.calculateResult({}, {})).toEqual(jasmine.any(Object));
+        beforeEach(() => {
+            spyOn(gameService, 'incrementNumOfMatches').and.callThrough();
+            spyOn(gameService, 'incrementNumOfVictories').and.callThrough();
+            spyOn(gameService, 'incrementNumOfLoses').and.callThrough();
+            spyOn(gameService, 'incrementNumOfDraws').and.callThrough();
         });
 
         it('should return an object with two properties defined', function() {
@@ -196,6 +196,30 @@ describe('gameEngineService', function() {
 
         it('should return a draw if values are not the right ones', function() {
             expect(gameEngineService.calculateResult({}, {})).toEqual(DRAW_RESULT_OBJECT);
+        });
+
+        describe('increment values', () => {
+
+            it('should call the gameService.incrementNumOfMatches', function() {
+                gameEngineService.calculateResult({}, {});
+                expect(gameService.incrementNumOfMatches).toHaveBeenCalled();
+            });
+    
+            it('should call the gameService.incrementNumOfVictories', function() {
+                gameEngineService.calculateResult({}, {});
+                expect(gameService.incrementNumOfVictories).toHaveBeenCalled();
+            });
+    
+            it('should call the gameService.incrementNumOfLoses', function() {
+                gameEngineService.calculateResult({}, {});
+                expect(gameService.incrementNumOfLoses).toHaveBeenCalled();
+            });
+    
+            it('should call the gameService.incrementNumOfDraws', function() {
+                gameEngineService.calculateResult({}, {});
+                expect(gameService.incrementNumOfDraws).toHaveBeenCalled();
+            });
+
         });
 
         describe('rock', () => {
