@@ -1,4 +1,4 @@
-fdescribe('gameService', function() {
+describe('gameService', function() {
 
     let gameService, $localStorage;
 
@@ -25,7 +25,7 @@ fdescribe('gameService', function() {
     });
 
 
-    fdescribe('init', function() {
+    describe('init', function() {
 
         it('should be defined', function() {
             expect(gameService).toBeDefined();
@@ -57,26 +57,26 @@ fdescribe('gameService', function() {
 
     });
 
-    fdescribe('restartGame', () => {
+    describe('restartGame', () => {
 
         it('should reset all the stored values', () => {
-            expect(gameService.numOfMatches).toEqual(1);
-            expect(gameService.numOfVictories).toEqual(2);
-            expect(gameService.numOfLoses).toEqual(3);
-            expect(gameService.numOfDraws).toEqual(4);
-            expect(gameService.numOfConsecutiveVictories).toEqual(5);
-            expect(gameService.numOfConsecutiveLoses).toEqual(6);
-            expect(gameService.numOfConsecutiveDraws).toEqual(7);
+            expect($localStorage.numOfMatches).toEqual(1);
+            expect($localStorage.numOfVictories).toEqual(2);
+            expect($localStorage.numOfLoses).toEqual(3);
+            expect($localStorage.numOfDraws).toEqual(4);
+            expect($localStorage.numOfConsecutiveVictories).toEqual(5);
+            expect($localStorage.numOfConsecutiveLoses).toEqual(6);
+            expect($localStorage.numOfConsecutiveDraws).toEqual(7);
 
             gameService.restartGame();
 
-            expect(gameService.numOfMatches).toEqual(0);
-            expect(gameService.numOfVictories).toEqual(0);
-            expect(gameService.numOfLoses).toEqual(0);
-            expect(gameService.numOfDraws).toEqual(0);
-            expect(gameService.numOfConsecutiveVictories).toEqual(0);
-            expect(gameService.numOfConsecutiveLoses).toEqual(0);
-            expect(gameService.numOfConsecutiveDraws).toEqual(0);
+            expect($localStorage.numOfMatches).toEqual(0);
+            expect($localStorage.numOfVictories).toEqual(0);
+            expect($localStorage.numOfLoses).toEqual(0);
+            expect($localStorage.numOfDraws).toEqual(0);
+            expect($localStorage.numOfConsecutiveVictories).toEqual(0);
+            expect($localStorage.numOfConsecutiveLoses).toEqual(0);
+            expect($localStorage.numOfConsecutiveDraws).toEqual(0);
         });
 
     });

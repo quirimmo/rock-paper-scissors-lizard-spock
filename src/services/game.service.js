@@ -23,6 +23,7 @@
         this.incrementNumOfConsecutiveVictories = incrementNumOfConsecutiveVictories;
         this.incrementNumOfConsecutiveLoses = incrementNumOfConsecutiveLoses;
         this.incrementNumOfConsecutiveDraws = incrementNumOfConsecutiveDraws;
+        this.restartGame = restartGame;
 
         let currentConsecutiveVictories = 0;
         let currentConsecutiveLoses = 0;
@@ -97,6 +98,19 @@
 
         function incrementNumOfConsecutiveDraws() {
             $localStorage.numOfConsecutiveDraws = currentConsecutiveDraws > this.getNumOfConsecutiveDraws() ? currentConsecutiveDraws : $localStorage.numOfConsecutiveDraws;
+        }
+
+        function restartGame() {
+            $localStorage.numOfMatches = 0;
+            $localStorage.numOfVictories = 0;
+            $localStorage.numOfLoses = 0;
+            $localStorage.numOfDraws = 0;
+            $localStorage.numOfConsecutiveVictories = 0;
+            $localStorage.numOfConsecutiveLoses = 0;
+            $localStorage.numOfConsecutiveDraws = 0;
+            currentConsecutiveVictories = 0;
+            currentConsecutiveLoses = 0;
+            currentConsecutiveDraws = 0;
         }
 
     }
