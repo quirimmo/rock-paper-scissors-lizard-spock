@@ -11,19 +11,19 @@
                 </header>
 
                 <section ng-show="vm.isGameStartedDisplayed" flex="80" layout="column" layout-align="center center">
-                    <md-button class="md-primary md-raised" ng-click="vm.startGame()">Start Game</md-button>
+                    <md-button id="start-game" class="md-primary md-raised" ng-click="vm.startGame()">Start Game</md-button>
                 </section>
 
                 <section ng-hide="vm.isGameStartedDisplayed" flex="100" layout="column" layout-align="start center">
                     <section ng-show="vm.isComputerChosenIconDisplayed" flex="20" layout="column" layout-align="end center">
-                        <img ng-hide="vm.computerChosenAction" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/not-chosen-yet.png"></md-icon>
-                        <img ng-show="vm.computerChosenAction" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.computerChosenAction.id}}.png"></md-icon>
+                        <img id="computer-not-chosen-icon" ng-hide="vm.computerChosenAction" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/not-chosen-yet.png"></md-icon>
+                        <img id="computer-chosen-icon" ng-show="vm.computerChosenAction" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.computerChosenAction.id}}.png"></md-icon>
                     </section>
                     <section ng-show="vm.isMakeYourChoiceDisplayed" flex="80" layout="column" layout-align="end center">
-                        <md-button class="md-primary md-raised" ng-click="vm.makeChoice()">Make your choice</md-button>
+                        <md-button id="make-choices" class="md-primary md-raised" ng-click="vm.makeChoice()">Make your choice</md-button>
                     </section>
                     <section ng-show="vm.chosenAction" flex="80" layout="column" layout-align="end center">
-                        <img class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.chosenAction.id}}.png"></md-icon>
+                        <img id="chosen-icon" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.chosenAction.id}}.png"></md-icon>
                     </section>
                 </section>
 
