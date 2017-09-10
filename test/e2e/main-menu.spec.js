@@ -1,4 +1,4 @@
-describe('Main Menu', () => {
+fdescribe('Main Menu', () => {
 
     let mainMenu = element(by.id('main-menu'));
     let mainMenuItems = element.all(by.className('main-menu-items'));
@@ -13,13 +13,20 @@ describe('Main Menu', () => {
         it('should be displayed', () => {
             mainMenu.isDisplayed().should.become(true);
         });
-    
-        it('should show the 3 menu items', () => {
-            mainMenuItems.isDisplayed().should.become([true, true, true]);
+
+        it('should show the 4 menu items', () => {
+            mainMenuItems.isDisplayed().should.become([true, true, true, true]);
         });
 
-        it('should show the 3 menu labels', () => {
-            mainMenuItems.getText().should.become(['PERSONAL PROFILE', 'ROCK PAPER SCISSORS', 'ROCK PAPER SCISSORS LIZARD SPOCK']);
+        it('should show the 4 menu labels', () => {
+            mainMenuItems.getText().should.become(['PERSONAL PROFILE', 'ROCK PAPER SCISSORS', 'ROCK PAPER SCISSORS LIZARD SPOCK', 'ROCK PAPER SCISSORS LIZARD SPOCK CHUCK']);
+        });
+
+        it('should navigate to the Personal Profile page', (done) => {
+            mainMenuItems.get(0).click().then(() => {
+                browser.getCurrentUrl().should.become('http://localhost:3000/#!/');
+                done();
+            });
         });
 
         it('should navigate to the Rock Paper Scissors page', (done) => {
@@ -36,9 +43,9 @@ describe('Main Menu', () => {
             });
         });
 
-        it('should navigate to the Personal Profile page', (done) => {
-            mainMenuItems.get(0).click().then(() => {
-                browser.getCurrentUrl().should.become('http://localhost:3000/#!/');
+        it('should navigate to the Rock Paper Scissors Lizard Spock Chuck page', (done) => {
+            mainMenuItems.get(3).click().then(() => {
+                browser.getCurrentUrl().should.become('http://localhost:3000/#!/rock-paper-scissors-lizard-spock-chuck');
                 done();
             });
         });
@@ -93,5 +100,20 @@ describe('Main Menu', () => {
 
     });
 
+    describe('RockPaperScissorsLizardSpockChuck Page', () => {
+
+        beforeAll(() => {
+            browser.get('#!/rock-paper-scissors-lizard-spock-chuck');
+        });
+
+        it('should be displayed', () => {
+            mainMenu.isDisplayed().should.become(true);
+        });
+
+        it('should active the item corresponding to the personal profile page', () => {
+            mainMenuItems.getAttribute('aria-selected').should.become(['false', 'false', 'false', 'true']);
+        });
+
+    });
 
 });
