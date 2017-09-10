@@ -1,4 +1,4 @@
-describe('MainMenuComponent', function() {
+fdescribe('MainMenuComponent', function() {
 
     let $componentController, controller, $state, gameService, $mdDialog, $q, $scope;
 
@@ -188,6 +188,46 @@ describe('MainMenuComponent', function() {
         describe('isRockPaperScissorLizardSpockActive', () => {
             it('should be true', function() {
                 expect(controller.isRockPaperScissorLizardSpockActive()).toEqual(true);
+            });
+        });
+
+    });
+
+    describe('Rock Paper Scissors Lizard Spock Chuck', function() {
+
+        beforeEach(() => {
+            controller = $componentController('mainMenu', null, {
+                activeItem: 'Rock Paper Scissors Lizard Spock Chuck'
+            });
+        });
+
+        describe('activeItem', () => {
+            it('should be equal to Rock Paper Scissors Lizard Spock Chuck', function() {
+                expect(controller.activeItem).toEqual('Rock Paper Scissors Lizard Spock Chuck');
+            });
+        });
+
+        describe('isPersonalProfileActive', () => {
+            it('should be false', function() {
+                expect(controller.isPersonalProfileActive()).toEqual(false);
+            });
+        });
+
+        describe('isRockPaperScissorActive', () => {
+            it('should be false', function() {
+                expect(controller.isRockPaperScissorActive()).toEqual(false);
+            });
+        });
+
+        describe('isRockPaperScissorLizardSpockActive', () => {
+            it('should be false', function() {
+                expect(controller.isRockPaperScissorLizardSpockActive()).toEqual(false);
+            });
+        });
+
+        describe('isRockPaperScissorLizardSpockChuckActive', () => {
+            it('should be true', function() {
+                expect(controller.isRockPaperScissorLizardSpockChuckActive()).toEqual(true);
             });
         });
 
