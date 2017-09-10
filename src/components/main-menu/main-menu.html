@@ -4,7 +4,7 @@
     <md-content class="md-padding" hide-sm hide-xs>
         <md-nav-bar md-selected-nav-item="vm.selectedItem" nav-bar-aria-label="main menu navigation links">
             <md-nav-item md-nav-sref="home" name="personal-profile" class="main-menu-items md-caption">
-                Personal Profile
+                My Profile
             </md-nav-item>
             <md-nav-item md-nav-sref="rock-paper-scissors" name="rock-paper-scissors" class="main-menu-items">
                 Rock Paper Scissors
@@ -13,10 +13,10 @@
                 Rock Paper Scissors Lizard Spock
             </md-nav-item>
             <md-nav-item md-nav-sref="rock-paper-scissors-lizard-spock-chuck" name="rock-paper-scissors-lizard-spock-chuck" class="main-menu-items">
-                Rock Paper Scissors Lizard Spock Chuck
+                Chuck Norris
             </md-nav-item>
             <md-button id="restart-game" ng-click="vm.restartGame($event)">
-                Restart Game
+                Restart
             </md-button>
         </md-nav-bar>
     </md-content>
@@ -30,7 +30,7 @@
             <md-menu-content width="4">
                 <md-menu-item ng-if="vm.isPersonalProfileActive() === false">
                     <md-button ng-click="vm.navigateTo('home')">
-                        Personal Profile
+                        My Profile
                     </md-button>
                 </md-menu-item>
                 <md-menu-divider ng-if="vm.isPersonalProfileActive() === false"></md-menu-divider>
@@ -48,7 +48,7 @@
                 <md-menu-divider ng-if="vm.isRockPaperScissorLizardSpockActive() === false"></md-menu-divider>
                 <md-menu-item ng-if="vm.isRockPaperScissorLizardSpockChuckActive() === false">
                     <md-button ng-click="vm.navigateTo('rock-paper-scissors-lizard-spock-chuck')">
-                        Rock Paper Scissors Lizard Spock Chuck
+                        Chuck Norris
                     </md-button>
                 </md-menu-item>
                 <md-menu-divider ng-if="vm.isRockPaperScissorLizardSpockChuckActive() === false"></md-menu-divider>
