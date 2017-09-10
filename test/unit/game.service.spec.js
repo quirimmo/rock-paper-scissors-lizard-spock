@@ -53,8 +53,8 @@ describe('gameService', function() {
 
     });
 
-    describe('increment methods', () => {
-        
+    describe('increment matches, wins, loses and draws methods', () => {
+
         describe('incrementNumOfMatches', function() {
             it('should increment the value in the service and the storage', function() {
                 let beforeLocalStorageValue = $localStorage.numOfMatches;
@@ -91,30 +91,74 @@ describe('gameService', function() {
             });
         });
 
+    });
+
+    describe('increment consecutive wins, loses and draws methods', () => {
+
         describe('incrementNumOfConsecutiveVictories', function() {
-            it('should increment the value in the service and the storage', function() {
+            it('should increment the value if the number of current consecutive victories is greater than the one in the local storage', function() {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveVictories;
                 expect(gameService.getNumOfConsecutiveVictories()).toEqual(beforeLocalStorageValue);
+                for (let i = 0; i < beforeLocalStorageValue + 1; i++) {
+                    gameService.incrementNumOfVictories();
+                }
                 gameService.incrementNumOfConsecutiveVictories();
                 expect(gameService.getNumOfConsecutiveVictories()).toEqual(beforeLocalStorageValue + 1);
             });
+
+            it('should not increment the value if the number of current consecutive victories is lower than the one in the local storage', function() {
+                let beforeLocalStorageValue = $localStorage.numOfConsecutiveVictories;
+                expect(gameService.getNumOfConsecutiveVictories()).toEqual(beforeLocalStorageValue);
+                for (let i = 0; i < beforeLocalStorageValue - 1; i++) {
+                    gameService.incrementNumOfVictories();
+                }
+                gameService.incrementNumOfConsecutiveVictories();
+                expect(gameService.getNumOfConsecutiveVictories()).toEqual(beforeLocalStorageValue);
+            });
+
         });
 
         describe('incrementNumOfConsecutiveLoses', function() {
-            it('should increment the value in the service and the storage', function() {
+            it('should increment the value if the number of current consecutive loses is greater than the one in the local storage', function() {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveLoses;
                 expect(gameService.getNumOfConsecutiveLoses()).toEqual(beforeLocalStorageValue);
+                for (let i = 0; i < beforeLocalStorageValue + 1; i++) {
+                    gameService.incrementNumOfLoses();
+                }
                 gameService.incrementNumOfConsecutiveLoses();
                 expect(gameService.getNumOfConsecutiveLoses()).toEqual(beforeLocalStorageValue + 1);
+            });
+
+            it('should not increment the value if the number of current consecutive loses is lower than the one in the local storage', function() {
+                let beforeLocalStorageValue = $localStorage.numOfConsecutiveLoses;
+                expect(gameService.getNumOfConsecutiveLoses()).toEqual(beforeLocalStorageValue);
+                for (let i = 0; i < beforeLocalStorageValue - 1; i++) {
+                    gameService.incrementNumOfLoses();
+                }
+                gameService.incrementNumOfConsecutiveLoses();
+                expect(gameService.getNumOfConsecutiveLoses()).toEqual(beforeLocalStorageValue);
             });
         });
 
         describe('incrementNumOfConsecutiveDraws', function() {
-            it('should increment the value in the service and the storage', function() {
+            it('should increment the value if the number of current consecutive draws is greater than the one in the local storage', function() {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveDraws;
                 expect(gameService.getNumOfConsecutiveDraws()).toEqual(beforeLocalStorageValue);
+                for (let i = 0; i < beforeLocalStorageValue + 1; i++) {
+                    gameService.incrementNumOfDraws();
+                }
                 gameService.incrementNumOfConsecutiveDraws();
                 expect(gameService.getNumOfConsecutiveDraws()).toEqual(beforeLocalStorageValue + 1);
+            });
+
+            it('should not increment the value if the number of current consecutive draws is lower than the one in the local storage', function() {
+                let beforeLocalStorageValue = $localStorage.numOfConsecutiveDraws;
+                expect(gameService.getNumOfConsecutiveDraws()).toEqual(beforeLocalStorageValue);
+                for (let i = 0; i < beforeLocalStorageValue - 1; i++) {
+                    gameService.incrementNumOfDraws();
+                }
+                gameService.incrementNumOfConsecutiveDraws();
+                expect(gameService.getNumOfConsecutiveDraws()).toEqual(beforeLocalStorageValue);
             });
         });
 
@@ -163,5 +207,5 @@ describe('gameService', function() {
             });
         });
     });
-    
+
 });

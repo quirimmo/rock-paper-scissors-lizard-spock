@@ -3,7 +3,7 @@
 
     angular.module('myApp').service('gameEngineService', gameEngineService);
 
-    function gameEngineService(GAME_CONSTANTS) {
+    function gameEngineService(GAME_CONSTANTS, gameService) {
 
         // list of the exposed methods
         // ============================================================
@@ -13,6 +13,8 @@
         this.calculateResult = calculateResult;
         this.getWinText = getWinText;
         this.getLoseText = getLoseText;
+        this.getComputerRandomChoice = getComputerRandomChoice;
+        
 
         const DRAW_TEXT = 'draw';
         const DRAW_RESULT_OBJECT = {
@@ -39,8 +41,11 @@
             if (!areInputsCorrect(item1, item2)) {
                 return DRAW_RESULT_OBJECT;
             }
+            // if items are correct, increment the number of matches
+            gameService.incrementNumOfMatches();
             // if item1 won
             if (hasWon(item1, item2)) {
+                gameService.incrementNumOfVictories();
                 return {
                     result: 1,
                     text: this.getWinText(item1, item2)
@@ -48,12 +53,14 @@
             }
             // else if item1 lost
             else if (hasLost(item1, item2)) {
+                gameService.incrementNumOfLoses();
                 return {
                     result: -1,
                     text: this.getLoseText(item1, item2)
                 };
             }
             else {
+                gameService.incrementNumOfDraws();
                 return DRAW_RESULT_OBJECT;
             }
         }
@@ -78,8 +85,37 @@
             return `${item1Label} has been ${losesAgainstRef.term} by ${item2Label}`;
         }
 
+        function getComputerRandomChoice(gameActions) {
+            if (angular.isUndefined(gameActions) || angular.isUndefined(gameActions.length)) {
+                return undefined;
+            }
+            let randomValue = +Math.random().toFixed(2);
+            let thresholdsList = getThresholds(gameActions);
+            let computerChoice = undefined;
+            // using some so it will stop when the first condition will be true, 
+            // avoiding to cycle for all the array
+            thresholdsList.some((element, index) => {
+                if (randomValue < element) {
+                    computerChoice = gameActions[index]; 
+                    return true;
+                }
+                return false;
+            });
+            return computerChoice;
+        }
+
         // private methods
         // ============================================================
+
+        function getThresholds(gameActions) {
+            let list = [];
+            let unit = 1 / gameActions.length;
+            unit = +unit.toFixed(2);
+            gameActions.forEach((element, index) => {
+                list.push(unit * (index + 1));
+            });
+            return list;
+        }
 
         function areInputsCorrect(item1, item2) {
             // if given items are not objects, return empty string

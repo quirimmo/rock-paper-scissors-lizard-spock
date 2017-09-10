@@ -6,6 +6,9 @@
 @basicContainersOpacity: 0.95;
 @customBoxShadowValues: 2px 2px 2px rgba(0, 0, 0, 0.6);
 @customTextShadowValues: 1px 1px 2px rgba(0, 0, 0, 0.8);
+@winScoresColor: green;
+@drawScoresColor: orange;
+@loseScoresColor: red;
 
 // functions
 .customBoxShadow() {
@@ -22,6 +25,10 @@
 
 // rules
 // ====================================================
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
 
 body {
     background: @mainBackgroundColor;
@@ -46,13 +53,69 @@ body {
 }
 
 .win-scores {
-    color: green;
+    color: @winScoresColor;
 }
 
 .lose-scores {
-    color: red;
+    color: @loseScoresColor;
 }
 
 .draw-scores {
-    color: orange;
+    color: @drawScoresColor;
+}
+
+.fill-all-height {
+    height: 100%;
+}
+
+.fill-all {
+    height: 100%;
+    width: 100%;
+}
+
+md-bottom-sheet.md-grid {
+    padding: 5px 12px;
+}
+
+md-bottom-sheet.md-grid md-list-item {
+    height: auto;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.game-choices-icons {
+    width: 64px;
+    height: 64px;
+}
+
+.icon-not-chosen-yet {
+    background: white;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.choices-menu {
+    padding-bottom: 0px;
+}
+
+.game-choices-icons-mobile {
+    height: 32px;
+    width: 32px;
+}
+
+.choice-item {
+    margin-bottom: 0px;
+}
+
+.choice-item-mobile {
+    width: 200px;
+}
+
+.choices-list {
+    padding: 0;
+}
+
+.label-choices-mobile {
+    text-align: left;
+    padding-left: 10px;
 }

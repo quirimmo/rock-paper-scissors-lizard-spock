@@ -27,9 +27,9 @@
             data: {
                 title: 'Rock Paper Scissors'
             },
-            templateUrl: 'src/templates/rock-paper-scissors.html'
-            // controller: 'HomeController',
-            // controllerAs: 'vm'
+            templateUrl: 'src/templates/rock-paper-scissors.html',
+            controller: 'RockPaperScissorsController',
+            controllerAs: 'vm'
 		};
 		let rockPaperScissorsLizardSpockState = {
             name: 'rock-paper-scissors-lizard-spock',

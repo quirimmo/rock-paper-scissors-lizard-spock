@@ -8,13 +8,27 @@ describe('MainController', function() {
 
         module(function($provide) {
             $provide.value('gameService', {
-                getNumOfMatches: function() {},
-                getNumOfVictories: function() {},
-                getNumOfLoses: function() {},
-                getNumOfDraws: function() {},
-                getNumOfConsecutiveVictories: function() {},
-                getNumOfConsecutiveLoses: function() {},
-                getNumOfConsecutiveDraws: function() {}
+                getNumOfMatches: function() {
+                    return 0;
+                },
+                getNumOfVictories: function() {
+                    return 0;
+                },
+                getNumOfLoses: function() {
+                    return 0;
+                },
+                getNumOfDraws: function() {
+                    return 0;
+                },
+                getNumOfConsecutiveVictories: function() {
+                    return 0;
+                },
+                getNumOfConsecutiveLoses: function() {
+                    return 0;
+                },
+                getNumOfConsecutiveDraws: function() {
+                    return 0;
+                }
             });
         });
 
@@ -22,7 +36,6 @@ describe('MainController', function() {
             $scope = _$rootScope_.$new();
             gameService = _gameService_;
             controller = _$controller_('PersonalProfileController', { $scope: $scope });
-            $scope.$apply();
         });
     });
 
@@ -30,13 +43,13 @@ describe('MainController', function() {
 
         it('should define the exposed variables', () => {
             controller.$onInit();
-            expect(controller.numOfMatches).toBeDefined();
-            expect(controller.numOfVictories).toBeDefined();
-            expect(controller.numOfLoses).toBeDefined();
-            expect(controller.numOfDraws).toBeDefined();
-            expect(controller.numOfConsecutiveVictories).toBeDefined();
-            expect(controller.numOfConsecutiveLoses).toBeDefined();
-            expect(controller.numOfConsecutiveDraws).toBeDefined();
+            expect(controller.numOfMatches).toEqual(0);
+            expect(controller.numOfVictories).toEqual(0);
+            expect(controller.numOfLoses).toEqual(0);
+            expect(controller.numOfDraws).toEqual(0);
+            expect(controller.numOfConsecutiveVictories).toEqual(0);
+            expect(controller.numOfConsecutiveLoses).toEqual(0);
+            expect(controller.numOfConsecutiveDraws).toEqual(0);
         });
 
         it('should call the methods in order to retrieve the stored values in the local storage', () => {
