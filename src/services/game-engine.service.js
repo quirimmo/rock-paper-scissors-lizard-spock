@@ -3,7 +3,7 @@
 
     angular.module('myApp').service('gameEngineService', gameEngineService);
 
-    function gameEngineService(GAME_CONSTANTS) {
+    function gameEngineService(GAME_CONSTANTS, gameService) {
 
         // list of the exposed methods
         // ============================================================
@@ -41,8 +41,11 @@
             if (!areInputsCorrect(item1, item2)) {
                 return DRAW_RESULT_OBJECT;
             }
+            // if items are correct, increment the number of matches
+            gameService.incrementNumOfMatches();
             // if item1 won
             if (hasWon(item1, item2)) {
+                gameService.incrementNumOfVictories();
                 return {
                     result: 1,
                     text: this.getWinText(item1, item2)
@@ -50,12 +53,14 @@
             }
             // else if item1 lost
             else if (hasLost(item1, item2)) {
+                gameService.incrementNumOfLoses();
                 return {
                     result: -1,
                     text: this.getLoseText(item1, item2)
                 };
             }
             else {
+                gameService.incrementNumOfDraws();
                 return DRAW_RESULT_OBJECT;
             }
         }

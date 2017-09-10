@@ -1,4 +1,4 @@
-fdescribe('gameEngineService', function() {
+describe('gameEngineService', function() {
 
     let gameEngineService, gameService, GAME_CONSTANTS;
 
@@ -200,23 +200,31 @@ fdescribe('gameEngineService', function() {
 
         describe('increment values', () => {
 
-            it('should call the gameService.incrementNumOfMatches', function() {
+            it('should not call the increment values if inputs are not correct', function() {
                 gameEngineService.calculateResult({}, {});
+                expect(gameService.incrementNumOfMatches).not.toHaveBeenCalled();
+                expect(gameService.incrementNumOfVictories).not.toHaveBeenCalled();
+                expect(gameService.incrementNumOfLoses).not.toHaveBeenCalled();
+                expect(gameService.incrementNumOfDraws).not.toHaveBeenCalled();
+            });
+
+            it('should call the gameService.incrementNumOfMatches', function() {
+                gameEngineService.calculateResult(rock, scissors);
                 expect(gameService.incrementNumOfMatches).toHaveBeenCalled();
             });
     
             it('should call the gameService.incrementNumOfVictories', function() {
-                gameEngineService.calculateResult({}, {});
+                gameEngineService.calculateResult(rock, scissors);
                 expect(gameService.incrementNumOfVictories).toHaveBeenCalled();
             });
     
             it('should call the gameService.incrementNumOfLoses', function() {
-                gameEngineService.calculateResult({}, {});
+                gameEngineService.calculateResult(scissors, rock);
                 expect(gameService.incrementNumOfLoses).toHaveBeenCalled();
             });
     
             it('should call the gameService.incrementNumOfDraws', function() {
-                gameEngineService.calculateResult({}, {});
+                gameEngineService.calculateResult(rock, rock);
                 expect(gameService.incrementNumOfDraws).toHaveBeenCalled();
             });
 
