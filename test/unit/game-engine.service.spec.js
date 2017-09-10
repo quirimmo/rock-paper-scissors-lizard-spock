@@ -1,6 +1,6 @@
-describe('gameService', function() {
+describe('gameEngineService', function() {
 
-    let gameEngineService, GAME_CONSTANTS;
+    let gameEngineService, gameService, GAME_CONSTANTS;
 
     const DRAW_TEXT = 'draw';
     const DRAW_RESULT_OBJECT = {
@@ -13,10 +13,21 @@ describe('gameService', function() {
     beforeEach(function() {
         module('myApp');
 
-        module(function($provide) {});
+        module(function($provide) {
+            $provide.value('gameService', {
+                incrementNumOfMatches: function() {},
+                incrementNumOfVictories: function() {},
+                incrementNumOfLoses: function() {},
+                incrementNumOfDraws: function() {},
+                incrementNumOfConsecutiveVictories: function() {},
+                incrementNumOfConsecutiveLoses: function() {},
+                incrementNumOfConsecutiveDraws: function() {}
+            });
+        });
 
-        inject(function(_gameEngineService_, _GAME_CONSTANTS_) {
+        inject(function(_gameEngineService_, _GAME_CONSTANTS_, _gameService_) {
             gameEngineService = _gameEngineService_;
+            gameService = _gameService_;
             GAME_CONSTANTS = _GAME_CONSTANTS_;
             rock = GAME_CONSTANTS.actions.find(element => element.id === 'rock');
             paper = GAME_CONSTANTS.actions.find(element => element.id === 'paper');
