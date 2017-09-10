@@ -1,4 +1,4 @@
-fdescribe('RockPaperScissorsLizardSpockChuckController', function() {
+describe('RockPaperScissorsLizardSpockChuckController', function() {
 
     let controller, gameEngineService, $scope, $mdBottomSheet, $mdDialog;
 
@@ -68,7 +68,7 @@ fdescribe('RockPaperScissorsLizardSpockChuckController', function() {
         });
 
         it('should init the exposed variables correctly', () => {
-            spyOn(gameEngineService, 'getRockPaperScissorsLizardSpockChuckSubset').and.returnValue(['rock', 'paper', 'scissors', 'lizard', 'spock']);
+            spyOn(gameEngineService, 'getRockPaperScissorsLizardSpockChuckSubset').and.returnValue(['rock', 'paper', 'scissors', 'lizard', 'spock', 'chuck']);
             controller.$onInit();
             expect(controller.isGameStartedDisplayed).toEqual(true);
             expect(controller.isGameSimulatedDisplayed).toEqual(true);

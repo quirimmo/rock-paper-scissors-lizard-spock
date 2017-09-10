@@ -1,4 +1,4 @@
-fdescribe('Main Menu', () => {
+describe('Main Menu', () => {
 
     let mainMenu = element(by.id('main-menu'));
     let mainMenuItems = element.all(by.className('main-menu-items'));
@@ -63,7 +63,7 @@ fdescribe('Main Menu', () => {
         });
 
         it('should active the item corresponding to the personal profile page', () => {
-            mainMenuItems.getAttribute('aria-selected').should.become(['true', 'false', 'false']);
+            mainMenuItems.getAttribute('aria-selected').should.become(['true', 'false', 'false', 'false']);
         });
 
     });
@@ -78,8 +78,8 @@ fdescribe('Main Menu', () => {
             mainMenu.isDisplayed().should.become(true);
         });
 
-        it('should active the item corresponding to the personal profile page', () => {
-            mainMenuItems.getAttribute('aria-selected').should.become(['false', 'true', 'false']);
+        it('should active the item corresponding to the rock paper scissors page', () => {
+            mainMenuItems.getAttribute('aria-selected').should.become(['false', 'true', 'false', 'false']);
         });
 
     });
@@ -94,8 +94,8 @@ fdescribe('Main Menu', () => {
             mainMenu.isDisplayed().should.become(true);
         });
 
-        it('should active the item corresponding to the personal profile page', () => {
-            mainMenuItems.getAttribute('aria-selected').should.become(['false', 'false', 'true']);
+        it('should active the item corresponding to the rock paper scissors lizard spock page', () => {
+            mainMenuItems.getAttribute('aria-selected').should.become(['false', 'false', 'true', 'false']);
         });
 
     });
@@ -110,7 +110,7 @@ fdescribe('Main Menu', () => {
             mainMenu.isDisplayed().should.become(true);
         });
 
-        it('should active the item corresponding to the personal profile page', () => {
+        it('should active the item corresponding to the rock paper scissors lizard spock chuck page', () => {
             mainMenuItems.getAttribute('aria-selected').should.become(['false', 'false', 'false', 'true']);
         });
 

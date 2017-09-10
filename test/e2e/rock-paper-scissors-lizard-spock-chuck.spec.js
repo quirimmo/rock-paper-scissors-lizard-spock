@@ -1,4 +1,4 @@
-fdescribe('Rock Paper Scissors Lizard Spock Chuck', () => {
+describe('Rock Paper Scissors Lizard Spock Chuck', () => {
 
     let startGame = element(by.id('start-game'));
     let simulateGame = element(by.id('simulate-game'));

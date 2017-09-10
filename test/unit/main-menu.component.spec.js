@@ -1,4 +1,4 @@
-fdescribe('MainMenuComponent', function() {
+describe('MainMenuComponent', function() {
 
     let $componentController, controller, $state, gameService, $mdDialog, $q, $scope;
 

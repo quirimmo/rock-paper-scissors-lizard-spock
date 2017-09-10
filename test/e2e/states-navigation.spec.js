@@ -1,4 +1,4 @@
-fdescribe('Navigation Between States', () => {
+describe('Navigation Between States', () => {
 
     describe('Home State', () => {
 
