@@ -30,7 +30,7 @@ fdescribe('Rock Paper Scissors', () => {
         });
     });
 
-    describe('simulate button', () => {
+    fdescribe('simulate button', () => {
         it('should display the simulate button', () => {
             simulateGame.isDisplayed().should.become(true);
         });

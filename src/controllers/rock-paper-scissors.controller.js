@@ -11,7 +11,6 @@
         vm.isGameStartedDisplayed;
         vm.isMakeYourChoiceDisplayed;
         vm.isComputerChosenIconDisplayed;
-        vm.isResultMessageDisplayed;
         vm.availableChoices;
         vm.chosenAction;
         vm.computerChosenAction;
@@ -32,7 +31,6 @@
             vm.isGameStartedDisplayed = true;
             vm.isMakeYourChoiceDisplayed = false;
             vm.isComputerChosenIconDisplayed = false;
-            vm.isResultMessageDisplayed = false;
             vm.availableChoices = gameEngineService.getRockPaperScissorsSubset();
         }
 
@@ -84,7 +82,6 @@
             vm.isGameStartedDisplayed = true;
             vm.isMakeYourChoiceDisplayed = false;
             vm.isComputerChosenIconDisplayed = false;
-            vm.isResultMessageDisplayed = false;
         }
 
     }

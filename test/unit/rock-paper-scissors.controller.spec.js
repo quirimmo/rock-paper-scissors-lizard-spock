@@ -1,4 +1,4 @@
-describe('RockPaperScissorsController', function() {
+fdescribe('RockPaperScissorsController', function() {
 
     let controller, gameEngineService, $scope, $mdBottomSheet, $mdDialog;
 
@@ -42,14 +42,14 @@ describe('RockPaperScissorsController', function() {
         });
     });
 
-    describe('initialization', () => {
+    fdescribe('initialization', () => {
 
         it('should define the exposed variables', () => {
             spyOn(gameEngineService, 'getRockPaperScissorsSubset').and.returnValue(['rock', 'paper', 'scissors']);
             controller.$onInit();
             expect(controller.isGameStartedDisplayed).toBeDefined();
+            expect(controller.isGameSimulatedDisplayed).toBeDefined();
             expect(controller.isMakeYourChoiceDisplayed).toBeDefined();
-            expect(controller.isResultMessageDisplayed).toBeDefined();
             expect(controller.availableChoices).toBeDefined();
             expect(controller.chosenAction).toBeUndefined();
             expect(controller.computerChosenAction).toBeUndefined();
@@ -59,6 +59,7 @@ describe('RockPaperScissorsController', function() {
         it('should define the exposed methods', () => {
             controller.$onInit();
             expect(controller.startGame).toEqual(jasmine.any(Function));
+            expect(controller.simulateGame).toEqual(jasmine.any(Function));
             expect(controller.makeChoice).toEqual(jasmine.any(Function));
             expect(controller.chooseAction).toEqual(jasmine.any(Function));
             expect(controller.closeResultMessage).toEqual(jasmine.any(Function));
@@ -68,9 +69,9 @@ describe('RockPaperScissorsController', function() {
             spyOn(gameEngineService, 'getRockPaperScissorsSubset').and.returnValue(['rock', 'paper', 'scissors']);
             controller.$onInit();
             expect(controller.isGameStartedDisplayed).toEqual(true);
+            expect(controller.isGameSimulatedDisplayed).toEqual(true);
             expect(controller.isMakeYourChoiceDisplayed).toEqual(false);
             expect(controller.isComputerChosenIconDisplayed).toEqual(false);
-            expect(controller.isResultMessageDisplayed).toEqual(false);
             expect(gameEngineService.getRockPaperScissorsSubset).toHaveBeenCalled();
             expect(controller.availableChoices).toEqual(['rock', 'paper', 'scissors']);
         });
@@ -92,7 +93,75 @@ describe('RockPaperScissorsController', function() {
             expect(controller.isGameStartedDisplayed).toEqual(false);
             expect(controller.isMakeYourChoiceDisplayed).toEqual(true);
             expect(controller.isComputerChosenIconDisplayed).toEqual(true);
-            expect(controller.isResultMessageDisplayed).toEqual(false);
+        });
+
+    });
+
+    fdescribe('simulateGame', () => {
+
+        it('should display and hide the right elements', () => {
+            controller.$onInit();
+            controller.simulateGame();
+            $scope.$apply();
+            expect(controller.isGameSimulatedDisplayed).toEqual(false);
+            expect(controller.isMakeYourChoiceDisplayed).toEqual(false);
+            expect(controller.isComputerChosenIconDisplayed).toEqual(true);
+            expect(controller.isComputerPlayerIconDisplayed).toEqual(true);
+        });
+
+        it('should call the gameEngineService.getComputerRandomChoice twice', () => {
+            controller.$onInit();
+            spyOn(gameEngineService, 'getComputerRandomChoice').and.callThrough();
+            controller.simulateGame();
+            $scope.$apply();
+            expect(gameEngineService.getComputerRandomChoice.calls.count()).toBe(2);
+        });
+
+        it('should call the gameEngineService.calculateResult twice', () => {
+            controller.$onInit();
+            spyOn(gameEngineService, 'calculateResult').and.callThrough();
+            controller.simulateGame();
+            $scope.$apply();
+            expect(gameEngineService.calculateResult).toHaveBeenCalled();
+        });
+
+        it('should display the result', () => {
+            controller.$onInit();
+            spyOn($mdDialog, 'show').and.returnValue({
+                then: function() {}
+            });
+            spyOn($mdDialog, 'alert').and.returnValue({
+                parent: function() {
+                    return {
+                        clickOutsideToClose: function() {
+                            return {
+                                title: function() {
+                                    return {
+                                        textContent: function() {
+                                            return {
+                                                ariaLabel: function() {
+                                                    return {
+                                                        ok: function() {
+                                                            return {
+                                                                targetEvent: function() {
+                                                                    return {};
+                                                                }
+                                                            };
+                                                        }
+                                                    };
+                                                }
+                                            };
+                                        }
+                                    };
+                                }
+                            };
+                        }
+                    };
+                }
+            });
+            controller.simulateGame();
+            $scope.$apply();
+            expect($mdDialog.alert).toHaveBeenCalled();
         });
 
     });
@@ -134,7 +203,7 @@ describe('RockPaperScissorsController', function() {
                 then: function() {}
             });
             spyOn($mdDialog, 'alert').and.returnValue({
-                parent: function() { 
+                parent: function() {
                     return {
                         clickOutsideToClose: function() {
                             return {
@@ -159,7 +228,7 @@ describe('RockPaperScissorsController', function() {
                                 }
                             };
                         }
-                    }; 
+                    };
                 }
             });
             spyOn(gameEngineService, 'calculateResult').and.returnValue('result');
@@ -238,7 +307,6 @@ describe('RockPaperScissorsController', function() {
             expect(controller.isGameStartedDisplayed).toEqual(true);
             expect(controller.isMakeYourChoiceDisplayed).toEqual(false);
             expect(controller.isComputerChosenIconDisplayed).toEqual(false);
-            expect(controller.isResultMessageDisplayed).toEqual(false);
         });
     });
 
