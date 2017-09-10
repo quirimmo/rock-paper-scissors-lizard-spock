@@ -1,6 +1,16 @@
-fdescribe('RockPaperScissorsController', function() {
+describe('RockPaperScissorsController', function() {
 
     let controller, gameEngineService, $scope, $mdBottomSheet, $mdDialog;
+
+    let mocked$alertTargetEvent = function() {};
+    let mocked$alertOK = function() { return { targetEvent: mocked$alertTargetEvent }; };
+    let mocked$alertAriaLabel = function() { return { ok: mocked$alertOK }; };
+    let mocked$alertTextContent = function() { return { ariaLabel: mocked$alertAriaLabel }; };
+    let mocked$alertTitle = function() { return { textContent: mocked$alertTextContent }; };
+    let mocked$alertClickOutsideToClose = function() { return { title: mocked$alertTitle }; };
+    let mocked$alertParent = function() { return { clickOutsideToClose: mocked$alertClickOutsideToClose }; };
+    let mocked$alert = { parent: mocked$alertParent };
+
 
     beforeEach(function() {
         module('myApp');
@@ -17,17 +27,7 @@ fdescribe('RockPaperScissorsController', function() {
                 hide: function() {}
             });
             $provide.value('$mdDialog', {
-                alert: function() {
-                    return {
-                        parent: function() {},
-                        clickOutsideToClose: function() {},
-                        title: function() {},
-                        textContent: function() {},
-                        ariaLabel: function() {},
-                        ok: function() {},
-                        targetEvent: function() {}
-                    };
-                },
+                alert: function() {},
                 show: function() {},
                 cancel: function() {}
             });
@@ -42,13 +42,15 @@ fdescribe('RockPaperScissorsController', function() {
         });
     });
 
-    fdescribe('initialization', () => {
+    describe('initialization', () => {
 
         it('should define the exposed variables', () => {
             spyOn(gameEngineService, 'getRockPaperScissorsSubset').and.returnValue(['rock', 'paper', 'scissors']);
             controller.$onInit();
             expect(controller.isGameStartedDisplayed).toBeDefined();
             expect(controller.isGameSimulatedDisplayed).toBeDefined();
+            expect(controller.isGameSimulation).toBeDefined();
+            expect(controller.isComputerChosenIconDisplayed).toBeDefined();
             expect(controller.isMakeYourChoiceDisplayed).toBeDefined();
             expect(controller.availableChoices).toBeDefined();
             expect(controller.chosenAction).toBeUndefined();
@@ -70,10 +72,14 @@ fdescribe('RockPaperScissorsController', function() {
             controller.$onInit();
             expect(controller.isGameStartedDisplayed).toEqual(true);
             expect(controller.isGameSimulatedDisplayed).toEqual(true);
+            expect(controller.isGameSimulation).toEqual(false);
+            expect(controller.isComputerChosenIconDisplayed).toBeDefined(false);
             expect(controller.isMakeYourChoiceDisplayed).toEqual(false);
-            expect(controller.isComputerChosenIconDisplayed).toEqual(false);
             expect(gameEngineService.getRockPaperScissorsSubset).toHaveBeenCalled();
             expect(controller.availableChoices).toEqual(['rock', 'paper', 'scissors']);
+            expect(controller.chosenAction).toBeUndefined();
+            expect(controller.computerChosenAction).toBeUndefined();
+            expect(controller.result).toBeUndefined();
         });
 
         it('should call the gameEngineService.getRockPaperScissorsSubset', () => {
@@ -91,74 +97,59 @@ fdescribe('RockPaperScissorsController', function() {
             controller.startGame();
             $scope.$apply();
             expect(controller.isGameStartedDisplayed).toEqual(false);
+            expect(controller.isGameSimulatedDisplayed).toEqual(false);
             expect(controller.isMakeYourChoiceDisplayed).toEqual(true);
             expect(controller.isComputerChosenIconDisplayed).toEqual(true);
+            expect(controller.isGameSimulation).toEqual(false);
+            expect(controller.chosenAction).toBeUndefined();
+            expect(controller.computerChosenAction).toBeUndefined();
+            expect(controller.result).toBeUndefined();
         });
 
     });
 
-    fdescribe('simulateGame', () => {
+    describe('simulateGame', () => {
 
-        it('should display and hide the right elements', () => {
+        beforeEach(() => {
+            spyOn($mdBottomSheet, 'show').and.callThrough();
+            spyOn($mdBottomSheet, 'hide').and.callThrough();
+            spyOn($mdDialog, 'show').and.returnValue({
+                then: function() {}
+            });
+            spyOn($mdDialog, 'alert').and.returnValue(mocked$alert);
+            spyOn(gameEngineService, 'calculateResult').and.returnValue({
+                result: 1,
+                text: 'blablabla'
+            });
+            spyOn(gameEngineService, 'getComputerRandomChoice').and.returnValue('paper');
             controller.$onInit();
+        });
+
+        it('should display and hide corresponding elements', () => {
             controller.simulateGame();
             $scope.$apply();
+            expect(controller.isGameSimulation).toEqual(true);
             expect(controller.isGameSimulatedDisplayed).toEqual(false);
+            expect(controller.isGameStartedDisplayed).toEqual(false);
             expect(controller.isMakeYourChoiceDisplayed).toEqual(false);
-            expect(controller.isComputerChosenIconDisplayed).toEqual(true);
-            expect(controller.isComputerPlayerIconDisplayed).toEqual(true);
+            expect(controller.isComputerChosenIconDisplayed).toEqual(false);
+        });
+
+        it('should set the corresponding elements', () => {
+            controller.simulateGame();
+            $scope.$apply();
+            expect(controller.chosenAction).toBeDefined();
+            expect(controller.computerChosenAction).toBeDefined();
+            expect(controller.result).toBeDefined();
         });
 
         it('should call the gameEngineService.getComputerRandomChoice twice', () => {
-            controller.$onInit();
-            spyOn(gameEngineService, 'getComputerRandomChoice').and.callThrough();
             controller.simulateGame();
             $scope.$apply();
             expect(gameEngineService.getComputerRandomChoice.calls.count()).toBe(2);
         });
 
-        it('should call the gameEngineService.calculateResult twice', () => {
-            controller.$onInit();
-            spyOn(gameEngineService, 'calculateResult').and.callThrough();
-            controller.simulateGame();
-            $scope.$apply();
-            expect(gameEngineService.calculateResult).toHaveBeenCalled();
-        });
-
         it('should display the result', () => {
-            controller.$onInit();
-            spyOn($mdDialog, 'show').and.returnValue({
-                then: function() {}
-            });
-            spyOn($mdDialog, 'alert').and.returnValue({
-                parent: function() {
-                    return {
-                        clickOutsideToClose: function() {
-                            return {
-                                title: function() {
-                                    return {
-                                        textContent: function() {
-                                            return {
-                                                ariaLabel: function() {
-                                                    return {
-                                                        ok: function() {
-                                                            return {
-                                                                targetEvent: function() {
-                                                                    return {};
-                                                                }
-                                                            };
-                                                        }
-                                                    };
-                                                }
-                                            };
-                                        }
-                                    };
-                                }
-                            };
-                        }
-                    };
-                }
-            });
             controller.simulateGame();
             $scope.$apply();
             expect($mdDialog.alert).toHaveBeenCalled();
@@ -202,35 +193,7 @@ fdescribe('RockPaperScissorsController', function() {
             spyOn($mdDialog, 'show').and.returnValue({
                 then: function() {}
             });
-            spyOn($mdDialog, 'alert').and.returnValue({
-                parent: function() {
-                    return {
-                        clickOutsideToClose: function() {
-                            return {
-                                title: function() {
-                                    return {
-                                        textContent: function() {
-                                            return {
-                                                ariaLabel: function() {
-                                                    return {
-                                                        ok: function() {
-                                                            return {
-                                                                targetEvent: function() {
-                                                                    return {};
-                                                                }
-                                                            };
-                                                        }
-                                                    };
-                                                }
-                                            };
-                                        }
-                                    };
-                                }
-                            };
-                        }
-                    };
-                }
-            });
+            spyOn($mdDialog, 'alert').and.returnValue(mocked$alert);
             spyOn(gameEngineService, 'calculateResult').and.returnValue('result');
             controller.$onInit();
             controller.startGame();
