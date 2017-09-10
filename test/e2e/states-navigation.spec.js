@@ -51,5 +51,20 @@ describe('Navigation Between States', () => {
 
     });
 
+    describe('RockPaperScissorsLizardSpockChuck State', () => {
+
+        beforeAll(() => {
+            browser.get('#!/rock-paper-scissors-lizard-spock-chuck');
+        });
+
+        it('should be loaded typing the right address', () => {
+            browser.getCurrentUrl().should.become('http://localhost:3000/#!/rock-paper-scissors-lizard-spock-chuck');
+        });
+
+        it('should display the right title of the page', () => {
+            browser.getTitle().should.become('Rock Paper Scissors Lizard Spock Chuck');
+        });
+
+    });
 
 });

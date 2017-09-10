@@ -56,10 +56,24 @@ describe('config.js', function() {
             expect($state.href('rock-paper-scissors-lizard-spock')).toEqual('#!/rock-paper-scissors-lizard-spock');
         });
 
-        it('should go the home state', function() {
+        it('should go the rock paper scissors lizard spock state', function() {
             $location.url('/rock-paper-scissors-lizard-spock');
             $rootScope.$apply();
             expect($state.current.name).toEqual('rock-paper-scissors-lizard-spock');
+        });
+
+    });
+
+    describe('Rock Paper Scissors Lizard Spock Chuck State', function() {
+
+        it('should load the URL', function() {
+            expect($state.href('rock-paper-scissors-lizard-spock-chuck')).toEqual('#!/rock-paper-scissors-lizard-spock-chuck');
+        });
+
+        it('should go the rock paper scissors lizard spock chuck state', function() {
+            $location.url('/rock-paper-scissors-lizard-spock-chuck');
+            $rootScope.$apply();
+            expect($state.current.name).toEqual('rock-paper-scissors-lizard-spock-chuck');
         });
 
     });

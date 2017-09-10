@@ -41,10 +41,18 @@
             controller: 'RockPaperScissorsLizardSpockController',
             controllerAs: 'vm'
         };
-        $stateProvider.state(mainState).state(rockPaperScissorsState).state(rockPaperScissorsLizardSpockState);
+        let rockPaperScissorsLizardSpockChuckState = {
+            name: 'rock-paper-scissors-lizard-spock-chuck',
+            url: '/rock-paper-scissors-lizard-spock-chuck',
+            data: {
+                title: 'Rock Paper Scissors Lizard Spock Chuck'
+            },
+            templateUrl: 'src/templates/rock-paper-scissors-lizard-spock-chuck.html',
+            controller: 'RockPaperScissorsLizardSpockChuckController',
+            controllerAs: 'vm'
+        };
+        $stateProvider.state(mainState).state(rockPaperScissorsState).state(rockPaperScissorsLizardSpockState).state(rockPaperScissorsLizardSpockChuckState);
         $urlRouterProvider.otherwise('/');
     }
-
-
 
 })();

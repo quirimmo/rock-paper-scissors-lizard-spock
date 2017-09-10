@@ -15,11 +15,13 @@
         vm.isPersonalProfileActive = isPersonalProfileActive;
         vm.isRockPaperScissorActive = isRockPaperScissorActive;
         vm.isRockPaperScissorLizardSpockActive = isRockPaperScissorLizardSpockActive;
+        vm.isRockPaperScissorLizardSpockChuckActive = isRockPaperScissorLizardSpockChuckActive;
         vm.openMobileMenu = openMobileMenu;
         vm.navigateTo = navigateTo;
         vm.restartGame = restartGame;
         vm.$onInit = onInit;
 
+        // ==============================================================
 
         function onInit() {
             vm.selectedItem =
@@ -27,6 +29,8 @@
                 'rock-paper-scissors' :
                 vm.isRockPaperScissorLizardSpockActive() ?
                 'rock-paper-scissors-lizard-spock' :
+                vm.isRockPaperScissorLizardSpockChuckActive() ?
+                'rock-paper-scissors-lizard-spock-chuck' : 
                 'personal-profile';
         }
 
@@ -40,6 +44,10 @@
 
         function isRockPaperScissorLizardSpockActive() {
             return vm.activeItem === 'Rock Paper Scissors Lizard Spock';
+        }
+
+        function isRockPaperScissorLizardSpockChuckActive() {
+            return vm.activeItem === 'Rock Paper Scissors Lizard Spock Chuck';
         }
 
         function navigateTo(state) {
