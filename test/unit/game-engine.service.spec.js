@@ -1,18 +1,19 @@
 describe('gameEngineService', () => {
 
     let gameEngineService, gameService, GAME_CONSTANTS;
+    let rock, paper, scissors, lizard, spock, chuck;
+    let rockPaperScissorsSubset, rockPaperScissorsLizardSpockSubset, rockPaperScissorsLizardSpockChuckSubset;
 
     const DRAW_TEXT = 'draw';
     const DRAW_RESULT_OBJECT = {
         result: 0,
         text: DRAW_TEXT
     };
-    let rock, paper, scissors, lizard, spock, chuck;
-    let rockPaperScissorsSubset, rockPaperScissorsLizardSpockSubset, rockPaperScissorsLizardSpockChuckSubset;
 
     beforeEach(() => {
+        // injecting the needed modules
         module('myApp');
-
+        // mocking the injected dependencies
         module(($provide) => {
             $provide.value('gameService', {
                 incrementNumOfMatches: () => {},
@@ -21,11 +22,12 @@ describe('gameEngineService', () => {
                 incrementNumOfDraws: () => {}
             });
         });
-
+        // injecting the dependencies
         inject((_gameEngineService_, _GAME_CONSTANTS_, _gameService_) => {
             gameEngineService = _gameEngineService_;
             gameService = _gameService_;
             GAME_CONSTANTS = _GAME_CONSTANTS_;
+            // init values to be used inside the tests
             rock = GAME_CONSTANTS.actions.find(element => element.id === 'rock');
             paper = GAME_CONSTANTS.actions.find(element => element.id === 'paper');
             scissors = GAME_CONSTANTS.actions.find(element => element.id === 'scissors');
