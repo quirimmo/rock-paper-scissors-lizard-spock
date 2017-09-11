@@ -1,3 +1,6 @@
+/**
+ * Class which holds all the Personal Profile page objects in order to be shared across the e2e spec files
+ */
 'use strict';  
 
 module.exports = class PersonalProfilePage {

@@ -1,5 +1,5 @@
 /**
- * Class which holds all the game pages objects in order to be shared across the 
+ * Class which holds all the game pages objects in order to be shared across the e2e spec files
  */
 'use strict';  
 
