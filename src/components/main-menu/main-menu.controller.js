@@ -45,7 +45,7 @@
         }
 
         function isRockPaperScissorLizardSpockChuckActive() {
-            return vm.activeItem === 'Rock Paper Scissors Lizard Spock Chuck';
+            return vm.activeItem === 'Rock Paper Scissors Lizard Spock Chuck Norris';
         }
 
         function navigateTo(state) {

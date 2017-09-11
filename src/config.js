@@ -45,7 +45,7 @@
             name: 'rock-paper-scissors-lizard-spock-chuck',
             url: '/rock-paper-scissors-lizard-spock-chuck',
             data: {
-                title: 'Rock Paper Scissors Lizard Spock Chuck'
+                title: 'Rock Paper Scissors Lizard Spock Chuck Norris'
             },
             templateUrl: 'src/templates/rock-paper-scissors-lizard-spock-chuck.html',
             controller: 'RockPaperScissorsLizardSpockChuckController',
