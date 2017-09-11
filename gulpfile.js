@@ -20,12 +20,12 @@
 
     // List of all the static paths 
     // These constant variables could be considered "useless", but I love to define constant variables at the beginning in order to improve the readability, to improve 
-    // the maintenance of the code, so you can easily change the values from the beginning of the file, and because actually I hate hardcoded strings
+    // the maintenance of the code, so you can easily change the values from the beginning of the file, and because actually I hate hardcoded strings in the code when avoidable
     // ============================================================
 
     const PATHS = {
         NODE_MODULES_COMPONENTS: [
-            './node_modules/jquery/dist/jquery.min.js',
+            './node_modules/jquery/dist/jquery.min.min.js',
             './node_modules/angular/angular.min.js',
             './node_modules/angular-messages/angular-messages.min.js',
             './node_modules/angular-aria/angular-aria.min.js',
@@ -53,6 +53,7 @@
         IMAGES_PATH: './assets/images',
         MAIN_INDEX: './src/index.html',
         SOURCE_FILES: ['./src/**/*.*', './assets/styles/*.less'],
+        SOURCE_JS_FILES: './src/**/*.js',
         ANGULAR_SOURCE_ORDER: [
             'src/app.js',
             'src/constants/**/*.js',
@@ -75,16 +76,25 @@
     // ============================================================
 
     gulp.task('clean-tmp', cleanFolder.bind(null, PATHS.TMP_APP));
+    gulp.task('clean-dist', cleanFolder.bind(null, PATHS.DIST_APP));
     gulp.task('inject-dependencies', injectDependencies);
     gulp.task('serve', ['clean-tmp'], serve);
     gulp.task('serve-no-watch', ['clean-tmp'], serveNoWatch);
+    gulp.task('serve-dist', serveDist);
     gulp.task('unit-test', ['compile-templates'], startKarmaServer);
     gulp.task('unit-test-watch', ['compile-templates'], startKarmaServer.bind(null, true));
     gulp.task('protractor-test', ['serve-no-watch'], runProtractorTests);
     gulp.task('less', compileLess);
-    gulp.task('publish-styles', ['less'], publishStyles);
-    gulp.task('publish-external-styles', publishExternalStyles);
+    gulp.task('publish-styles', ['less'], publishStyles.bind(null, PATHS.TMP_APP));
+    gulp.task('publish-styles-dist', ['less'], publishStyles.bind(null, PATHS.DIST_APP));
+    gulp.task('publish-external-styles', publishExternalStyles.bind(null, PATHS.TMP_APP));
+    gulp.task('publish-external-styles-dist', publishExternalStyles.bind(null, PATHS.DIST_APP));
+    gulp.task('publish-images', publishImages);
     gulp.task('compile-templates', compileTemplates.bind(null, PATHS.TMP_APP));
+    gulp.task('compile-templates-dist', compileTemplates.bind(null, PATHS.DIST_APP));
+    gulp.task('publish-node-modules', publishNodeModules);
+    gulp.task('build-js-source-files', buildJSSourceFiles);
+    gulp.task('publish', ['clean-dist'], publish);
     gulp.task('default', ['serve']);
 
     // Private functions
@@ -177,21 +187,21 @@
             .pipe(gulp.dest(PATHS.STYLES_FOLDER));
     }
 
-    function publishStyles() {
+    function publishStyles(outputFolder) {
         let stylesSource = gulp.src(PATHS.GENERATED_STYLES);
 
         return stylesSource
             .pipe(concat(PATHS.GLOBAL_OUTPUT_STYLE))
             .pipe(cleanCSS())
-            .pipe(gulp.dest(`${PATHS.TMP_APP}${PATHS.OUTPUT_STYLES_FOLDER}`));
+            .pipe(gulp.dest(`${outputFolder}${PATHS.OUTPUT_STYLES_FOLDER}`));
     }
 
-    function publishExternalStyles() {
+    function publishExternalStyles(outputFolder) {
         let stylesSource = gulp.src(PATHS.EXTERNAL_STYLES);
 
         return stylesSource
             .pipe(concat(PATHS.GLOBAL_OUTPUT_EXTERNAL_STYLE))
-            .pipe(gulp.dest(`${PATHS.TMP_APP}${PATHS.OUTPUT_STYLES_FOLDER}`));
+            .pipe(gulp.dest(`${outputFolder}${PATHS.OUTPUT_STYLES_FOLDER}`));
     }
 
     function compileTemplates(destinationPath) {
@@ -201,6 +211,55 @@
             .pipe(concat('partials.js'))
             .pipe(minify({ ext: { min: '.min.js' }, noSource: true }))
             .pipe(gulp.dest(destinationPath));
+    }
+
+    function publish() {
+        runSequence(
+            'compile-templates-dist', [
+                'build-js-source-files',
+                'publish-node-modules',
+                'publish-external-styles-dist',
+                'publish-styles-dist',
+                'publish-images'
+            ], afterSequence);
+
+        function afterSequence() {
+            // after getting everything ready, inject every thing needed inside the main index
+            let target = gulp.src('src/index.html');
+
+            return target
+                .pipe(inject(gulp.src('dist/node-components.js', { read: false }), { name: 'node', ignorePath: 'dist/', addRootSlash: false }))
+                .pipe(inject(gulp.src('dist/assets/styles/global-external-style.css', { read: false }), { ignorePath: 'dist/', addRootSlash: false, name: 'external' }))
+                .pipe(inject(gulp.src('dist/assets/styles/global-style.css', { read: false }), { ignorePath: 'dist/', addRootSlash: false }))
+                .pipe(inject(gulp.src('dist/partials.min.js', { read: false }), { name: 'templates', ignorePath: 'dist/', addRootSlash: false }))
+                .pipe(inject(gulp.src('dist/all.min.js', { read: false }), { name: 'all', ignorePath: 'dist/', addRootSlash: false }))
+                .pipe(gulp.dest(PATHS.DIST_APP));
+        }
+    }
+
+    function buildJSSourceFiles() {
+        return gulp.src(PATHS.SOURCE_JS_FILES)
+            .pipe(concat('all.js'))
+            .pipe(minify({ ext: { min: '.min.js' }, noSource: true }))
+            .pipe(gulp.dest(PATHS.DIST_APP));
+    }
+
+    function publishNodeModules() {
+        return gulp.src(PATHS.NODE_MODULES_COMPONENTS)
+            .pipe(concat('node-components.js'))
+            .pipe(gulp.dest(PATHS.DIST_APP));
+    }
+
+    function publishImages() {
+        let imagesSource = gulp.src(PATHS.ALL_IMAGES);
+
+        return imagesSource
+            .pipe(gulp.dest(`${PATHS.DIST_APP}/${PATHS.IMAGES_PATH}`));
+    }
+
+    function serveDist() {
+        let server = gls.static(PATHS.DIST_APP, 8000);
+        server.start();
     }
 
 })();

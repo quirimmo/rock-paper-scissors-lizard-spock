@@ -160,6 +160,7 @@ The new game is ready! With the human vs computer functionality, the computer vs
 This is a list of things I would have liked to do if I had few more time for the task. Unfortunately working during the days the time I had was very limited. The list is casual and not ordered by importance:
 
 - Introduction of different achievements like after x num of matches, after y num of victories, after z consecutive victories, etc...
+- ESLINT task for check during the serve/publish and before to push
 - Babel for transpiling all the code
 - Deployment tasks for production/distribution, creating the files ready for production (concatenation, minify, uglify, etc...)
 - Adding CI/CD with TravisCI which executes all the unit tests, all the e2e tests, and if everything is OK, upload the production version to a server, where the app will run
@@ -167,6 +168,7 @@ This is a list of things I would have liked to do if I had few more time for the
 - Global e2e tests for testing for a while all the app, playing all the games, checking always the scores if are OK, etc...
 - Use cucumber in order to have feature files for the e2e tests
 - Adding a section where you explain the rules of each game
+- Husky support
 
 ## Possible issues
 

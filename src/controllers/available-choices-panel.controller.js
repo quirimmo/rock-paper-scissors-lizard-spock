@@ -10,6 +10,8 @@
 
     angular.module('myApp').controller('AvailableChoicesPanelController', AvailableChoicesPanelController);
 
+    AvailableChoicesPanelController.$inject = ['availableChoices', 'chooseAction'];    
+
     function AvailableChoicesPanelController(availableChoices, chooseAction) {
 
         var vm = this;

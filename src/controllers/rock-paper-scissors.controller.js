@@ -9,6 +9,8 @@
 
     angular.module('myApp').controller('RockPaperScissorsController', RockPaperScissorsController);
 
+    RockPaperScissorsController.$inject = ['gameEngineService'];                    
+
     function RockPaperScissorsController(gameEngineService) {
 
         var vm = this;

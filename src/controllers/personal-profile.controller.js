@@ -6,6 +6,8 @@
 
     angular.module('myApp').controller('PersonalProfileController', PersonalProfileController);
 
+    PersonalProfileController.$inject = ['gameService'];        
+
     function PersonalProfileController(gameService) {
 
         var vm = this;
