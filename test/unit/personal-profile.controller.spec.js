@@ -3,9 +3,10 @@ describe('MainController', () => {
     let controller, gameService, $scope;
 
     beforeEach(() => {
+        // injecting the needed modules
         module('myApp');
         module('templates');
-
+        // mocking the injected dependencies
         module(($provide) => {
             $provide.value('gameService', {
                 getNumOfMatches: () => 0,
@@ -17,7 +18,7 @@ describe('MainController', () => {
                 getNumOfConsecutiveDraws: () => 0
             });
         });
-
+        // injecting needed dependencies        
         inject((_$rootScope_, _$controller_, _gameService_) => {
             $scope = _$rootScope_.$new();
             gameService = _gameService_;
