@@ -29,10 +29,10 @@ exports.config = {
     ],
     onPrepare: function() {
         // make full screen
-        // browser.driver.manage().window().maximize();
         browser.driver.manage().window().setSize(1920, 1080);
         // including the base exports for chai, chai-as-promised
         require('./test/e2e/base-exports.js');
+        // sync with angularjs and give a sleep in order to work also on travis
         browser.ignoreSynchronization = true;
         browser.waitForAngularEnabled(true);
         browser.sleep(5000); 
