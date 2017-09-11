@@ -13,11 +13,11 @@ if (!seleniumVersion) {
 
 exports.config = {
     directConnect: false,
-    allScriptsTimeout: 5000,
-    getPageTimeout: 5000,
+    allScriptsTimeout: 11000,
+    getPageTimeout: 10000,
     framework: 'jasmine2',
     jasmineNodeOpts: {
-        defaultTimeoutInterval: 5000
+        defaultTimeoutInterval: 30000
     },
     capabilities: {
         browserName: 'chrome'
