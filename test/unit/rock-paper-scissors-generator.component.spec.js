@@ -1,6 +1,6 @@
-fdescribe('RockPaperScissorsGeneratorComponent', () => {
+describe('RockPaperScissorsGeneratorComponent', () => {
 
-    let $componentController, controller, gameEngineService, $mdBottomSheet, $mdDialog, $document, $q, $scope;
+    let $componentController, controller, gameEngineService, $mdBottomSheet, $mdDialog, $scope;
 
     let defaultPage = 'my-page';
     let defaultAvailableChoices = ['choice1', 'choice2', 'choice3'];
@@ -38,14 +38,12 @@ fdescribe('RockPaperScissorsGeneratorComponent', () => {
         });
     }));
 
-    beforeEach(inject((_$rootScope_, _$componentController_, _gameEngineService_, _$mdBottomSheet_, _$mdDialog_, _$document_, _$q_) => {
+    beforeEach(inject((_$rootScope_, _$componentController_, _gameEngineService_, _$mdBottomSheet_, _$mdDialog_) => {
         $scope = _$rootScope_.$new();
         $componentController = _$componentController_;
         gameEngineService = _gameEngineService_;
         $mdBottomSheet = _$mdBottomSheet_;
         $mdDialog = _$mdDialog_;
-        $document = _$document_;
-        $q = _$q_;
         controller = $componentController('rockPaperScissorsGenerator', null, {
             pageTitle: defaultPage,
             availableChoices: defaultAvailableChoices
@@ -116,9 +114,12 @@ fdescribe('RockPaperScissorsGeneratorComponent', () => {
 
     describe('simulateGame', () => {
 
-        it('should display and hide corresponding elements', () => {
+        beforeEach(() => {
             controller.simulateGame();
             $scope.$apply();
+        });
+
+        it('should display and hide corresponding elements', () => {
             expect(controller.isGameSimulation).toEqual(true);
             expect(controller.isGameSimulatedDisplayed).toEqual(false);
             expect(controller.isGameStartedDisplayed).toEqual(false);
@@ -127,22 +128,16 @@ fdescribe('RockPaperScissorsGeneratorComponent', () => {
         });
 
         it('should set the corresponding elements', () => {
-            controller.simulateGame();
-            $scope.$apply();
             expect(controller.chosenAction).toBeDefined();
             expect(controller.computerChosenAction).toBeDefined();
             expect(controller.result).toBeDefined();
         });
 
         it('should call the gameEngineService.getComputerRandomChoice twice', () => {
-            controller.simulateGame();
-            $scope.$apply();
             expect(gameEngineService.getComputerRandomChoice.calls.count()).toBe(2);
         });
 
         it('should display the result', () => {
-            controller.simulateGame();
-            $scope.$apply();
             expect($mdDialog.alert).toHaveBeenCalled();
         });
 
@@ -152,11 +147,11 @@ fdescribe('RockPaperScissorsGeneratorComponent', () => {
 
         beforeEach(() => {
             controller.startGame();
+            controller.makeChoice();
+            $scope.$apply();
         });
 
         it('should call the $mdBottomSheet.show method with the right parameters', () => {
-            controller.makeChoice();
-            $scope.$apply();
             expect($mdBottomSheet.show).toHaveBeenCalledWith({
                 templateUrl: 'src/templates/available-choices-panel.html',
                 controller: 'AvailableChoicesPanelController',
@@ -175,63 +170,47 @@ fdescribe('RockPaperScissorsGeneratorComponent', () => {
         let defaultChoice = {
             id: 'rock'
         };
-        
+
         beforeEach(() => {
             controller.startGame();
             controller.makeChoice();
+            controller.chooseAction(defaultChoice);
+            $scope.$apply();
         });
 
         it('should call the $mdBottomSheet.hide method', () => {
-            controller.chooseAction(defaultChoice);
-            $scope.$apply();
             expect($mdBottomSheet.hide).toHaveBeenCalled();
         });
 
         it('should hide the isMakeYourChoiceDisplayed', () => {
-            controller.chooseAction(defaultChoice);
-            $scope.$apply();
             expect(controller.isMakeYourChoiceDisplayed).toEqual(false);
         });
 
         it('should init the chosenAction', () => {
-            controller.chooseAction(defaultChoice);
-            $scope.$apply();
             expect(controller.chosenAction).toEqual(defaultChoice);
         });
 
         it('should init call the gameEngineService.getComputerRandomChoice', () => {
-            controller.chooseAction(defaultChoice);
-            $scope.$apply();
             expect(gameEngineService.getComputerRandomChoice).toHaveBeenCalledWith(controller.availableChoices);
         });
 
         it('should init the computerChosenAction with the returned value', () => {
-            controller.chooseAction(defaultChoice);
-            $scope.$apply();
             expect(controller.computerChosenAction).toEqual('paper');
         });
 
         it('should call the gameEngineService.calculateResult method', () => {
-            controller.chooseAction(defaultChoice);
-            $scope.$apply();
             expect(gameEngineService.calculateResult).toHaveBeenCalled();
         });
 
         it('should define the result property', () => {
-            controller.chooseAction(defaultChoice);
-            $scope.$apply();
             expect(controller.result).toEqual(defaultResult);
         });
 
         it('should call the $mdDialog.alert', () => {
-            controller.chooseAction(defaultChoice);
-            $scope.$apply();
             expect($mdDialog.alert).toHaveBeenCalled();
         });
 
         it('should call the $mdDialog.show', () => {
-            controller.chooseAction(defaultChoice);
-            $scope.$apply();
             expect($mdDialog.alert).toHaveBeenCalled();
         });
 

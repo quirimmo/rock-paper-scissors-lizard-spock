@@ -61,10 +61,11 @@ describe('MainMenuComponent', function() {
             controller = $componentController('mainMenu', null, {
                 activeItem: 'Personal Profile'
             });
+            spyOn($mdDialog, 'confirm').and.returnValue(mocked$confirm);
+            spyOn(gameService, 'restartGame').and.callThrough();
         });
 
         it('should show the confirm dialog', () => {
-            spyOn($mdDialog, 'confirm').and.returnValue(mocked$confirm);
             spyOn($mdDialog, 'show').and.callThrough();
             controller.restartGame();
             $scope.$apply();
@@ -73,17 +74,14 @@ describe('MainMenuComponent', function() {
         });
 
         it('should not call the gameService.restartGame method if you didn\'t confirm the dialog', () => {
-            spyOn($mdDialog, 'confirm').and.returnValue(mocked$confirm);
-            spyOn(gameService, 'restartGame').and.callThrough();
+            spyOn($mdDialog, 'show').and.callThrough();
             controller.restartGame();
             $scope.$apply();
             expect(gameService.restartGame).not.toHaveBeenCalled();
         });
 
         it('should call the gameService.restartGame method if you confirmed the dialog', () => {
-            spyOn($mdDialog, 'confirm').and.returnValue(mocked$confirm);
             spyOn($mdDialog, 'show').and.returnValue($q.resolve());
-            spyOn(gameService, 'restartGame').and.callThrough();
             controller.restartGame();
             $scope.$apply();
             expect(gameService.restartGame).toHaveBeenCalled();
@@ -235,18 +233,19 @@ describe('MainMenuComponent', function() {
 
     describe('openMobileMenu', function() {
 
+        let menuInstance = {
+            open: function() {}
+        };
+
         beforeEach(() => {
             controller = $componentController('mainMenu', null, {
                 activeItem: 'Personal Profile'
             });
+            spyOn(menuInstance, 'open');
+            controller.openMobileMenu(menuInstance, 'event');
         });
 
         it('should trigger the $mdMenu.open method', () => {
-            let menuInstance = {
-                open: function() {}
-            };
-            spyOn(menuInstance, 'open');
-            controller.openMobileMenu(menuInstance, 'event');
             expect(menuInstance.open).toHaveBeenCalledWith('event');
         });
 
@@ -258,11 +257,11 @@ describe('MainMenuComponent', function() {
             controller = $componentController('mainMenu', null, {
                 activeItem: 'Personal Profile'
             });
+            spyOn($state, 'go');
+            controller.navigateTo('mystate');
         });
 
         it('should trigger the $state.go method', () => {
-            spyOn($state, 'go');
-            controller.navigateTo('mystate');
             expect($state.go).toHaveBeenCalledWith('mystate');
         });
 
