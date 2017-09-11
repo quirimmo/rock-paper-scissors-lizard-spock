@@ -1,16 +1,22 @@
-// global variables
+// global variable
+// ====================================================
 @mainBackgroundColor: #30b87d;
-@pageMainTitle: #eee;
+@winScoresColor: green;
+@drawScoresColor: orange;
+@loseScoresColor: red;
+@containersBackgroundColor: white;
+@mainTitlesColor: white;
 @mainTitleFontSize: 20px;
 @basicContainersRadius: 3%;
 @basicContainersOpacity: 0.95;
 @customBoxShadowValues: 2px 2px 2px rgba(0, 0, 0, 0.6);
 @customTextShadowValues: 1px 1px 2px rgba(0, 0, 0, 0.8);
-@winScoresColor: green;
-@drawScoresColor: orange;
-@loseScoresColor: red;
+@gameIcons: 64px;
+@gameIconsMobile: 32px;
 
-// functions
+// custom functions
+// ====================================================
+
 .customBoxShadow() {
     -webkit-box-shadow: @customBoxShadowValues;
     -moz-box-shadow: @customBoxShadowValues;
@@ -22,6 +28,38 @@
 .boldify() {
     font-weight: bold;
 };
+.uppercase() {
+    text-transform: uppercase;
+};
+.makeCircle() {
+    border-radius: 50%;
+}
+.fillAllHeight() {
+    height: 100%;
+}
+.fillAllWidth() {
+    width: 100%;
+}
+.fillAllSpace() {
+    .fillAllWidth();
+    .fillAllHeight();
+}
+.removeMarginBottom() {
+    margin-bottom: 0;
+}
+.removeMarginTop() {
+    margin-top: 0;
+}
+.setWidth(@width) {
+    width: @width;
+}
+.setHeight(@height) {
+    height: @height;
+}
+.setWidthHeight(@width, @height) {
+    .setWidth(@width);
+    .setHeight(@height);
+}
 
 // rules
 // ====================================================
@@ -40,14 +78,14 @@ html, body {
 }
 
 .page-main-title {
-    color: @pageMainTitle;
+    color: @mainTitlesColor;
     font-size: @mainTitleFontSize;
-    text-transform: uppercase;
+    .uppercase();
     .customTextShadow();
 }
 
 .personal-profile-scores {
-    background: #fff;
+    background: @containersBackgroundColor;
     border-radius: @basicContainersRadius;
     opacity: @basicContainersOpacity;
     .customBoxShadow();
@@ -70,12 +108,15 @@ html, body {
 }
 
 .fill-all-height {
-    height: 100%;
+    .fillAllHeight();
 }
 
 .fill-all {
-    height: 100%;
-    width: 100%;
+    .fillAllSpace();
+}
+
+.clear-margin-bottom {
+    .removeMarginBottom();
 }
 
 md-bottom-sheet.md-grid {
@@ -84,19 +125,21 @@ md-bottom-sheet.md-grid {
 
 md-bottom-sheet.md-grid md-list-item {
     height: auto;
-    margin-bottom: 0;
-    margin-top: 0;
+    .removeMarginTop();
 }
 
 .game-choices-icons {
-    width: 64px;
-    height: 64px;
+    .setWidthHeight(@gameIcons, @gameIcons);
+}
+
+.game-choices-icons-mobile {
+    .setWidthHeight(@gameIconsMobile, @gameIconsMobile);
 }
 
 .icon-not-chosen-yet {
-    background: white;
-    border-radius: 50%;
+    background: @containersBackgroundColor;
     padding: 5px;
+    .makeCircle();
 }
 
 .choices-menu {
@@ -104,17 +147,8 @@ md-bottom-sheet.md-grid md-list-item {
     bottom: 80px;
 }
 
-.game-choices-icons-mobile {
-    height: 32px;
-    width: 32px;
-}
-
-.choice-item {
-    margin-bottom: 0px;
-}
-
 .choice-item-mobile {
-    width: 200px;
+    .setWidth(200px);
 }
 
 .choices-list {
@@ -127,14 +161,14 @@ md-bottom-sheet.md-grid md-list-item {
 }
 
 .computer-player-name {
-    color: white;
+    color: @mainTitlesColor;
     .boldify();
 }
 
 md-bottom-sheet.md-grid md-list-item .md-grid-item-content {
-    width: 140px;
+    .setWidth(140px);
 }
 
 md-bottom-sheet.md-grid md-list-item .md-grid-text {
-    width: 100%;
+    .fillAllWidth();
 }
