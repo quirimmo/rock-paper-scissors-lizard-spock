@@ -1,6 +1,5 @@
 #!/bin/bash
 source ./travis/global.sh --source-only
-
 set -ev
 
 ftp_transfer () {
