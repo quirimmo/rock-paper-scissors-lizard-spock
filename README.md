@@ -45,7 +45,7 @@ Below an explanation on how how to run all the implemented tests of the project
 
 ### Run the unit tests
 
-All the js files are followed with unit tests. You can find the unit tests inside the root folder `test/unit`.
+There are 193 unit tests in the project. You can find the unit tests inside the root folder `test/unit`.
 
 In order to run the unit tests, you can use the following gulp task:
 
@@ -59,6 +59,8 @@ In this way the process will be running and watching changes on the spec files o
 
 ### Run the E2E Tests
 
+There are 103 e2e tests in the project. You can find all the e2e tests inside the folder `test/e2e` folder.
+
 In order to execute the tests, you need a pre step which will install locally **selenium** needed for the execution. Simply go to the root folder of your project, and run the following command:
 
 `node_modules/protractor/bin/webdriver-manager update`
@@ -68,8 +70,6 @@ Then, always from the root of your project, run the following gulp task:
 `gulp protractor-test`
 
 Obviously, this task will take care also of starting your app through the `gulp serve-no-watch` task, needed in order to execute e2e tests (the app must be running for them).
-
-You can find all the e2e tests inside the folder `test/e2e` folder.
 
 ## Implemented Features
 
