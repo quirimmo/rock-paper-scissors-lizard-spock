@@ -16,7 +16,7 @@
         // ==========================================================
 
         function onInit() {
-            vm.gameTitle = 'Rock Paper Scissors Lizard Spock Chuck';
+            vm.gameTitle = 'Rock Paper Scissors Lizard Spock Chuck Norris';
             vm.availableChoices = gameEngineService.getRockPaperScissorsLizardSpockChuckSubset();
         }
         
