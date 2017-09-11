@@ -1,3 +1,6 @@
+/**
+ * Class which holds all the game pages objects in order to be shared across the 
+ */
 'use strict';  
 
 module.exports = class GamePage {
