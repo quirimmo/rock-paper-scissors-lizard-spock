@@ -10,9 +10,10 @@ describe('MainMenuComponent', () => {
     let mocked$alertTitle = () => ({ textContent: mocked$alertTextContent });
     let mocked$confirm = { title: mocked$alertTitle };
 
+    // injecting the needed modules
     beforeEach(module('myApp'));
     beforeEach(module('partials'));
-
+    // mocking the injected dependencies
     beforeEach(module(($provide) => {
         $provide.value(gameService, {
             restartGame: () => {}
@@ -22,7 +23,7 @@ describe('MainMenuComponent', () => {
             confirm: () => {}
         });
     }));
-
+    // injecting the needed dependencies
     beforeEach(inject((_$rootScope_, _$componentController_, _$state_, _gameService_, _$mdDialog_, _$q_) => {
         $scope = _$rootScope_.$new();
         $state = _$state_;
