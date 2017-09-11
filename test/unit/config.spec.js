@@ -3,15 +3,15 @@ describe('config.js', () => {
     let $state, $rootScope, $location;
 
     beforeEach(() => {
+        // injecting the needed modules
         module('myApp');
         module('partials');
-
+        // injecting the needed dependencies
         inject((_$state_, _$rootScope_, _$location_) => {
             $state = _$state_;
             $rootScope = _$rootScope_;
             $location = _$location_;
         });
-
     });
 
     describe('Home State', () => {
