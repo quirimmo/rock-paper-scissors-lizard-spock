@@ -1,59 +1,10 @@
 <section class="fill-all-height" layout="column" ng-cloak>
+    <!-- menu -->
     <section>
-        <main-menu active-item="'Rock Paper Scissors Lizard Spock Chuck'"></main-menu>
+        <!-- instantiating the mainMenu component passing as active item the current game title we are in -->
+        <main-menu active-item="vm.gameTitle"></main-menu>
     </section>
-    <section layout="row" layout-align="center start" class="fill-all-height">
-        <main class="fill-all">
-            <article layout="column" layout-align="start center" class="md-padding fill-all-height">
-
-                <header ng-show="vm.isGameStartedDisplayed" flex="20">
-                    <h1 class="page-main-title">Rock Paper Scissors Lizard Spock Chuck</h1>
-                </header>
-
-                <section ng-show="vm.isGameStartedDisplayed && vm.isGameSimulatedDisplayed" flex="80" layout="row" layout-align="center center">
-                    <md-button id="start-game" class="md-primary md-raised" ng-click="vm.startGame()">Start Game</md-button>
-                    <md-button id="simulate-game" class="md-primary md-raised" ng-click="vm.simulateGame($event)">Simulate Game</md-button>
-                </section>
-
-                <!-- human vs computer section -->
-                <section ng-show="!vm.isGameStartedDisplayed && !vm.isGameSimulation" flex="100" layout="column" layout-align="start center">
-                    <section ng-show="vm.isComputerChosenIconDisplayed" flex="20" layout="column" layout-align="start center">
-                        <img id="computer-not-chosen-icon" ng-hide="vm.computerChosenAction" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/not-chosen-yet.png"></img>
-                        <img id="computer-chosen-icon" ng-show="vm.computerChosenAction" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.computerChosenAction.id}}.png"></img>
-                    </section>
-                    <section ng-show="vm.isMakeYourChoiceDisplayed" flex="80" layout="column" layout-align="end center">
-                        <md-button id="make-choices" class="md-primary md-raised" ng-click="vm.makeChoice()">Make your choice</md-button>
-                    </section>
-                    <section ng-show="vm.chosenAction" flex="80" layout="column" layout-align="end center">
-                        <img id="chosen-icon" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.chosenAction.id}}.png"></img>
-                    </section>
-                </section>
-
-                <!-- computer vs computer section -->
-                <section ng-show="!vm.isGameSimulatedDisplayed && vm.isGameSimulation" flex="100" layout="column" layout-align="start start">
-                    <section ng-show="vm.computerChosenAction" flex="50" layout="row" layout-align="center start">
-                        <section layout="row" flex="100" layout-align="center center">
-                            <section flex="30">
-                                <img id="computer-chosen-icon" ng-show="vm.computerChosenAction" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.computerChosenAction.id}}.png"></img>
-                            </section>
-                            <section flex="70" layout-padding layout="column" layout-align="center center">
-                                <span class="computer-player-name" flex>COMPUTER 2</span>
-                            </section>
-                        </section>
-                    </section>
-                    <section ng-show="vm.chosenAction" flex="50" layout="row" layout-align="center end">
-                        <section layout="row" flex="100" layout-align="center center">
-                            <section flex="30">
-                                <img id="chosen-icon" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.chosenAction.id}}.png"></img>
-                            </section>
-                            <section flex="70" layout-padding layout="column" layout-align="center center">
-                                <span class="computer-player-name" flex>COMPUTER 1</span>
-                            </section>
-                        </section>
-                    </section>
-                </section>
-
-            </article>
-        </main>
-    </section>
+    <!-- instantiating the rockPaperScissorsGenerator component passing as parameter the current game title and the available choices for this game -->
+    <rock-paper-scissors-generator page-title="vm.gameTitle" available-choices="vm.availableChoices" layout="row" layout-align="center start" class="fill-all-height">
+    </rock-paper-scissors-generator>
 </section>

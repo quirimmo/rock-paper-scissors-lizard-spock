@@ -1,8 +1,8 @@
-describe('RockPaperScissorsController', () => {
+describe('RockPaperScissorsLizardSpockController', () => {
 
     let controller, gameEngineService, $scope;
 
-    let defaultSubset = ['rock', 'paper', 'scissors'];
+    let defaultSubset = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
 
     beforeEach(() => {
         // injecting the needed modules
@@ -11,15 +11,15 @@ describe('RockPaperScissorsController', () => {
         // mocking the injected dependencies
         module(($provide) => {
             $provide.value('gameEngineService', {
-                getRockPaperScissorsSubset: () => {}
+                getRockPaperScissorsLizardSpockSubset: () => {}
             });
         });
         // injecting the needed dependencies
         inject((_$rootScope_, _$controller_, _gameEngineService_) => {
             $scope = _$rootScope_.$new();
             gameEngineService = _gameEngineService_;
-            controller = _$controller_('RockPaperScissorsController', { $scope: $scope });
-            spyOn(gameEngineService, 'getRockPaperScissorsSubset').and.returnValue(defaultSubset);
+            controller = _$controller_('RockPaperScissorsLizardSpockController', { $scope: $scope });
+            spyOn(gameEngineService, 'getRockPaperScissorsLizardSpockSubset').and.returnValue(defaultSubset);
             controller.$onInit();
         });
     });
@@ -27,12 +27,12 @@ describe('RockPaperScissorsController', () => {
     describe('initialization', () => {
 
         it('should define the exposed variables', () => {
-            expect(controller.gameTitle).toEqual('Rock Paper Scissors');
+            expect(controller.gameTitle).toEqual('Rock Paper Scissors Lizard Spock');
             expect(controller.availableChoices).toEqual(defaultSubset);
         });
 
-        it('should call the gameEngineService.getRockPaperScissorsSubset method', () => {
-            expect(gameEngineService.getRockPaperScissorsSubset).toHaveBeenCalled();
+        it('should call the gameEngineService.getRockPaperScissorsLizardSpockSubset method', () => {
+            expect(gameEngineService.getRockPaperScissorsLizardSpockSubset).toHaveBeenCalled();
         });
 
     });

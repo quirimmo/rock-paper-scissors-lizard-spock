@@ -4,36 +4,44 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <title>Personal Profile Page</title> -->
+    <!-- creating dynamic tab title bound to a variable dynamically changed from the states in order to show in the tab the right page you are in -->
     <title ng-bind="pageTitle"></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- automatically injecting all the external css concatenated and minified in one single file -->
     <!-- external:css -->
     <!-- endinject -->
 
+    <!-- automatically injecting all the app less files compiling them in css and concatenating and minifying them in one single file -->
+    <!-- this means that you can automatically add all the less files you want inside the right folder of the app dedicated to styles, and they will be automatically injected in the app -->
     <!-- inject:css -->
     <!-- endinject -->
 
 </head>
 
-<body ng-app="myApp" ng-cloak>
+<body ng-cloak>
 
+    <!-- section containing the main view where the angularjs app lives -->
     <section class="fill-all-height">
         <main class="fill-all-height">
             <ui-view></ui-view>
         </main>
     </section>
     
+    <!-- automatically injecting all the external node js components you are using -->
     <!-- node:js -->
     <!-- endinject -->
 
+    <!-- automatically injecting all the source files you are using. It means that if you add files in the src, they will be automatically injected in the app -->
     <!-- angular:js -->
     <!-- endinject -->
 
+    <!-- injecting the js file which includes all the js concatenated and minified -->
     <!-- all:js -->
     <!-- endinject -->
 
+    <!-- injecting a js file which contains all the HTML templates and retrieving them through $templateCache. This improves loading times because you don't need to start an XHR request in order to retrieve the templates, but they are already available through js -->
     <!-- templates:js -->
     <!-- endinject -->
 

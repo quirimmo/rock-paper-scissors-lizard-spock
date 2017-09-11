@@ -1,29 +1,30 @@
-describe('MainMenuComponent', function() {
+describe('MainMenuComponent', () => {
 
     let $componentController, controller, $state, gameService, $mdDialog, $q, $scope;
 
-    let mocked$alertCancel = function() {};
-    let mocked$alertOK = function() { return { cancel: mocked$alertCancel }; };
-    let mocked$targetEvent = function() { return { ok: mocked$alertOK }; };
-    let mocked$alertAriaLabel = function() { return { targetEvent: mocked$targetEvent }; };
-    let mocked$alertTextContent = function() { return { ariaLabel: mocked$alertAriaLabel }; };
-    let mocked$alertTitle = function() { return { textContent: mocked$alertTextContent }; };
+    let mocked$alertCancel = () => {};
+    let mocked$alertOK = () => ({ cancel: mocked$alertCancel });
+    let mocked$targetEvent = () => ({ ok: mocked$alertOK });
+    let mocked$alertAriaLabel = () => ({ targetEvent: mocked$targetEvent });
+    let mocked$alertTextContent = () => ({ ariaLabel: mocked$alertAriaLabel });
+    let mocked$alertTitle = () => ({ textContent: mocked$alertTextContent });
     let mocked$confirm = { title: mocked$alertTitle };
 
+    // injecting the needed modules
     beforeEach(module('myApp'));
     beforeEach(module('partials'));
-
-    beforeEach(module(function($provide) {
+    // mocking the injected dependencies
+    beforeEach(module(($provide) => {
         $provide.value(gameService, {
-            restartGame: function() {}
+            restartGame: () => {}
         });
         $provide.value($mdDialog, {
-            show: function() {},
-            confirm: function() {}
+            show: () => {},
+            confirm: () => {}
         });
     }));
-
-    beforeEach(inject(function(_$rootScope_, _$componentController_, _$state_, _gameService_, _$mdDialog_, _$q_) {
+    // injecting the needed dependencies
+    beforeEach(inject((_$rootScope_, _$componentController_, _$state_, _gameService_, _$mdDialog_, _$q_) => {
         $scope = _$rootScope_.$new();
         $state = _$state_;
         $componentController = _$componentController_;
@@ -32,7 +33,7 @@ describe('MainMenuComponent', function() {
         $q = _$q_;
     }));
 
-    describe('init', function() {
+    describe('init', () => {
 
         beforeEach(() => {
             controller = $componentController('mainMenu', null, {
@@ -40,11 +41,11 @@ describe('MainMenuComponent', function() {
             });
         });
 
-        it('should init the bindings', function() {
+        it('should init the bindings', () => {
             expect(controller.activeItem).toEqual('blablabla');
         });
 
-        it('should init the exposed functions', function() {
+        it('should init the exposed functions', () => {
             expect(controller.isPersonalProfileActive).toEqual(jasmine.any(Function));
             expect(controller.isRockPaperScissorActive).toEqual(jasmine.any(Function));
             expect(controller.isRockPaperScissorLizardSpockActive).toEqual(jasmine.any(Function));
@@ -55,16 +56,17 @@ describe('MainMenuComponent', function() {
 
     });
 
-    describe('restartGame', function() {
+    describe('restartGame', () => {
 
         beforeEach(() => {
             controller = $componentController('mainMenu', null, {
                 activeItem: 'Personal Profile'
             });
+            spyOn($mdDialog, 'confirm').and.returnValue(mocked$confirm);
+            spyOn(gameService, 'restartGame').and.callThrough();
         });
 
         it('should show the confirm dialog', () => {
-            spyOn($mdDialog, 'confirm').and.returnValue(mocked$confirm);
             spyOn($mdDialog, 'show').and.callThrough();
             controller.restartGame();
             $scope.$apply();
@@ -73,17 +75,14 @@ describe('MainMenuComponent', function() {
         });
 
         it('should not call the gameService.restartGame method if you didn\'t confirm the dialog', () => {
-            spyOn($mdDialog, 'confirm').and.returnValue(mocked$confirm);
-            spyOn(gameService, 'restartGame').and.callThrough();
+            spyOn($mdDialog, 'show').and.callThrough();
             controller.restartGame();
             $scope.$apply();
             expect(gameService.restartGame).not.toHaveBeenCalled();
         });
 
         it('should call the gameService.restartGame method if you confirmed the dialog', () => {
-            spyOn($mdDialog, 'confirm').and.returnValue(mocked$confirm);
             spyOn($mdDialog, 'show').and.returnValue($q.resolve());
-            spyOn(gameService, 'restartGame').and.callThrough();
             controller.restartGame();
             $scope.$apply();
             expect(gameService.restartGame).toHaveBeenCalled();
@@ -91,7 +90,7 @@ describe('MainMenuComponent', function() {
 
     });
 
-    describe('Personal Profile', function() {
+    describe('Personal Profile', () => {
 
         beforeEach(() => {
             controller = $componentController('mainMenu', null, {
@@ -100,32 +99,32 @@ describe('MainMenuComponent', function() {
         });
 
         describe('activeItem', () => {
-            it('should be equal to Personal Profile', function() {
+            it('should be equal to Personal Profile', () => {
                 expect(controller.activeItem).toEqual('Personal Profile');
             });
         });
 
         describe('isPersonalProfileActive', () => {
-            it('should be true', function() {
+            it('should be true', () => {
                 expect(controller.isPersonalProfileActive()).toEqual(true);
             });
         });
 
         describe('isRockPaperScissorActive', () => {
-            it('should be false', function() {
+            it('should be false', () => {
                 expect(controller.isRockPaperScissorActive()).toEqual(false);
             });
         });
 
         describe('isRockPaperScissorLizardSpockActive', () => {
-            it('should be false', function() {
+            it('should be false', () => {
                 expect(controller.isRockPaperScissorLizardSpockActive()).toEqual(false);
             });
         });
 
     });
 
-    describe('Rock Paper Scissors', function() {
+    describe('Rock Paper Scissors', () => {
 
         beforeEach(() => {
             controller = $componentController('mainMenu', null, {
@@ -134,32 +133,32 @@ describe('MainMenuComponent', function() {
         });
 
         describe('activeItem', () => {
-            it('should be equal to Rock Paper Scissors', function() {
+            it('should be equal to Rock Paper Scissors', () => {
                 expect(controller.activeItem).toEqual('Rock Paper Scissors');
             });
         });
 
         describe('isPersonalProfileActive', () => {
-            it('should be false', function() {
+            it('should be false', () => {
                 expect(controller.isPersonalProfileActive()).toEqual(false);
             });
         });
 
         describe('isRockPaperScissorActive', () => {
-            it('should be true', function() {
+            it('should be true', () => {
                 expect(controller.isRockPaperScissorActive()).toEqual(true);
             });
         });
 
         describe('isRockPaperScissorLizardSpockActive', () => {
-            it('should be false', function() {
+            it('should be false', () => {
                 expect(controller.isRockPaperScissorLizardSpockActive()).toEqual(false);
             });
         });
 
     });
 
-    describe('Rock Paper Scissors Lizard Spock', function() {
+    describe('Rock Paper Scissors Lizard Spock', () => {
 
         beforeEach(() => {
             controller = $componentController('mainMenu', null, {
@@ -168,101 +167,102 @@ describe('MainMenuComponent', function() {
         });
 
         describe('activeItem', () => {
-            it('should be equal to Rock Paper Scissors Lizard Spock', function() {
+            it('should be equal to Rock Paper Scissors Lizard Spock', () => {
                 expect(controller.activeItem).toEqual('Rock Paper Scissors Lizard Spock');
             });
         });
 
         describe('isPersonalProfileActive', () => {
-            it('should be false', function() {
+            it('should be false', () => {
                 expect(controller.isPersonalProfileActive()).toEqual(false);
             });
         });
 
         describe('isRockPaperScissorActive', () => {
-            it('should be false', function() {
+            it('should be false', () => {
                 expect(controller.isRockPaperScissorActive()).toEqual(false);
             });
         });
 
         describe('isRockPaperScissorLizardSpockActive', () => {
-            it('should be true', function() {
+            it('should be true', () => {
                 expect(controller.isRockPaperScissorLizardSpockActive()).toEqual(true);
             });
         });
 
     });
 
-    describe('Rock Paper Scissors Lizard Spock Chuck', function() {
+    describe('Rock Paper Scissors Lizard Spock Chuck', () => {
 
         beforeEach(() => {
             controller = $componentController('mainMenu', null, {
-                activeItem: 'Rock Paper Scissors Lizard Spock Chuck'
+                activeItem: 'Rock Paper Scissors Lizard Spock Chuck Norris'
             });
         });
 
         describe('activeItem', () => {
-            it('should be equal to Rock Paper Scissors Lizard Spock Chuck', function() {
-                expect(controller.activeItem).toEqual('Rock Paper Scissors Lizard Spock Chuck');
+            it('should be equal to Rock Paper Scissors Lizard Spock Chuck', () => {
+                expect(controller.activeItem).toEqual('Rock Paper Scissors Lizard Spock Chuck Norris');
             });
         });
 
         describe('isPersonalProfileActive', () => {
-            it('should be false', function() {
+            it('should be false', () => {
                 expect(controller.isPersonalProfileActive()).toEqual(false);
             });
         });
 
         describe('isRockPaperScissorActive', () => {
-            it('should be false', function() {
+            it('should be false', () => {
                 expect(controller.isRockPaperScissorActive()).toEqual(false);
             });
         });
 
         describe('isRockPaperScissorLizardSpockActive', () => {
-            it('should be false', function() {
+            it('should be false', () => {
                 expect(controller.isRockPaperScissorLizardSpockActive()).toEqual(false);
             });
         });
 
         describe('isRockPaperScissorLizardSpockChuckActive', () => {
-            it('should be true', function() {
+            it('should be true', () => {
                 expect(controller.isRockPaperScissorLizardSpockChuckActive()).toEqual(true);
             });
         });
 
     });
 
-    describe('openMobileMenu', function() {
+    describe('openMobileMenu', () => {
+
+        let menuInstance = {
+            open: () => {}
+        };
 
         beforeEach(() => {
             controller = $componentController('mainMenu', null, {
                 activeItem: 'Personal Profile'
             });
+            spyOn(menuInstance, 'open');
+            controller.openMobileMenu(menuInstance, 'event');
         });
 
         it('should trigger the $mdMenu.open method', () => {
-            let menuInstance = {
-                open: function() {}
-            };
-            spyOn(menuInstance, 'open');
-            controller.openMobileMenu(menuInstance, 'event');
             expect(menuInstance.open).toHaveBeenCalledWith('event');
         });
 
     });
 
-    describe('navigateTo', function() {
+    describe('navigateTo', () => {
 
         beforeEach(() => {
             controller = $componentController('mainMenu', null, {
                 activeItem: 'Personal Profile'
             });
+            spyOn($state, 'go');
+            controller.navigateTo('mystate');
         });
 
         it('should trigger the $state.go method', () => {
-            spyOn($state, 'go');
-            controller.navigateTo('mystate');
             expect($state.go).toHaveBeenCalledWith('mystate');
         });
 

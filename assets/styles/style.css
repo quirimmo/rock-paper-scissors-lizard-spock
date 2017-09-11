@@ -15,13 +15,13 @@ body {
   background: #30b87d;
 }
 .page-main-title {
-  color: #eee;
+  color: white;
   font-size: 20px;
   text-transform: uppercase;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 .personal-profile-scores {
-  background: #fff;
+  background: white;
   border-radius: 3%;
   opacity: 0.95;
   -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
@@ -44,36 +44,35 @@ body {
   height: 100%;
 }
 .fill-all {
-  height: 100%;
   width: 100%;
+  height: 100%;
+}
+.clear-margin-bottom {
+  margin-bottom: 0;
 }
 md-bottom-sheet.md-grid {
   padding: 5px 12px;
 }
 md-bottom-sheet.md-grid md-list-item {
   height: auto;
-  margin-bottom: 0;
   margin-top: 0;
 }
 .game-choices-icons {
   width: 64px;
   height: 64px;
 }
+.game-choices-icons-mobile {
+  width: 32px;
+  height: 32px;
+}
 .icon-not-chosen-yet {
   background: white;
-  border-radius: 50%;
   padding: 5px;
+  border-radius: 50%;
 }
 .choices-menu {
   padding-bottom: 0px;
   bottom: 80px;
-}
-.game-choices-icons-mobile {
-  height: 32px;
-  width: 32px;
-}
-.choice-item {
-  margin-bottom: 0px;
 }
 .choice-item-mobile {
   width: 200px;
@@ -88,4 +87,10 @@ md-bottom-sheet.md-grid md-list-item {
 .computer-player-name {
   color: white;
   font-weight: bold;
+}
+md-bottom-sheet.md-grid md-list-item .md-grid-item-content {
+  width: 140px;
+}
+md-bottom-sheet.md-grid md-list-item .md-grid-text {
+  width: 100%;
 }

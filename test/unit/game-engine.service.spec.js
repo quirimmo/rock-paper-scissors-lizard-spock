@@ -1,31 +1,33 @@
-describe('gameEngineService', function() {
+describe('gameEngineService', () => {
 
     let gameEngineService, gameService, GAME_CONSTANTS;
+    let rock, paper, scissors, lizard, spock, chuck;
+    let rockPaperScissorsSubset, rockPaperScissorsLizardSpockSubset, rockPaperScissorsLizardSpockChuckSubset;
 
     const DRAW_TEXT = 'draw';
     const DRAW_RESULT_OBJECT = {
         result: 0,
         text: DRAW_TEXT
     };
-    let rock, paper, scissors, lizard, spock, chuck;
-    let rockPaperScissorsSubset, rockPaperScissorsLizardSpockSubset, rockPaperScissorsLizardSpockChuckSubset;
 
-    beforeEach(function() {
+    beforeEach(() => {
+        // injecting the needed modules
         module('myApp');
-
-        module(function($provide) {
+        // mocking the injected dependencies
+        module(($provide) => {
             $provide.value('gameService', {
-                incrementNumOfMatches: function() {},
-                incrementNumOfVictories: function() {},
-                incrementNumOfLoses: function() {},
-                incrementNumOfDraws: function() {}
+                incrementNumOfMatches: () => {},
+                incrementNumOfVictories: () => {},
+                incrementNumOfLoses: () => {},
+                incrementNumOfDraws: () => {}
             });
         });
-
-        inject(function(_gameEngineService_, _GAME_CONSTANTS_, _gameService_) {
+        // injecting the dependencies
+        inject((_gameEngineService_, _GAME_CONSTANTS_, _gameService_) => {
             gameEngineService = _gameEngineService_;
             gameService = _gameService_;
             GAME_CONSTANTS = _GAME_CONSTANTS_;
+            // init values to be used inside the tests
             rock = GAME_CONSTANTS.actions.find(element => element.id === 'rock');
             paper = GAME_CONSTANTS.actions.find(element => element.id === 'paper');
             scissors = GAME_CONSTANTS.actions.find(element => element.id === 'scissors');
@@ -40,57 +42,57 @@ describe('gameEngineService', function() {
     });
 
 
-    describe('init', function() {
+    describe('init', () => {
 
-        it('should be defined', function() {
+        it('should be defined', () => {
             expect(gameEngineService).toBeDefined();
         });
 
-        it('should define the exposed methods for getting games subsets', function() {
+        it('should define the exposed methods for getting games subsets', () => {
             expect(gameEngineService.getRockPaperScissorsSubset).toEqual(jasmine.any(Function));
             expect(gameEngineService.getRockPaperScissorsLizardSpockSubset).toEqual(jasmine.any(Function));
             expect(gameEngineService.getRockPaperScissorsLizardSpockChuckSubset).toEqual(jasmine.any(Function));
         });
 
-        it('should define the exposed methods for managing victories, loses or draws', function() {
+        it('should define the exposed methods for managing victories, loses or draws', () => {
             expect(gameEngineService.calculateResult).toEqual(jasmine.any(Function));
             expect(gameEngineService.getWinText).toEqual(jasmine.any(Function));
             expect(gameEngineService.getLoseText).toEqual(jasmine.any(Function));
         });
 
-        it('should define the getComputerRandomChoice', function() {
+        it('should define the getComputerRandomChoice', () => {
             expect(gameEngineService.getComputerRandomChoice).toEqual(jasmine.any(Function));
         });
 
     });
 
-    describe('getRockPaperScissorsSubset', function() {
+    describe('getRockPaperScissorsSubset', () => {
 
-        it('should return an array', function() {
+        it('should return an array', () => {
             expect(gameEngineService.getRockPaperScissorsSubset()).toEqual(jasmine.any(Array));
         });
 
-        it('should return 3 elements', function() {
+        it('should return 3 elements', () => {
             expect(gameEngineService.getRockPaperScissorsSubset().length).toEqual(3);
         });
 
-        it('should return the right elements', function() {
+        it('should return the right elements', () => {
             expect(gameEngineService.getRockPaperScissorsSubset()).toEqual(rockPaperScissorsSubset);
         });
 
     });
 
-    describe('getRockPaperScissorsLizardSpockSubset', function() {
+    describe('getRockPaperScissorsLizardSpockSubset', () => {
 
-        it('should return an array', function() {
+        it('should return an array', () => {
             expect(gameEngineService.getRockPaperScissorsLizardSpockSubset()).toEqual(jasmine.any(Array));
         });
 
-        it('should return 5 elements', function() {
+        it('should return 5 elements', () => {
             expect(gameEngineService.getRockPaperScissorsLizardSpockSubset().length).toEqual(5);
         });
 
-        it('should return the right elements', function() {
+        it('should return the right elements', () => {
             // here we could simply use the following, but this will make the code not easy to increase, because if you add new elements,
             // for a new game, also the unit tests for the game rock paper scissors lizard spock will break 
             // let rockPaperScissorsLizardSpockSubset = GAME_CONSTANTS.actions.filter(element => element.id !== 'chuck');
@@ -99,17 +101,17 @@ describe('gameEngineService', function() {
 
     });
 
-    describe('getRockPaperScissorsLizardSpockChuckSubset', function() {
+    describe('getRockPaperScissorsLizardSpockChuckSubset', () => {
 
-        it('should return an array', function() {
+        it('should return an array', () => {
             expect(gameEngineService.getRockPaperScissorsLizardSpockChuckSubset()).toEqual(jasmine.any(Array));
         });
 
-        it('should return 6 elements', function() {
+        it('should return 6 elements', () => {
             expect(gameEngineService.getRockPaperScissorsLizardSpockChuckSubset().length).toEqual(6);
         });
 
-        it('should return the right elements', function() {
+        it('should return the right elements', () => {
             // here we could simply use the following, but this will make the code not easy to increase, because if you add new elements,
             // for a new game, also the unit tests for the game rock paper scissors lizard spock chuck will break 
             // let rockPaperScissorsLizardSpockChuckSubset = GAME_CONSTANTS.actions;
@@ -118,33 +120,33 @@ describe('gameEngineService', function() {
 
     });
 
-    describe('getWinText', function() {
+    describe('getWinText', () => {
 
-        it('should return a string', function() {
+        it('should return a string', () => {
             expect(gameEngineService.getWinText({}, {})).toEqual(jasmine.any(String));
         });
 
-        it('should return an empty string if the inputs are not correct', function() {
+        it('should return an empty string if the inputs are not correct', () => {
             expect(gameEngineService.getWinText({}, {})).toEqual('');
         });
 
-        it('should return the composed right text', function() {
+        it('should return the composed right text', () => {
             expect(gameEngineService.getWinText(rock, scissors)).toEqual(`${rock.label} ${rock.winsAgainst.find(element => element.id === scissors.id).term} ${scissors.label}`);
         });
 
     });
 
-    describe('getLoseText', function() {
+    describe('getLoseText', () => {
 
-        it('should return a string', function() {
+        it('should return a string', () => {
             expect(gameEngineService.getLoseText({}, {})).toEqual(jasmine.any(String));
         });
 
-        it('should return an empty string if the inputs are not correct', function() {
+        it('should return an empty string if the inputs are not correct', () => {
             expect(gameEngineService.getLoseText({}, {})).toEqual('');
         });
 
-        it('should return the composed lose text', function() {
+        it('should return the composed lose text', () => {
             expect(gameEngineService.getLoseText(rock, paper)).toEqual(
                 `${rock.label} has been ${rock.losesAgainst.find(element => element.id === paper.id).term} by ${paper.label}`
             );
@@ -152,34 +154,34 @@ describe('gameEngineService', function() {
 
     });
 
-    describe('getComputerRandomChoice', function() {
+    describe('getComputerRandomChoice', () => {
 
-        it('should return an Object', function() {
+        it('should return an Object', () => {
             expect(gameEngineService.getComputerRandomChoice(rockPaperScissorsSubset)).toEqual(jasmine.any(Object));
         });
 
-        it('should return undefined with invalid input', function() {
+        it('should return undefined with invalid input', () => {
             expect(gameEngineService.getComputerRandomChoice()).toBeUndefined();
         });
 
-        it('should return the computer random action for Rock Paper Scissors', function() {
+        it('should return the computer random action for Rock Paper Scissors', () => {
             spyOn(Math, 'random').and.returnValue(0.1);
             expect(gameEngineService.getComputerRandomChoice(rockPaperScissorsSubset)).toEqual(rock);
         });
 
-        it('should return the computer random action for Rock Paper Scissors Lizard Spock', function() {
+        it('should return the computer random action for Rock Paper Scissors Lizard Spock', () => {
             spyOn(Math, 'random').and.returnValue(0.7);
             expect(gameEngineService.getComputerRandomChoice(rockPaperScissorsLizardSpockSubset)).toEqual(lizard);
         });
 
-        it('should return the computer random action for Rock Paper Scissors Lizard Spock Chuck', function() {
+        it('should return the computer random action for Rock Paper Scissors Lizard Spock Chuck', () => {
             spyOn(Math, 'random').and.returnValue(0.18);
             expect(gameEngineService.getComputerRandomChoice(rockPaperScissorsLizardSpockChuckSubset)).toEqual(paper);
         });
 
     });
 
-    describe('calculateResult', function() {
+    describe('calculateResult', () => {
 
         beforeEach(() => {
             spyOn(gameService, 'incrementNumOfMatches').and.callThrough();
@@ -188,19 +190,19 @@ describe('gameEngineService', function() {
             spyOn(gameService, 'incrementNumOfDraws').and.callThrough();
         });
 
-        it('should return an object with two properties defined', function() {
+        it('should return an object with two properties defined', () => {
             let result = gameEngineService.calculateResult({}, {});
             expect(result.result).toBeDefined();
             expect(result.text).toBeDefined();
         });
 
-        it('should return a draw if values are not the right ones', function() {
+        it('should return a draw if values are not the right ones', () => {
             expect(gameEngineService.calculateResult({}, {})).toEqual(DRAW_RESULT_OBJECT);
         });
 
         describe('increment values', () => {
 
-            it('should not call the increment values if inputs are not correct', function() {
+            it('should not call the increment values if inputs are not correct', () => {
                 gameEngineService.calculateResult({}, {});
                 expect(gameService.incrementNumOfMatches).not.toHaveBeenCalled();
                 expect(gameService.incrementNumOfVictories).not.toHaveBeenCalled();
@@ -208,22 +210,22 @@ describe('gameEngineService', function() {
                 expect(gameService.incrementNumOfDraws).not.toHaveBeenCalled();
             });
 
-            it('should call the gameService.incrementNumOfMatches', function() {
+            it('should call the gameService.incrementNumOfMatches', () => {
                 gameEngineService.calculateResult(rock, scissors);
                 expect(gameService.incrementNumOfMatches).toHaveBeenCalled();
             });
     
-            it('should call the gameService.incrementNumOfVictories', function() {
+            it('should call the gameService.incrementNumOfVictories', () => {
                 gameEngineService.calculateResult(rock, scissors);
                 expect(gameService.incrementNumOfVictories).toHaveBeenCalled();
             });
     
-            it('should call the gameService.incrementNumOfLoses', function() {
+            it('should call the gameService.incrementNumOfLoses', () => {
                 gameEngineService.calculateResult(scissors, rock);
                 expect(gameService.incrementNumOfLoses).toHaveBeenCalled();
             });
     
-            it('should call the gameService.incrementNumOfDraws', function() {
+            it('should call the gameService.incrementNumOfDraws', () => {
                 gameEngineService.calculateResult(rock, rock);
                 expect(gameService.incrementNumOfDraws).toHaveBeenCalled();
             });

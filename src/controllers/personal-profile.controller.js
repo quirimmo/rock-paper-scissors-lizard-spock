@@ -1,3 +1,6 @@
+/**
+ * Controller associated to the Personal Profile page, responsible for showing all the personal scores achieved so far
+ */
 (function() {
     'use strict';
 
@@ -17,7 +20,12 @@
         vm.numOfConsecutiveDraws;
 
         vm.$onInit = onInit;
+        
+        // =================================================================================
 
+        /**
+         * Init all the values to be shown on the page retrieving the data through the gameService methods
+         */
         function onInit() {
             vm.numOfMatches = gameService.getNumOfMatches();
             vm.numOfVictories = gameService.getNumOfVictories();

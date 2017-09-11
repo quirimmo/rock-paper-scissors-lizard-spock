@@ -1,11 +1,12 @@
-describe('gameService', function() {
+describe('gameService', () => {
 
     let gameService, $localStorage;
 
-    beforeEach(function() {
-        module('myApp');
-
-        module(function($provide) {
+    beforeEach(() => {
+        // injecting needed modules
+        module('myApp');    
+        // mocking injected dependencies
+        module(($provide) => {
             $provide.value('$localStorage', {
                 numOfMatches: 1,
                 numOfVictories: 2,
@@ -16,18 +17,17 @@ describe('gameService', function() {
                 numOfConsecutiveDraws: 7
             });
         });
-
-        inject(function(_gameService_, _$localStorage_) {
+        // injecting needed dependencies
+        inject((_gameService_, _$localStorage_) => {
             gameService = _gameService_;
             $localStorage = _$localStorage_;
         });
-
     });
 
 
-    describe('init', function() {
+    describe('init', () => {
 
-        it('should be defined', function() {
+        it('should be defined', () => {
             expect(gameService).toBeDefined();
         });
 
@@ -83,8 +83,8 @@ describe('gameService', function() {
 
     describe('increment matches, wins, loses and draws methods', () => {
 
-        describe('incrementNumOfMatches', function() {
-            it('should increment the value in the service and the storage', function() {
+        describe('incrementNumOfMatches', () => {
+            it('should increment the value in the service and the storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfMatches;
                 expect(gameService.getNumOfMatches()).toEqual(beforeLocalStorageValue);
                 gameService.incrementNumOfMatches();
@@ -92,8 +92,8 @@ describe('gameService', function() {
             });
         });
 
-        describe('incrementNumOfVictories', function() {
-            it('should increment the value in the service and the storage', function() {
+        describe('incrementNumOfVictories', () => {
+            it('should increment the value in the service and the storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfVictories;
                 expect(gameService.getNumOfVictories()).toEqual(beforeLocalStorageValue);
                 gameService.incrementNumOfVictories();
@@ -101,8 +101,8 @@ describe('gameService', function() {
             });
         });
 
-        describe('incrementNumOfLoses', function() {
-            it('should increment the value in the service and the storage', function() {
+        describe('incrementNumOfLoses', () => {
+            it('should increment the value in the service and the storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfLoses;
                 expect(gameService.getNumOfLoses()).toEqual(beforeLocalStorageValue);
                 gameService.incrementNumOfLoses();
@@ -110,8 +110,8 @@ describe('gameService', function() {
             });
         });
 
-        describe('incrementNumOfDraws', function() {
-            it('should increment the value in the service and the storage', function() {
+        describe('incrementNumOfDraws', () => {
+            it('should increment the value in the service and the storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfDraws;
                 expect(gameService.getNumOfDraws()).toEqual(beforeLocalStorageValue);
                 gameService.incrementNumOfDraws();
@@ -123,10 +123,11 @@ describe('gameService', function() {
 
     describe('increment consecutive wins, loses and draws methods', () => {
 
-        describe('incrementNumOfConsecutiveVictories', function() {
-            it('should increment the value if the number of current consecutive victories is greater than the one in the local storage', function() {
+        describe('incrementNumOfConsecutiveVictories', () => {
+            it('should increment the value if the number of current consecutive victories is greater than the one in the local storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveVictories;
                 expect(gameService.getNumOfConsecutiveVictories()).toEqual(beforeLocalStorageValue);
+                // incrementing the num of victories in order to have a value greater than the one provided from the local storage
                 for (let i = 0; i < beforeLocalStorageValue + 1; i++) {
                     gameService.incrementNumOfVictories();
                 }
@@ -134,9 +135,10 @@ describe('gameService', function() {
                 expect(gameService.getNumOfConsecutiveVictories()).toEqual(beforeLocalStorageValue + 1);
             });
 
-            it('should not increment the value if the number of current consecutive victories is lower than the one in the local storage', function() {
+            it('should not increment the value if the number of current consecutive victories is lower than the one in the local storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveVictories;
                 expect(gameService.getNumOfConsecutiveVictories()).toEqual(beforeLocalStorageValue);
+                // incrementing the num of victories in order to have a value lower than the one provided from the local storage
                 for (let i = 0; i < beforeLocalStorageValue - 1; i++) {
                     gameService.incrementNumOfVictories();
                 }
@@ -146,10 +148,11 @@ describe('gameService', function() {
 
         });
 
-        describe('incrementNumOfConsecutiveLoses', function() {
-            it('should increment the value if the number of current consecutive loses is greater than the one in the local storage', function() {
+        describe('incrementNumOfConsecutiveLoses', () => {
+            it('should increment the value if the number of current consecutive loses is greater than the one in the local storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveLoses;
                 expect(gameService.getNumOfConsecutiveLoses()).toEqual(beforeLocalStorageValue);
+                // incrementing the num of loses in order to have a value greater than the one provided from the local storage
                 for (let i = 0; i < beforeLocalStorageValue + 1; i++) {
                     gameService.incrementNumOfLoses();
                 }
@@ -157,9 +160,10 @@ describe('gameService', function() {
                 expect(gameService.getNumOfConsecutiveLoses()).toEqual(beforeLocalStorageValue + 1);
             });
 
-            it('should not increment the value if the number of current consecutive loses is lower than the one in the local storage', function() {
+            it('should not increment the value if the number of current consecutive loses is lower than the one in the local storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveLoses;
                 expect(gameService.getNumOfConsecutiveLoses()).toEqual(beforeLocalStorageValue);
+                // incrementing the num of loses in order to have a value lower than the one provided from the local storage
                 for (let i = 0; i < beforeLocalStorageValue - 1; i++) {
                     gameService.incrementNumOfLoses();
                 }
@@ -168,10 +172,11 @@ describe('gameService', function() {
             });
         });
 
-        describe('incrementNumOfConsecutiveDraws', function() {
-            it('should increment the value if the number of current consecutive draws is greater than the one in the local storage', function() {
+        describe('incrementNumOfConsecutiveDraws', () => {
+            it('should increment the value if the number of current consecutive draws is greater than the one in the local storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveDraws;
                 expect(gameService.getNumOfConsecutiveDraws()).toEqual(beforeLocalStorageValue);
+                // incrementing the num of draws in order to have a value greater than the one provided from the local storage
                 for (let i = 0; i < beforeLocalStorageValue + 1; i++) {
                     gameService.incrementNumOfDraws();
                 }
@@ -179,9 +184,10 @@ describe('gameService', function() {
                 expect(gameService.getNumOfConsecutiveDraws()).toEqual(beforeLocalStorageValue + 1);
             });
 
-            it('should not increment the value if the number of current consecutive draws is lower than the one in the local storage', function() {
+            it('should not increment the value if the number of current consecutive draws is lower than the one in the local storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveDraws;
                 expect(gameService.getNumOfConsecutiveDraws()).toEqual(beforeLocalStorageValue);
+                // incrementing the num of draws in order to have a value lower than the one provided from the local storage
                 for (let i = 0; i < beforeLocalStorageValue - 1; i++) {
                     gameService.incrementNumOfDraws();
                 }
@@ -193,44 +199,44 @@ describe('gameService', function() {
     });
 
     describe('getters methods', () => {
-        describe('getNumOfMatches', function() {
-            it('should return the value stored in the local storage', function() {
+        describe('getNumOfMatches', () => {
+            it('should return the value stored in the local storage', () => {
                 expect(gameService.getNumOfMatches()).toEqual($localStorage.numOfMatches);
             });
         });
 
-        describe('getNumOfVictories', function() {
-            it('should return the value stored in the local storage', function() {
+        describe('getNumOfVictories', () => {
+            it('should return the value stored in the local storage', () => {
                 expect(gameService.getNumOfVictories()).toEqual($localStorage.numOfVictories);
             });
         });
 
-        describe('getNumOfLoses', function() {
-            it('should return the value stored in the local storage', function() {
+        describe('getNumOfLoses', () => {
+            it('should return the value stored in the local storage', () => {
                 expect(gameService.getNumOfLoses()).toEqual($localStorage.numOfLoses);
             });
         });
 
-        describe('getNumOfDraws', function() {
-            it('should return the value stored in the local storage', function() {
+        describe('getNumOfDraws', () => {
+            it('should return the value stored in the local storage', () => {
                 expect(gameService.getNumOfDraws()).toEqual($localStorage.numOfDraws);
             });
         });
 
-        describe('getNumOfConsecutiveVictories', function() {
-            it('should return the value stored in the local storage', function() {
+        describe('getNumOfConsecutiveVictories', () => {
+            it('should return the value stored in the local storage', () => {
                 expect(gameService.getNumOfConsecutiveVictories()).toEqual($localStorage.numOfConsecutiveVictories);
             });
         });
 
-        describe('getNumOfConsecutiveLoses', function() {
-            it('should return the value stored in the local storage', function() {
+        describe('getNumOfConsecutiveLoses', () => {
+            it('should return the value stored in the local storage', () => {
                 expect(gameService.getNumOfConsecutiveLoses()).toEqual($localStorage.numOfConsecutiveLoses);
             });
         });
 
-        describe('getNumOfConsecutiveDraws', function() {
-            it('should return the value stored in the local storage', function() {
+        describe('getNumOfConsecutiveDraws', () => {
+            it('should return the value stored in the local storage', () => {
                 expect(gameService.getNumOfConsecutiveDraws()).toEqual($localStorage.numOfConsecutiveDraws);
             });
         });

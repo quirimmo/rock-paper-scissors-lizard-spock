@@ -1,0 +1,69 @@
+<section class="fill-all-height">
+    <main class="fill-all">
+        <article layout="column" layout-align="start center" class="md-padding fill-all-height">
+
+            <!-- header showing the title of the current game instance -->
+            <header ng-show="vm.isGameStartedDisplayed" flex="20">
+                <h1 class="page-main-title">{{vm.pageTitle}}</h1>
+            </header>
+
+            <!-- section showing the two main buttons of the game: start game and simulate game -->
+            <section ng-show="vm.isGameStartedDisplayed && vm.isGameSimulatedDisplayed" flex="80" layout="row" layout-align="center center">
+                <md-button id="start-game" class="md-primary md-raised" ng-click="vm.startGame()">Start Game</md-button>
+                <md-button id="simulate-game" class="md-primary md-raised" ng-click="vm.simulateGame($event)">Simulate Game</md-button>
+            </section>
+
+            <!-- human vs computer game section -->
+            <section ng-show="!vm.isGameStartedDisplayed && !vm.isGameSimulation" flex="100" layout="column" layout-align="start center">
+
+                <!-- computer action: will display a question mark icon before you make your choice so also the computer action has not been performed yet -->
+                <section ng-show="vm.isComputerChosenIconDisplayed" flex="20" layout="column" layout-align="start center">
+                    <img id="computer-not-chosen-icon" ng-hide="vm.computerChosenAction" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/not-chosen-yet.png"></img>
+                    <img id="computer-chosen-icon" ng-show="vm.computerChosenAction" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.computerChosenAction.id}}.png"></img>
+                </section>
+
+                <!-- make your choice section in order to open the panel for making your choices -->
+                <section ng-show="vm.isMakeYourChoiceDisplayed" flex="80" layout="column" layout-align="end center">
+                    <md-button id="make-choices" class="md-primary md-raised" ng-click="vm.makeChoice()">Make your choice</md-button>
+                </section>
+
+                <!-- human action showing the chosen action through the corresponding icon of the action -->
+                <section ng-show="vm.chosenAction" flex="80" layout="column" layout-align="end center">
+                    <img id="chosen-icon" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.chosenAction.id}}.png"></img>
+                </section>
+
+            </section>
+
+            <!-- computer vs computer game section -->
+            <section ng-show="!vm.isGameSimulatedDisplayed && vm.isGameSimulation" flex="100" layout="column" layout-align="start start">
+
+                <!-- computer 2 action section -->
+                <section ng-show="vm.computerChosenAction" flex="50" layout="row" layout-align="center start">
+                    <section layout="row" flex="100" layout-align="center center">
+                        <section flex="30">
+                            <img id="computer-chosen-icon" ng-show="vm.computerChosenAction" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.computerChosenAction.id}}.png"></img>
+                        </section>
+                        <!-- label marking that as COMPUTER 2 -->
+                        <section flex="70" layout-padding layout="column" layout-align="center center">
+                            <span class="computer-player-name" flex>COMPUTER 2</span>
+                        </section>
+                    </section>
+                </section>
+
+                <!-- computer 1 action section -->
+                <section ng-show="vm.chosenAction" flex="50" layout="row" layout-align="center end">
+                    <section layout="row" flex="100" layout-align="center center">
+                        <section flex="30">
+                            <img id="chosen-icon" class="game-choices-icons icon-not-chosen-yet" ng-src="assets/images/{{vm.chosenAction.id}}.png"></img>
+                        </section>
+                        <section flex="70" layout-padding layout="column" layout-align="center center">
+                            <span class="computer-player-name" flex>COMPUTER 1</span>
+                        </section>
+                    </section>
+                </section>
+
+            </section>
+
+        </article>
+    </main>
+</section>
