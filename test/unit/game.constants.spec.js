@@ -3,8 +3,9 @@ describe('GAME_CONSTANTS', () => {
     let GAME_CONSTANTS;
 
     beforeEach(() => {
+        // injecting app module
         module('myApp');
-
+        // injecting needed dependencies
         inject((_GAME_CONSTANTS_) => {
             GAME_CONSTANTS = _GAME_CONSTANTS_;
         });
