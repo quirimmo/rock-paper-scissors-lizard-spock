@@ -92,7 +92,7 @@
          * @param {Object} ev The firing event 
          */
         function restartGame(ev) {
-            gameService;
+            // create a confirm dialog through $mdDialog of angular material passing all the options of the dialog
             var confirm = $mdDialog.confirm()
                 .title('Do you really want to restart the game?')
                 .textContent('Restarting the game you will loose all your current saved progresses and scores')
@@ -102,7 +102,12 @@
                 .cancel('Nope I don\'t');
 
             $mdDialog.show(confirm).then(() => {
+                // call the restart game method on the game service
                 gameService.restartGame();
+                // if you are already in the personal profile page, reload the state in order to reflect changes
+                if ($state.current.name === 'home') {
+                    $state.reload();
+                }
             });
         }
 
