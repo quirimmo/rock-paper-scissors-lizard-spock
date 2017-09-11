@@ -1,40 +1,40 @@
-describe('GAME_CONSTANTS', function() {
+describe('GAME_CONSTANTS', () => {
 
     let GAME_CONSTANTS;
 
-    beforeEach(function() {
+    beforeEach(() => {
         module('myApp');
 
-        inject(function(_GAME_CONSTANTS_) {
+        inject((_GAME_CONSTANTS_) => {
             GAME_CONSTANTS = _GAME_CONSTANTS_;
         });
     });
 
-    describe('general', function() {
+    describe('general', () => {
 
-        it('should be defined', function() {
+        it('should be defined', () => {
             expect(GAME_CONSTANTS).toBeDefined();
         });
 
-        it('should be an object', function() {
+        it('should be an object', () => {
             expect(GAME_CONSTANTS).toEqual(jasmine.any(Object));
         });
 
-        describe('actions', function() {
+        describe('actions', () => {
 
-            it('should be defined', function() {
+            it('should be defined', () => {
                 expect(GAME_CONSTANTS.actions).toBeDefined();
             });
 
-            it('should be an array', function() {
+            it('should be an array', () => {
                 expect(GAME_CONSTANTS.actions).toEqual(jasmine.any(Array));
             });
 
-            it('should have length 6', function() {
+            it('should have length 6', () => {
                 expect(GAME_CONSTANTS.actions.length).toEqual(6);
             });
 
-            describe('rock', function() {
+            describe('rock', () => {
 
                 let rock;
 
@@ -42,15 +42,15 @@ describe('GAME_CONSTANTS', function() {
                     rock = GAME_CONSTANTS.actions.find(action => action.id === 'rock');
                 });
 
-                it('should be defined', function() {
+                it('should be defined', () => {
                     expect(rock).toBeDefined();
                 });
 
-                it('should define its label', function() {
+                it('should define its label', () => {
                     expect(rock.label).toEqual('Rock');
                 });
 
-                it('should define the winsAgainst', function() {
+                it('should define the winsAgainst', () => {
                     expect(rock.winsAgainst).toEqual([{
                         id: 'scissors',
                         term: 'crushes'
@@ -60,7 +60,7 @@ describe('GAME_CONSTANTS', function() {
                     }]);
                 });
 
-                it('should define the losesAgainst', function() {
+                it('should define the losesAgainst', () => {
                     expect(rock.losesAgainst).toEqual([{
                         id: 'paper',
                         term: 'covered'
@@ -75,7 +75,7 @@ describe('GAME_CONSTANTS', function() {
 
             });
 
-            describe('paper', function() {
+            describe('paper', () => {
 
                 let paper;
 
@@ -83,15 +83,15 @@ describe('GAME_CONSTANTS', function() {
                     paper = GAME_CONSTANTS.actions.find(action => action.id === 'paper');
                 });
 
-                it('should be defined', function() {
+                it('should be defined', () => {
                     expect(paper).toBeDefined();
                 });
 
-                it('should define its label', function() {
+                it('should define its label', () => {
                     expect(paper.label).toEqual('Paper');
                 });
 
-                it('should define the winsAgainst', function() {
+                it('should define the winsAgainst', () => {
                     expect(paper.winsAgainst).toEqual([{
                         id: 'rock',
                         term: 'covers'
@@ -101,7 +101,7 @@ describe('GAME_CONSTANTS', function() {
                     }]);
                 });
 
-                it('should define the losesAgainst', function() {
+                it('should define the losesAgainst', () => {
                     expect(paper.losesAgainst).toEqual([{
                         id: 'lizard',
                         term: 'eaten'
@@ -116,7 +116,7 @@ describe('GAME_CONSTANTS', function() {
 
             });
 
-            describe('scissors', function() {
+            describe('scissors', () => {
 
                 let scissors;
 
@@ -124,15 +124,15 @@ describe('GAME_CONSTANTS', function() {
                     scissors = GAME_CONSTANTS.actions.find(action => action.id === 'scissors');
                 });
 
-                it('should be defined', function() {
+                it('should be defined', () => {
                     expect(scissors).toBeDefined();
                 });
 
-                it('should define its label', function() {
+                it('should define its label', () => {
                     expect(scissors.label).toEqual('Scissors');
                 });
 
-                it('should define the winsAgainst', function() {
+                it('should define the winsAgainst', () => {
                     expect(scissors.winsAgainst).toEqual([{
                         id: 'paper',
                         term: 'cuts'
@@ -142,7 +142,7 @@ describe('GAME_CONSTANTS', function() {
                     }]);
                 });
 
-                it('should define the losesAgainst', function() {
+                it('should define the losesAgainst', () => {
                     expect(scissors.losesAgainst).toEqual([{
                         id: 'rock',
                         term: 'crushed'
@@ -157,7 +157,7 @@ describe('GAME_CONSTANTS', function() {
 
             });
 
-            describe('lizard', function() {
+            describe('lizard', () => {
 
                 let lizard;
 
@@ -165,15 +165,15 @@ describe('GAME_CONSTANTS', function() {
                     lizard = GAME_CONSTANTS.actions.find(action => action.id === 'lizard');
                 });
 
-                it('should be defined', function() {
+                it('should be defined', () => {
                     expect(lizard).toBeDefined();
                 });
 
-                it('should define its label', function() {
+                it('should define its label', () => {
                     expect(lizard.label).toEqual('Lizard');
                 });
 
-                it('should define the winsAgainst', function() {
+                it('should define the winsAgainst', () => {
                     expect(lizard.winsAgainst).toEqual([{
                         id: 'spock',
                         term: 'poisons'
@@ -183,7 +183,7 @@ describe('GAME_CONSTANTS', function() {
                     }]);
                 });
 
-                it('should define the losesAgainst', function() {
+                it('should define the losesAgainst', () => {
                     expect(lizard.losesAgainst).toEqual([{
                         id: 'scissors',
                         term: 'decapitated'
@@ -198,7 +198,7 @@ describe('GAME_CONSTANTS', function() {
 
             });
 
-            describe('spock', function() {
+            describe('spock', () => {
 
                 let spock;
 
@@ -206,15 +206,15 @@ describe('GAME_CONSTANTS', function() {
                     spock = GAME_CONSTANTS.actions.find(action => action.id === 'spock');
                 });
 
-                it('should be defined', function() {
+                it('should be defined', () => {
                     expect(spock).toBeDefined();
                 });
 
-                it('should define its label', function() {
+                it('should define its label', () => {
                     expect(spock.label).toEqual('Spock');
                 });
 
-                it('should define the winsAgainst', function() {
+                it('should define the winsAgainst', () => {
                     expect(spock.winsAgainst).toEqual([{
                         id: 'scissors',
                         term: 'smashes'
@@ -224,7 +224,7 @@ describe('GAME_CONSTANTS', function() {
                     }]);
                 });
 
-                it('should define the losesAgainst', function() {
+                it('should define the losesAgainst', () => {
                     expect(spock.losesAgainst).toEqual([{
                         id: 'paper',
                         term: 'disproved'
@@ -239,7 +239,7 @@ describe('GAME_CONSTANTS', function() {
 
             });
 
-            describe('chuck', function() {
+            describe('chuck', () => {
 
                 let chuck;
 
@@ -247,15 +247,15 @@ describe('GAME_CONSTANTS', function() {
                     chuck = GAME_CONSTANTS.actions.find(action => action.id === 'chuck');
                 });
 
-                it('should be defined', function() {
+                it('should be defined', () => {
                     expect(chuck).toBeDefined();
                 });
 
-                it('should define its label', function() {
+                it('should define its label', () => {
                     expect(chuck.label).toEqual('Chuck Norris');
                 });
 
-                it('should define the winsAgainst', function() {
+                it('should define the winsAgainst', () => {
                     expect(chuck.winsAgainst).toEqual([{
                         id: 'rock',
                         term: 'kills'
@@ -274,7 +274,7 @@ describe('GAME_CONSTANTS', function() {
                     }]);
                 });
 
-                it('should define the losesAgainst', function() {
+                it('should define the losesAgainst', () => {
                     expect(chuck.losesAgainst).toEqual([]);
                 });
 

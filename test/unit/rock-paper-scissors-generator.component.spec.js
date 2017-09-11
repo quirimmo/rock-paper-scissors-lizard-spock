@@ -9,13 +9,13 @@ describe('RockPaperScissorsGeneratorComponent', () => {
         text: 'blablabla'
     };
 
-    let mocked$alertTargetEvent = function() {};
-    let mocked$alertOK = function() { return { targetEvent: mocked$alertTargetEvent }; };
-    let mocked$alertAriaLabel = function() { return { ok: mocked$alertOK }; };
-    let mocked$alertTextContent = function() { return { ariaLabel: mocked$alertAriaLabel }; };
-    let mocked$alertTitle = function() { return { textContent: mocked$alertTextContent }; };
-    let mocked$alertClickOutsideToClose = function() { return { title: mocked$alertTitle }; };
-    let mocked$alertParent = function() { return { clickOutsideToClose: mocked$alertClickOutsideToClose }; };
+    let mocked$alertTargetEvent = () => {};
+    let mocked$alertOK = () => ({ targetEvent: mocked$alertTargetEvent });
+    let mocked$alertAriaLabel = () => ({ ok: mocked$alertOK });
+    let mocked$alertTextContent = () => ({ ariaLabel: mocked$alertAriaLabel });
+    let mocked$alertTitle = () => ({ textContent: mocked$alertTextContent });
+    let mocked$alertClickOutsideToClose = () => ({ title: mocked$alertTitle });
+    let mocked$alertParent = () => ({ clickOutsideToClose: mocked$alertClickOutsideToClose });
     let mocked$alert = { parent: mocked$alertParent };
 
     beforeEach(module('myApp'));
@@ -23,18 +23,18 @@ describe('RockPaperScissorsGeneratorComponent', () => {
 
     beforeEach(module(($provide) => {
         $provide.value('gameEngineService', {
-            getRockPaperScissorsSubset: function() {},
-            calculateResult: function() {},
-            getComputerRandomChoice: function() {}
+            getRockPaperScissorsSubset: () => {},
+            calculateResult: () => {},
+            getComputerRandomChoice: () => {}
         });
         $provide.value('$mdBottomSheet', {
-            show: function() {},
-            hide: function() {}
+            show: () => {},
+            hide: () => {}
         });
         $provide.value('$mdDialog', {
-            alert: function() {},
-            show: function() {},
-            cancel: function() {}
+            alert: () => {},
+            show: () => {},
+            cancel: () => {}
         });
     }));
 
@@ -52,7 +52,7 @@ describe('RockPaperScissorsGeneratorComponent', () => {
         spyOn($mdBottomSheet, 'show').and.callThrough();
         spyOn($mdBottomSheet, 'hide').and.callThrough();
         spyOn($mdDialog, 'show').and.returnValue({
-            then: function() {}
+            then: () => {}
         });
         spyOn($mdDialog, 'alert').and.returnValue(mocked$alert);
         spyOn(gameEngineService, 'calculateResult').and.returnValue(defaultResult);

@@ -1,38 +1,24 @@
-describe('MainController', function() {
+describe('MainController', () => {
 
     let controller, gameService, $scope;
 
-    beforeEach(function() {
+    beforeEach(() => {
         module('myApp');
         module('templates');
 
-        module(function($provide) {
+        module(($provide) => {
             $provide.value('gameService', {
-                getNumOfMatches: function() {
-                    return 0;
-                },
-                getNumOfVictories: function() {
-                    return 0;
-                },
-                getNumOfLoses: function() {
-                    return 0;
-                },
-                getNumOfDraws: function() {
-                    return 0;
-                },
-                getNumOfConsecutiveVictories: function() {
-                    return 0;
-                },
-                getNumOfConsecutiveLoses: function() {
-                    return 0;
-                },
-                getNumOfConsecutiveDraws: function() {
-                    return 0;
-                }
+                getNumOfMatches: () => 0,
+                getNumOfVictories: () => 0,
+                getNumOfLoses: () => 0,
+                getNumOfDraws: () => 0,
+                getNumOfConsecutiveVictories: () => 0,
+                getNumOfConsecutiveLoses: () => 0,
+                getNumOfConsecutiveDraws: () => 0
             });
         });
 
-        inject(function(_$rootScope_, _$controller_, _gameService_) {
+        inject((_$rootScope_, _$controller_, _gameService_) => {
             $scope = _$rootScope_.$new();
             gameService = _gameService_;
             controller = _$controller_('PersonalProfileController', { $scope: $scope });
