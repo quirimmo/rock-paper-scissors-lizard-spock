@@ -1,6 +1,12 @@
 # rock-paper-scissors-lizard-spock
 
-A simple application for playing rock-paper-scissors-lizard-spock
+An application in order to play the following games:
+
+- Rock Paper Scissors
+- Rock Paper Scissors Lizard Spock
+- Rock Paper Scissors Lizard Spock Chuck Norris
+
+It includes also a `rock-paper-scissors` generator component which allows you to generate all the variant of this game you like to.
 
 ## Pre requisites
 
@@ -120,29 +126,41 @@ The new game is ready! With the human vs computer functionality, the computer vs
 
 ## Application Structure
 
-Just as a brief preface about the project structure. 
+Just as a brief preface about the project structure.
 
 Usually for small apps I prefer to use this kind of structure as I create separate folders for components, directives, controllers, services, etc...
 
 But for bigger applications, this structure becomes pretty unmanageable, so I prefer to adopt another kind of structure when you create a first layer of folders related to the logic, and then inside that folders put your controllers, services, etc... (including also the unit tests to all the files using the same name of the file followed by `.spec`). In this way it is easier to understand all the logic and where are these items used inside the application.
 
+The application is structured in the following way:
+
+- **Root**: Contains all the configuration files (node, eslint, karma, protractor, travis) and the gulp file which defines all the gulp tasks
+- **src**: Contains all the source files of application, separated in the way described above that I usually use for small applications
+- **assets**: Images and styles of the application
+- **test**: All the e2e and unit tests of the application
+- **travis**: Shell scripts that are running from travis
+- **tmp**: Visible after running locally the application because gitignored. It contains the tmp compiled app served locally
+- **dist**: Visible after publishing locally the application because gitinored. It contains the production distribution version of the app
+
 ## Development Process
 
 I've been using **TDD** since a lot now. But since I discovered **BDD**, I fell in love with it, which is the approach I usually use at work and that I used in order to develop this simple application. BDD is a superset of TDD, the flow is still the same (designing tests, getting your tests failing, implementing the code, getting your tests passing) but you start the development from the e2e tests design/implementation, then you switch to the unit tests design/implementation, and at the end you switch to the real code design/implementation.
 
-**Why I do prefer now BDD over TDD?** The answer is in the difference between unit tests and e2e tests.
+**Why I do prefer now BDD over TDD?** The answer is in the differences between unit tests and e2e tests.
 
 **Unit tests** are really cool but they should be a black-box where you test the related file and all the expected logic in that file. You should mock/stub everything that comes from outside and, as I said, testing all the functionalities within the related file.
 
-With the **E2E tests**, you can do something more, which is not (and should be not) covered by default from unit tests (except of using some tricks or bad practices).
+With the **E2E tests**, you can do more, which is not (and should be not) covered by default from unit tests (except of using some tricks or bad practices).
 
-For example you can write a test for testing globally all the application, navigate to one page, interact wit the UI doing some action, going back to another page and see if the expected changes happened in the other page.
+For example you can write a test for testing globally all the application, navigating to one page, interacting with the UI doing some action, going back to another page and seeing if the expected changes happened in this other page.
 
 And then you can focus on the behavior as BDD states (**Behavior Driven Development**). So you can design what should happen in a page and design a proper e2e tests for that, which is completely different from testing logic and functionalities.
 
 Therefore, you are sure that you will cover all the Business requirements of the user stories designing e2e tests from the user stories description, being also sure that you "limit" your code to the business requirements only, covering all of them, and avoiding an over-engineering of the code.
 
-Using **cucumber** (**gherkin engine**) you are also able to write your feature files through plain English, so that the business can double check them and understand them, and can ensure that you are correctly covering all the required functionalities. The feature files could be also written by QA department in assistance with the business, and keep the developers focusing on the implementation of them. In addition, these tests will avoid a lot of manual testing.
+Using **cucumber** (**gherkin engine**) you are also able to write your feature files through plain English, so that the business can double check them and understand them, and can ensure that you are correctly covering all the required functionalities. The feature files could be also written by QA department in assistance with the business, keeping the developers focusing on the implementation of them and just reviewing them before to be merged in the project. In addition, these tests will avoid a lot of manual testing.
+
+**Just to be clear: I am not underestimating unit tests, I am just saying that both are hugely important because they focus on different aspects, so together they rock very well with the front-end development!**
 
 Coming back to the development process, this is the flow I followed:
 
@@ -157,11 +175,13 @@ Of course this process is **iterative and incremental**. This means that maybe d
 
 ## Gulp tasks
 
-In the `gulpfile.js` there is the list of all the available tasks. You can see to that file in order to see all the defined tasks, but all the important ones are mentioned in this document. All the other tasks are simply inner tasks executed during the execution of the main ones described in this documentation.
+In the `gulpfile.js` there is the list of all the available tasks. You can see to that to see all the defined tasks, but all the "important" ones are mentioned in this document and all the other tasks are simply inner tasks executed during the execution of the main ones described in this documentation.
+
+Unfortunately I didn't have time to develop a dedicated gulp task for ESLint validation, but I defined all the rules and imported the config file, so a good editor/ide should import them and use them when working on the application's code.
 
 ## Distribution of the app
 
-I use a lot of tasks for development distribution and production distribution of the app. Even for serving the app locally for development through `gulp serve`, I do use few utilities, like `gulp-inject` for automatically inject all the files in the `index.html` without adding manually the files. So if in the source project you want to add a new file, you don't have to manually add the inclusion of that file in the index, because it will be automatically added.
+I use a lot of tasks for development distribution and production distribution of the app. Even for serving the app locally for development through `gulp serve`, I do use few utilities, like `gulp-inject` in order to automatically inject all the files in the `index.html` without adding them manually. So if in the source project you want to add a new file, you don't have to manually add the inclusion of that file in the index, because it will be automatically added.
 
 In order to build the production distribution version of the app, you can generate the distribution version of it through the following command:
 
@@ -171,39 +191,43 @@ This task will create a directory inside the root folder called `dist` and insid
 
 ## CI/CD
 
-The project has all the **CI/CD** management set up. I am using **TravisCI** in this case, even if I am also really proficient with **Jenkins** and usually I use it in my job. But for these kind of simple/open source/personal projects related to GitHub repositories specially, I usually use TravisCI.
+The project has all the **CI/CD** management set up. I am using **TravisCI** in this case, even if I am really proficient with **Jenkins** and usually I use it in my job. But for these kind of simple/open-source/personal projects, usually related to GitHub repositories, I do use TravisCI.
 
-The main configuration is in the `.travis.yml` file in the root folder, and the used shell scripts `.sh` are inside the `travis` sub-folder.
+The main configuration is in the `.travis.yml` file in the root folder, and the shell scripts `.sh` used by TravisCI are inside the `travis` sub-folder.
 
 The process is actually the following:
 
-- When you open a pull request, or you push over an opened pull request, a job on Travis will run
+- When you open a pull request, or you push over an opened pull request, a job on TravisCI will run
 - This job will install the app, and run the unit tests and the e2e tests. If the tests fail, the job will fail
 - If the tests pass, then the `gulp publish` task will be triggered, producing the production distribution version of the app
 - Then an ftp script will start moving all the files inside a web server folder (below for more details)
-- In the web server, for every pull requests, a folder with the name of the pull request number will be created, so you can access all the history of the builds, in order to track changes and to keep the code for any kind of bug, for being, tested etc...
+- In the web server, for every pull requests, a folder with the name of the pull request number will be created, so you can access all the history of the builds, in order to track changes and to keep the code for any kind of bug, for being tested etc...
 
 The address of the server hosting the distribution of the app is the following:
 
 [Server address hosting the builds](http://bitweed.com/rock-paper-scissors/)
 
-Clicking on the corresponding build number, you will open the corresponding version of the app, and you can see in the source files from the dev tools, all the files of the build.
+Clicking on the build number, you will open the corresponding version of the app, and you can see in the source files from the dev tools all the loaded files.
 
 ## What you were going to do if you had few more time available
 
-This is a list of things I would have liked to do if I had few more time for the task. Unfortunately working during the days the time I had was very limited. The list is casual and not ordered by importance:
+This is a list of things I would have liked to do if I had few more time for the task. Unfortunately, working during the days and having few other stuff to do, the time I had was very limited (the list is casual and not ordered by importance):
 
-- Introduction of different achievements like after x num of matches, after y num of victories, after z consecutive victories, etc...
-- ESLINT task for check during the serve/publish and before to push
-- Babel for transpiling all the code
-- Deployment tasks for production/distribution, creating the files ready for production (concatenation, minify, uglify, etc...)
-- Adding CI/CD with TravisCI which executes all the unit tests, all the e2e tests, and if everything is OK, upload the production version to a server, where the app will run
-- Refactor better all the e2e tests code, grouping few code in the page objects so that it can be reusable across the e2e files, etc...
-- Global e2e tests for testing for a while all the app, playing all the games, checking always the scores if are OK, etc...
+- Introduction of different achievements like after x num of matches, after y num of victories, after z consecutive victories, etc... showing these achievements in the personal profile page
+- A multiplayer version of the games in addition to human vs computer and computer vs computer, where two friends can play one against the other
+- Adding another section for each game where you show/explain the rules of that game
+- Possibility to show also the scores separated by the related played game
+- Add few "cool animations" to the game. A game which shows some animations is always more enjoyable than a more "static one"
+- An ESLint gulp task in order to validate the code during the serve/publish tasks. I used ESLint with VSCode, directly showing me all the code which doesn't satisfy the defined rules
+- Babel for compiling all the code for previous browsers
+- Generate better human readable reports for both e2e and unit tests
+- Refactor all the e2e tests code, grouping few code in the page objects so that it can be reusable across the e2e files and improving it in general
+- A global e2e test for testing for a while all the app, which plays several matches of several games and checks that the scores are OK
 - Use cucumber in order to have feature files for the e2e tests
-- Adding a section where you explain the rules of each game
-- Husky support
-- Generate source maps of all the min files
+- Add husky on prepush for running a global task `gulp check-validity` which executes e2e and unit tests and the ESLint validation, so that you can't push "bad code"
+- Generate source maps of all the minified files
+
+Considering that how you should see, it was really funny to develop it so far and I got a bit addicted, I will go on one day in the future adding fews of the above features!
 
 ## Possible issues
 
@@ -211,10 +235,10 @@ Here a list of possible issues you may encounter during the execution/exploratio
 
 ### Any kind of node dependency or issues with npm in general
 
-Using a lot of technologies through **npm**, if you encounter any issue installing node dependencies, please let me know and I will check it out and provide you the solution for eventually fix them.
+Using a lot of technologies through **npm**, if you encounter any issue installing node dependencies, please let me know and I will check it out and provide you the solution in order to fix them.
 
 ### E2E tests failures
 
-When running the e2e tests, please be sure to keep close any other `gulp serve` process. The `gulp protractor-test` will start automatically it and it could fail if an instance is already up and running.
+When running the e2e tests, please be sure to keep close any other `gulp serve` process. The `gulp protractor-test` will start automatically it and the task could fail if an instance is already up and running.
 
-Sometimes it may happen when using e2e tests through selenium that the browser will not open or sync in time. In these cases simply stop the process and run again `gulp protractor-test`.
+Sometimes it may happen when using e2e tests through selenium that the browser will not open or sync in time, depending on your machine status etc. In these cases simply stop the process and run again `gulp protractor-test`.
