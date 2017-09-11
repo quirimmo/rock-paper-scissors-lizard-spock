@@ -23,6 +23,7 @@ install:
 script:
   - echo "Triggered through push!"
   - gulp unit-test-travis
+  - gulp protractor-test
   - gulp publish
 
 after_success:
