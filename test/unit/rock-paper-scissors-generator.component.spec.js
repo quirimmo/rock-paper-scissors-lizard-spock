@@ -18,9 +18,10 @@ describe('RockPaperScissorsGeneratorComponent', () => {
     let mocked$alertParent = () => ({ clickOutsideToClose: mocked$alertClickOutsideToClose });
     let mocked$alert = { parent: mocked$alertParent };
 
+    // injecting the needed modules
     beforeEach(module('myApp'));
     beforeEach(module('partials'));
-
+    // mocking the injected dependencies
     beforeEach(module(($provide) => {
         $provide.value('gameEngineService', {
             getRockPaperScissorsSubset: () => {},
@@ -37,7 +38,7 @@ describe('RockPaperScissorsGeneratorComponent', () => {
             cancel: () => {}
         });
     }));
-
+    // injecting the needed dependencies
     beforeEach(inject((_$rootScope_, _$componentController_, _gameEngineService_, _$mdBottomSheet_, _$mdDialog_) => {
         $scope = _$rootScope_.$new();
         $componentController = _$componentController_;
