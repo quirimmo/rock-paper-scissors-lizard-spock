@@ -81,7 +81,9 @@
          * Function triggered when you click on the Make Choice button during a human vs computer match
          * It shows a panel through the $mdBottomSheet component of Angular Material which is responsible for providing you all the choices you have in this
          * particular instance of the game (parameter availableChoices of this component)
-         * The controller associated to this panel receives the available choices and a callback to be performed when you click on one of the available choices 
+         * The controller associated to this panel receives the following parameters:  
+         *  - availableChoices {Array} An array of objects representing the availableChoices passed in the current component 
+         *  - chooseAction: {Function} A callback to be performed when you click on one of the available choices 
          */
         function makeChoice() {
             $mdBottomSheet.show({
