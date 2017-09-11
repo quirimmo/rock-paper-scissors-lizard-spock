@@ -62,7 +62,7 @@ describe('Navigation Between States', () => {
         });
 
         it('should display the right title of the page', () => {
-            browser.getTitle().should.become('Rock Paper Scissors Lizard Spock Chuck');
+            browser.getTitle().should.become('Rock Paper Scissors Lizard Spock Chuck Norris');
         });
 
     });
