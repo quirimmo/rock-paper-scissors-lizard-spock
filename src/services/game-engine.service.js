@@ -14,6 +14,8 @@
 
     angular.module('myApp').service('gameEngineService', gameEngineService);
 
+    gameEngineService.$inject = ['GAME_CONSTANTS', 'gameService'];                
+
     function gameEngineService(GAME_CONSTANTS, gameService) {
 
         // list of the exposed methods

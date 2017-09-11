@@ -3,6 +3,8 @@
 
     angular.module('myApp').controller('MainMenuController', MainMenuController);
 
+    MainMenuController.$inject = ['$state', 'gameService', '$mdDialog'];
+
     function MainMenuController($state, gameService, $mdDialog) {
 
         // bindings

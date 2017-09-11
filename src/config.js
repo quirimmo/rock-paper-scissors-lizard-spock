@@ -7,11 +7,15 @@
 
     angular.module('myApp').run(mainRun).config(config);
 
+    mainRun.$inject = ['$rootScope', '$transitions'];                    
+
     function mainRun($rootScope, $transitions) {
         $transitions.onSuccess({ to: '*' }, function(trans) {
 			$rootScope.pageTitle = trans._targetState._definition.data.title;
         });
     }
+
+    config.$inject = ['$stateProvider', '$urlRouterProvider'];                        
 
     function config($stateProvider, $urlRouterProvider) {
         // defining the personal profile page state

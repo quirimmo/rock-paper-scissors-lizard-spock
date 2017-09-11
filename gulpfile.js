@@ -25,7 +25,7 @@
 
     const PATHS = {
         NODE_MODULES_COMPONENTS: [
-            './node_modules/jquery/dist/jquery.min.js',
+            './node_modules/jquery/dist/jquery.min.min.js',
             './node_modules/angular/angular.min.js',
             './node_modules/angular-messages/angular-messages.min.js',
             './node_modules/angular-aria/angular-aria.min.js',

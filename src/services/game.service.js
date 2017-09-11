@@ -14,6 +14,8 @@
 
     angular.module('myApp').service('gameService', gameService);
 
+    gameService.$inject = ['$localStorage'];                    
+
     function gameService($localStorage) {
 
         // list of the exposed methods

@@ -3,6 +3,8 @@
 
     angular.module('myApp').controller('RockPaperScissorsGeneratorController', RockPaperScissorsGeneratorController);
 
+    RockPaperScissorsGeneratorController.$inject = ['gameEngineService', '$mdBottomSheet', '$mdDialog', '$document'];
+
     function RockPaperScissorsGeneratorController(gameEngineService, $mdBottomSheet, $mdDialog, $document) {
 
         // I usually list the bindings variables at the beginning of the controller so that, if you open the controller, you immediately know which parameters
