@@ -26,7 +26,7 @@ describe('RockPaperScissorsLizardSpockChuckController', () => {
     describe('initialization', () => {
 
         it('should define the exposed variables', () => {
-            expect(controller.gameTitle).toEqual('Rock Paper Scissors Lizard Spock Chuck');
+            expect(controller.gameTitle).toEqual('Rock Paper Scissors Lizard Spock Chuck Norris');
             expect(controller.availableChoices).toEqual(defaultSubset);
         });
 

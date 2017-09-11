@@ -195,13 +195,13 @@ describe('MainMenuComponent', () => {
 
         beforeEach(() => {
             controller = $componentController('mainMenu', null, {
-                activeItem: 'Rock Paper Scissors Lizard Spock Chuck'
+                activeItem: 'Rock Paper Scissors Lizard Spock Chuck Norris'
             });
         });
 
         describe('activeItem', () => {
             it('should be equal to Rock Paper Scissors Lizard Spock Chuck', () => {
-                expect(controller.activeItem).toEqual('Rock Paper Scissors Lizard Spock Chuck');
+                expect(controller.activeItem).toEqual('Rock Paper Scissors Lizard Spock Chuck Norris');
             });
         });
 
