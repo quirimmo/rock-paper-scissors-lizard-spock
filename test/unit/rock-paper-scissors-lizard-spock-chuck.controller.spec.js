@@ -5,15 +5,16 @@ describe('RockPaperScissorsLizardSpockChuckController', () => {
     let defaultSubset = ['rock', 'paper', 'scissors', 'lizard', 'spock', 'chuck'];
 
     beforeEach(() => {
+        // injecting the needed modules
         module('myApp');
         module('templates');
-
+        // mocking the injected dependencies
         module(($provide) => {
             $provide.value('gameEngineService', {
                 getRockPaperScissorsLizardSpockChuckSubset: () => {}
             });
         });
-
+        // injecting the needed dependencies
         inject((_$rootScope_, _$controller_, _gameEngineService_) => {
             $scope = _$rootScope_.$new();
             gameEngineService = _gameEngineService_;
