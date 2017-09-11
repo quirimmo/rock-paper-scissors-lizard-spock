@@ -3,8 +3,9 @@ describe('gameService', () => {
     let gameService, $localStorage;
 
     beforeEach(() => {
-        module('myApp');
-
+        // injecting needed modules
+        module('myApp');    
+        // mocking injected dependencies
         module(($provide) => {
             $provide.value('$localStorage', {
                 numOfMatches: 1,
@@ -16,12 +17,11 @@ describe('gameService', () => {
                 numOfConsecutiveDraws: 7
             });
         });
-
+        // injecting needed dependencies
         inject((_gameService_, _$localStorage_) => {
             gameService = _gameService_;
             $localStorage = _$localStorage_;
         });
-
     });
 
 
@@ -127,6 +127,7 @@ describe('gameService', () => {
             it('should increment the value if the number of current consecutive victories is greater than the one in the local storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveVictories;
                 expect(gameService.getNumOfConsecutiveVictories()).toEqual(beforeLocalStorageValue);
+                // incrementing the num of victories in order to have a value greater than the one provided from the local storage
                 for (let i = 0; i < beforeLocalStorageValue + 1; i++) {
                     gameService.incrementNumOfVictories();
                 }
@@ -137,6 +138,7 @@ describe('gameService', () => {
             it('should not increment the value if the number of current consecutive victories is lower than the one in the local storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveVictories;
                 expect(gameService.getNumOfConsecutiveVictories()).toEqual(beforeLocalStorageValue);
+                // incrementing the num of victories in order to have a value lower than the one provided from the local storage
                 for (let i = 0; i < beforeLocalStorageValue - 1; i++) {
                     gameService.incrementNumOfVictories();
                 }
@@ -150,6 +152,7 @@ describe('gameService', () => {
             it('should increment the value if the number of current consecutive loses is greater than the one in the local storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveLoses;
                 expect(gameService.getNumOfConsecutiveLoses()).toEqual(beforeLocalStorageValue);
+                // incrementing the num of loses in order to have a value greater than the one provided from the local storage
                 for (let i = 0; i < beforeLocalStorageValue + 1; i++) {
                     gameService.incrementNumOfLoses();
                 }
@@ -160,6 +163,7 @@ describe('gameService', () => {
             it('should not increment the value if the number of current consecutive loses is lower than the one in the local storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveLoses;
                 expect(gameService.getNumOfConsecutiveLoses()).toEqual(beforeLocalStorageValue);
+                // incrementing the num of loses in order to have a value lower than the one provided from the local storage
                 for (let i = 0; i < beforeLocalStorageValue - 1; i++) {
                     gameService.incrementNumOfLoses();
                 }
@@ -172,6 +176,7 @@ describe('gameService', () => {
             it('should increment the value if the number of current consecutive draws is greater than the one in the local storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveDraws;
                 expect(gameService.getNumOfConsecutiveDraws()).toEqual(beforeLocalStorageValue);
+                // incrementing the num of draws in order to have a value greater than the one provided from the local storage
                 for (let i = 0; i < beforeLocalStorageValue + 1; i++) {
                     gameService.incrementNumOfDraws();
                 }
@@ -182,6 +187,7 @@ describe('gameService', () => {
             it('should not increment the value if the number of current consecutive draws is lower than the one in the local storage', () => {
                 let beforeLocalStorageValue = $localStorage.numOfConsecutiveDraws;
                 expect(gameService.getNumOfConsecutiveDraws()).toEqual(beforeLocalStorageValue);
+                // incrementing the num of draws in order to have a value lower than the one provided from the local storage
                 for (let i = 0; i < beforeLocalStorageValue - 1; i++) {
                     gameService.incrementNumOfDraws();
                 }
