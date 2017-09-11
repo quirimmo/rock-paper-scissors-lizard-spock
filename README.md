@@ -169,6 +169,7 @@ This is a list of things I would have liked to do if I had few more time for the
 - Use cucumber in order to have feature files for the e2e tests
 - Adding a section where you explain the rules of each game
 - Husky support
+- Generate source maps of all the min files
 
 ## Possible issues
 

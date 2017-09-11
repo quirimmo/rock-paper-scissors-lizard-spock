@@ -19,11 +19,14 @@ before_script:
 
 install:
   - npm install
+  - node_modules/protractor/bin/webdriver-manager update
+
   
 script:
-  # here run unit tests
-  # here run e2e tests
-  # here publish the app
+  - echo "Triggered through push!"
+  - gulp unit-test-travis
+  - gulp protractor-test
+  - gulp publish
 
 after_success:
   - TRAVIS_MAIN_FOLDER=./travis

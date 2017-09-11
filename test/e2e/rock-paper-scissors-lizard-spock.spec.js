@@ -256,7 +256,7 @@ describe('Rock Paper Scissors Lizard Spock', () => {
                                     gamePage.contentResultMessage.getText().should.become('Paper has been eaten by Lizard');
                                 } else if (computer2Choice.includes('spock')) {
                                     gamePage.mainResultMessage.getText().should.become('COMPUTER 1 WON!');
-                                    gamePage.contentResultMessage.getText().should.become('Paper disproves Lizard');
+                                    gamePage.contentResultMessage.getText().should.become('Paper disproves Spock');
                                 } else {
                                     gamePage.mainResultMessage.getText().should.become('COMPUTER 1 WON!');
                                     gamePage.contentResultMessage.getText().should.become('Paper covers Rock');
