@@ -1,0 +1,10 @@
+'use strict';  
+
+module.exports = class MainMenuPage {
+
+    constructor() {
+        this.mainMenu = element(by.id('main-menu'));
+        this.mainMenuItems = element.all(by.className('main-menu-items'));
+    }
+
+};

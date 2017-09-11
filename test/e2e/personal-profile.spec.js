@@ -1,43 +1,38 @@
-describe('Personal Profile', () => {
+let PersonalProfilePage = require('./page-objects/personal-profile.page.objects.js');
+let personalProfilePage = new PersonalProfilePage();
 
-    let numOfMatches = element(by.id('num-of-matches'));
-    let numOfVictories = element(by.id('num-of-victories'));
-    let numOfLoses = element(by.id('num-of-loses'));
-    let numOfDraws = element(by.id('num-of-draws'));
-    let consecutiveNumOfVictories = element(by.id('consecutive-num-of-victories'));
-    let consecutiveNumOfLoses = element(by.id('consecutive-num-of-loses'));
-    let consecutiveNumOfDraws = element(by.id('consecutive-num-of-draws'));
+describe('Personal Profile', () => {
 
     beforeAll(() => {
         browser.get('/');
     });
 
     it('should display the number of matches', () => {
-        numOfMatches.isDisplayed().should.become(true);
+        personalProfilePage.numOfMatches.isDisplayed().should.become(true);
     });
 
     it('should display the number of victories', () => {
-        numOfVictories.isDisplayed().should.become(true);
+        personalProfilePage.numOfVictories.isDisplayed().should.become(true);
     });
 
     it('should display the number of loses', () => {
-        numOfLoses.isDisplayed().should.become(true);
+        personalProfilePage.numOfLoses.isDisplayed().should.become(true);
     });
 
     it('should display the number of draws', () => {
-        numOfDraws.isDisplayed().should.become(true);
+        personalProfilePage.numOfDraws.isDisplayed().should.become(true);
     });
 
     it('should display the maximum number of consecutive victories', () => {
-        consecutiveNumOfVictories.isDisplayed().should.become(true);
+        personalProfilePage.consecutiveNumOfVictories.isDisplayed().should.become(true);
     });
 
     it('should display the maximum number of consecutive loses', () => {
-        consecutiveNumOfLoses.isDisplayed().should.become(true);
+        personalProfilePage.consecutiveNumOfLoses.isDisplayed().should.become(true);
     });
 
     it('should display the maximum number of consecutive draws', () => {
-        consecutiveNumOfDraws.isDisplayed().should.become(true);
+        personalProfilePage.consecutiveNumOfDraws.isDisplayed().should.become(true);
     });
 
 });
