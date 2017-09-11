@@ -19,7 +19,7 @@ describe('Main Menu', () => {
         });
 
         it('should show the 4 menu labels', () => {
-            mainMenuItems.getText().should.become(['PERSONAL PROFILE', 'ROCK PAPER SCISSORS', 'ROCK PAPER SCISSORS LIZARD SPOCK', 'ROCK PAPER SCISSORS LIZARD SPOCK CHUCK']);
+            mainMenuItems.getText().should.become(['MY PROFILE', 'ROCK PAPER SCISSORS', 'ROCK PAPER SCISSORS LIZARD SPOCK', 'CHUCK NORRIS']);
         });
 
         it('should navigate to the Personal Profile page', (done) => {
