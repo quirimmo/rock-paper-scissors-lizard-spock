@@ -82,6 +82,42 @@ Obviously, this task will take care also of starting your app through the `gulp 
 - **Computer vs Computer**: Simulated match between two computer players. This statistics are not tracked inside the personal scores
 - **Fully Responsive**: The application is fully responsive and it adapts the layout depending on the devices sizes. You can easily test that opening your dev tools (on chrome for example) and switching to the mobile view
 
+## What if I want to change the rules of one of the games
+
+You open the file `src/constants/game.constants.js` and there you can change the `label` if you want to display a new name, and you can change the `winsAgainst` and `losesAgainst` arrays if you want to change the rules, or simply change the `term` used for an action in case of victory or of lose.
+
+## What if I want to add a new game
+
+For example let's suppose that you want to add a `foo`, `bar`, `zed` game with the following rules:
+
+Winning forms:
+
+- `foo` destroys `bar`
+- `bar` kills `zed`
+- `zed` annihilates `foo`
+
+So looking to the passive forms for losing:
+
+- `bar` has been destroyed by `foo`
+- `zed` has been killed by `bar`
+- `foo` has been annihilated by `zed`
+
+You open the file `src/constants/game.constants.js` and you define your new actions following the structure of the action objects (there are comments at the beginning of that file explaining all the structure of the action objects).
+
+You add three png images in the `assets/images` folder with the three id names, which represent the icons to be used.
+
+Then you simply instantiate the `rockPaperScissorsGenerator` component in a page in the following way:
+
+```HTML
+<rock-paper-scissors-generator 
+    page-title="name of the game" 
+    available-choices="array containing the three objects you defined"
+>
+</rock-paper-scissors-generator>
+```
+
+The new game is ready! With the human vs computer functionality, the computer vs computer simulation and with all the scores tracked correctly in the personal profile.
+
 ## Application Structure
 
 Just as a brief preface about the project structure. 
@@ -119,41 +155,39 @@ Coming back to the development process, this is the flow I followed:
 
 Of course this process is **iterative and incremental**. This means that maybe during the unit tests, you can understand that you missed one aspect in the e2e tests, so you switch back to the e2e tests and you add the new case. Or for example during the code implementation you understand that you need another method, so you switch back to the unit tests and you design the tests before to really implement the code of the new method (or for example you need a new external file, so same approach: before to create the code, you create the unit tests for the new file, and then you switch back to the code implementation).
 
-## What if I want to change the rules of one of the games
+## Gulp tasks
 
-You open the file `src/constants/game.constants.js` and there you can change the `label` if you want to display a new name, and you can change the `winsAgainst` and `losesAgainst` arrays if you want to change the rules, or simply change the `term` used for an action in case of victory or of lose.
+In the `gulpfile.js` there is the list of all the available tasks. You can see to that file in order to see all the defined tasks, but all the important ones are mentioned in this document. All the other tasks are simply inner tasks executed during the execution of the main ones described in this documentation.
 
-## What if I want to add a new game
+## Distribution of the app
 
-For example let's suppose that you want to add a `foo`, `bar`, `zed` game with the following rules:
+I use a lot of tasks for development distribution and production distribution of the app. Even for serving the app locally for development through `gulp serve`, I do use few utilities, like `gulp-inject` for automatically inject all the files in the `index.html` without adding manually the files. So if in the source project you want to add a new file, you don't have to manually add the inclusion of that file in the index, because it will be automatically added.
 
-Winning forms:
+In order to build the production distribution version of the app, you can generate the distribution version of it through the following command:
 
-- `foo` destroys `bar`
-- `bar` kills `zed`
-- `zed` annihilates `foo`
+`gulp publish`
 
-So looking to the passive forms for losing:
+This task will create a directory inside the root folder called `dist` and inside there will be all the concatenated and minified files needed by the app.
 
-- `bar` has been destroyed by `foo`
-- `zed` has been killed by `bar`
-- `foo` has been annihilated by `zed`
+## CI/CD
 
-You open the file `src/constants/game.constants.js` and you define your new actions following the structure of the action objects (there are comments at the beginning of that file explaining all the structure of the action objects).
+The project has all the **CI/CD** management set up. I am using **TravisCI** in this case, even if I am also really proficient with **Jenkins** and usually I use it in my job. But for these kind of simple/open source/personal projects related to GitHub repositories specially, I usually use TravisCI.
 
-You add three png images in the `assets/images` folder with the three id names, which represent the icons to be used.
+The main configuration is in the `.travis.yml` file in the root folder, and the used shell scripts `.sh` are inside the `travis` sub-folder.
 
-Then you simply instantiate the `rockPaperScissorsGenerator` component in a page in the following way:
+The process is actually the following:
 
-```HTML
-<rock-paper-scissors-generator 
-    page-title="name of the game" 
-    available-choices="array containing the three objects you defined"
->
-</rock-paper-scissors-generator>
-```
+- When you open a pull request, or you push over an opened pull request, a job on Travis will run
+- This job will install the app, and run the unit tests and the e2e tests. If the tests fail, the job will fail
+- If the tests pass, then the `gulp publish` task will be triggered, producing the production distribution version of the app
+- Then an ftp script will start moving all the files inside a web server folder (below for more details)
+- In the web server, for every pull requests, a folder with the name of the pull request number will be created, so you can access all the history of the builds, in order to track changes and to keep the code for any kind of bug, for being, tested etc...
 
-The new game is ready! With the human vs computer functionality, the computer vs computer simulation and with all the scores tracked correctly in the personal profile.
+The address of the server hosting the distribution of the app is the following:
+
+[Server address hosting the builds](http://bitweed.com/rock-paper-scissors/)
+
+Clicking on the corresponding build number, you will open the corresponding version of the app, and you can see in the source files from the dev tools, all the files of the build.
 
 ## What you were going to do if you had few more time available
 
@@ -181,4 +215,6 @@ Using a lot of technologies through **npm**, if you encounter any issue installi
 
 ### E2E tests failures
 
-A lot of times when executing a lot of e2e tests, it could happen that some test fails due to browser sync or any other issue related to loadings or whatever. For this reason there are a lot of tools for specifying policy to retry tests (like **`protractor-flake`** for example). So if you run the e2e tests and you will see some weird failure in some case, this could be the reason.
+When running the e2e tests, please be sure to keep close any other `gulp serve` process. The `gulp protractor-test` will start automatically it and it could fail if an instance is already up and running.
+
+Sometimes it may happen when using e2e tests through selenium that the browser will not open or sync in time. In these cases simply stop the process and run again `gulp protractor-test`.
