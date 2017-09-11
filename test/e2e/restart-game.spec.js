@@ -5,27 +5,34 @@ describe('Restart Game', () => {
     let confirmRestartGamePanel = element(by.className('md-dialog-content'));
     let confirmRestartPanelButton = element(by.className('md-confirm-button'));
 
-
     beforeEach(() => {
         browser.get('/');
     });
 
     it('should display a confirmation panel before to restart', () => {
-        restartButton.click().then(() => {
+        restartButton.click().then(onRestartButtonClicked);
+
+        function onRestartButtonClicked() {
             confirmRestartGamePanel.isDisplayed().should.become(true);
-        });
+        }
     });
 
     it('should reset all the personal profile scores if you confirmed', () => {
-        restartButton.click().then(() => {
-            confirmRestartPanelButton.click().then(() => {
-                profileScoreValues.getText().then(data => {
+        restartButton.click().then(onRestartButtonClicked);
+
+        function onRestartButtonClicked() {
+            confirmRestartPanelButton.click().then(onConfirmRestartPanelButtonClicked);
+
+            function onConfirmRestartPanelButtonClicked() {
+                profileScoreValues.getText().then(onGetProfileScoreValuesTexts);
+
+                function onGetProfileScoreValuesTexts(data) {
                     let expectations = new Array(data.length);
                     expectations.fill('0');
                     data.should.be.eql(expectations);
-                });
-            });
-        });
+                }
+            }
+        }
     });
 
 });
