@@ -32,7 +32,7 @@ describe('GAME_CONSTANTS', () => {
             });
 
             it('should have length 6', () => {
-                expect(GAME_CONSTANTS.actions.length).toEqual(6);
+                expect(GAME_CONSTANTS.actions.length).toEqual(7);
             });
 
             describe('rock', () => {
@@ -277,6 +277,32 @@ describe('GAME_CONSTANTS', () => {
 
                 it('should define the losesAgainst', () => {
                     expect(chuck.losesAgainst).toEqual([]);
+                });
+
+            });
+
+            describe('ethan', () => {
+
+                let ethan;
+
+                beforeEach(() => {
+                    ethan = GAME_CONSTANTS.actions.find(action => action.id === 'ethan');
+                });
+
+                it('should be defined', () => {
+                    expect(ethan).toBeDefined();
+                });
+
+                it('should define its label', () => {
+                    expect(ethan.label).toEqual('Ethan');
+                });
+
+                it('should define the winsAgainst', () => {
+                    expect(ethan.winsAgainst).toEqual([]);
+                });
+
+                it('should define the losesAgainst', () => {
+                    expect(ethan.losesAgainst).toEqual([]);
                 });
 
             });

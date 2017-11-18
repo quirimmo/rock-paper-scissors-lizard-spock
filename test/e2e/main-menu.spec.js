@@ -1,9 +1,9 @@
 let MainMenuPage = require('./page-objects/main-menu.page.objects.js');
 let mainMenuPage = new MainMenuPage();
 
-fdescribe('Main Menu', () => {
+describe('Main Menu', () => {
 
-    fdescribe('General', () => {
+    describe('General', () => {
 
         beforeAll(() => {
             browser.get('/');
@@ -69,7 +69,7 @@ fdescribe('Main Menu', () => {
         });
 
         it('should active the item corresponding to the personal profile page', () => {
-            mainMenuPage.mainMenuItems.getAttribute('aria-selected').should.become(['true', 'false', 'false', 'false']);
+            mainMenuPage.mainMenuItems.getAttribute('aria-selected').should.become(['true', 'false', 'false', 'false', 'false']);
         });
 
     });
@@ -85,7 +85,7 @@ fdescribe('Main Menu', () => {
         });
 
         it('should active the item corresponding to the rock paper scissors page', () => {
-            mainMenuPage.mainMenuItems.getAttribute('aria-selected').should.become(['false', 'true', 'false', 'false']);
+            mainMenuPage.mainMenuItems.getAttribute('aria-selected').should.become(['false', 'true', 'false', 'false', 'false']);
         });
 
     });
@@ -101,7 +101,7 @@ fdescribe('Main Menu', () => {
         });
 
         it('should active the item corresponding to the rock paper scissors lizard spock page', () => {
-            mainMenuPage.mainMenuItems.getAttribute('aria-selected').should.become(['false', 'false', 'true', 'false']);
+            mainMenuPage.mainMenuItems.getAttribute('aria-selected').should.become(['false', 'false', 'true', 'false', 'false']);
         });
 
     });
@@ -117,7 +117,23 @@ fdescribe('Main Menu', () => {
         });
 
         it('should active the item corresponding to the rock paper scissors lizard spock chuck page', () => {
-            mainMenuPage.mainMenuItems.getAttribute('aria-selected').should.become(['false', 'false', 'false', 'true']);
+            mainMenuPage.mainMenuItems.getAttribute('aria-selected').should.become(['false', 'false', 'false', 'true', 'false']);
+        });
+
+    });
+
+    describe('Ethan Page', () => {
+
+        beforeAll(() => {
+            browser.get('#!/ethan');
+        });
+
+        it('should be displayed', () => {
+            mainMenuPage.mainMenu.isDisplayed().should.become(true);
+        });
+
+        it('should active the item corresponding to the rock paper scissors lizard spock chuck page', () => {
+            mainMenuPage.mainMenuItems.getAttribute('aria-selected').should.become(['false', 'false', 'false', 'false', 'true']);
         });
 
     });

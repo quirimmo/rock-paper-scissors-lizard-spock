@@ -16,6 +16,7 @@
         vm.isRockPaperScissorActive = isRockPaperScissorActive;
         vm.isRockPaperScissorLizardSpockActive = isRockPaperScissorLizardSpockActive;
         vm.isRockPaperScissorLizardSpockChuckActive = isRockPaperScissorLizardSpockChuckActive;
+        vm.isEthanActive = isEthanActive;
         vm.openMobileMenu = openMobileMenu;
         vm.navigateTo = navigateTo;
         vm.restartGame = restartGame;
@@ -33,6 +34,8 @@
                 'rock-paper-scissors-lizard-spock' :
                 vm.isRockPaperScissorLizardSpockChuckActive() ?
                 'rock-paper-scissors-lizard-spock-chuck' : 
+                vm.isEthanActive() ?
+                'ethan' : 
                 'personal-profile';
         }
 
@@ -69,6 +72,14 @@
          */
         function isRockPaperScissorLizardSpockChuckActive() {
             return vm.activeItem === 'Rock Paper Scissors Lizard Spock Chuck Norris';
+        }
+
+        /**
+         * A function used in order to know if you are in the Ethan Page. 
+         * @returns {Boolean} True if the current page is the Ethan page 
+         */
+        function isEthanActive() {
+            return vm.activeItem === 'Ethan';
         }
 
         /**

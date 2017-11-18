@@ -76,4 +76,18 @@ describe('config.js', () => {
 
     });
 
+    describe('Ethan State', () => {
+
+        it('should load the URL', () => {
+            expect($state.href('ethan')).toEqual('#!/ethan');
+        });
+
+        it('should go the ethan state', () => {
+            $location.url('/ethan');
+            $rootScope.$apply();
+            expect($state.current.name).toEqual('ethan');
+        });
+
+    });
+
 });

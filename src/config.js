@@ -7,15 +7,15 @@
 
     angular.module('myApp').run(mainRun).config(config);
 
-    mainRun.$inject = ['$rootScope', '$transitions'];                    
+    mainRun.$inject = ['$rootScope', '$transitions'];
 
     function mainRun($rootScope, $transitions) {
         $transitions.onSuccess({ to: '*' }, function(trans) {
-			$rootScope.pageTitle = trans._targetState._definition.data.title;
+            $rootScope.pageTitle = trans._targetState._definition.data.title;
         });
     }
 
-    config.$inject = ['$stateProvider', '$urlRouterProvider'];                        
+    config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
     function config($stateProvider, $urlRouterProvider) {
         // defining the personal profile page state
@@ -41,7 +41,7 @@
             controllerAs: 'vm'
         };
         // defining the rock paper scissors lizard spock page state
-		let rockPaperScissorsLizardSpockState = {
+        let rockPaperScissorsLizardSpockState = {
             name: 'rock-paper-scissors-lizard-spock',
             url: '/rock-paper-scissors-lizard-spock',
             data: {
@@ -62,8 +62,24 @@
             controller: 'RockPaperScissorsLizardSpockChuckController',
             controllerAs: 'vm'
         };
+        // defining the rock paper scissors lizard spock chuck state
+        let ethanState = {
+            name: 'ethan',
+            url: '/ethan',
+            data: {
+                title: 'Ethan'
+            },
+            templateUrl: 'src/templates/ethan.html',
+            controller: 'EthanController',
+            controllerAs: 'vm'
+        };
         // registering all the defined states
-        $stateProvider.state(mainState).state(rockPaperScissorsState).state(rockPaperScissorsLizardSpockState).state(rockPaperScissorsLizardSpockChuckState);
+        $stateProvider
+            .state(mainState)
+            .state(rockPaperScissorsState)
+            .state(rockPaperScissorsLizardSpockState)
+            .state(rockPaperScissorsLizardSpockChuckState)
+            .state(ethanState);
         // if you type some wrong URL in the browser, redirecting to the personal profile page
         $urlRouterProvider.otherwise('/');
     }

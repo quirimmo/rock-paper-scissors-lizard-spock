@@ -49,6 +49,7 @@ describe('MainMenuComponent', () => {
             expect(controller.isPersonalProfileActive).toEqual(jasmine.any(Function));
             expect(controller.isRockPaperScissorActive).toEqual(jasmine.any(Function));
             expect(controller.isRockPaperScissorLizardSpockActive).toEqual(jasmine.any(Function));
+            expect(controller.isEthanActive).toEqual(jasmine.any(Function));
             expect(controller.openMobileMenu).toEqual(jasmine.any(Function));
             expect(controller.navigateTo).toEqual(jasmine.any(Function));
             expect(controller.restartGame).toEqual(jasmine.any(Function));
@@ -122,6 +123,12 @@ describe('MainMenuComponent', () => {
             });
         });
 
+        describe('isEthanActive', () => {
+            it('should be false', () => {
+                expect(controller.isEthanActive()).toEqual(false);
+            });
+        });
+
     });
 
     describe('Rock Paper Scissors', () => {
@@ -156,6 +163,12 @@ describe('MainMenuComponent', () => {
             });
         });
 
+        describe('isEthanActive', () => {
+            it('should be false', () => {
+                expect(controller.isEthanActive()).toEqual(false);
+            });
+        });
+
     });
 
     describe('Rock Paper Scissors Lizard Spock', () => {
@@ -187,6 +200,12 @@ describe('MainMenuComponent', () => {
         describe('isRockPaperScissorLizardSpockActive', () => {
             it('should be true', () => {
                 expect(controller.isRockPaperScissorLizardSpockActive()).toEqual(true);
+            });
+        });
+
+        describe('isEthanActive', () => {
+            it('should be false', () => {
+                expect(controller.isEthanActive()).toEqual(false);
             });
         });
 
@@ -227,6 +246,58 @@ describe('MainMenuComponent', () => {
         describe('isRockPaperScissorLizardSpockChuckActive', () => {
             it('should be true', () => {
                 expect(controller.isRockPaperScissorLizardSpockChuckActive()).toEqual(true);
+            });
+        });
+
+        describe('isEthanActive', () => {
+            it('should be false', () => {
+                expect(controller.isEthanActive()).toEqual(false);
+            });
+        });
+
+    });
+
+    describe('Ethan', () => {
+
+        beforeEach(() => {
+            controller = $componentController('mainMenu', null, {
+                activeItem: 'Ethan'
+            });
+        });
+
+        describe('activeItem', () => {
+            it('should be equal to Ethan', () => {
+                expect(controller.activeItem).toEqual('Ethan');
+            });
+        });
+
+        describe('isPersonalProfileActive', () => {
+            it('should be false', () => {
+                expect(controller.isPersonalProfileActive()).toEqual(false);
+            });
+        });
+
+        describe('isRockPaperScissorActive', () => {
+            it('should be false', () => {
+                expect(controller.isRockPaperScissorActive()).toEqual(false);
+            });
+        });
+
+        describe('isRockPaperScissorLizardSpockActive', () => {
+            it('should be false', () => {
+                expect(controller.isRockPaperScissorLizardSpockActive()).toEqual(false);
+            });
+        });
+
+        describe('isRockPaperScissorLizardSpockChuckActive', () => {
+            it('should be false', () => {
+                expect(controller.isRockPaperScissorLizardSpockChuckActive()).toEqual(false);
+            });
+        });
+
+        describe('isEthanActive', () => {
+            it('should be true', () => {
+                expect(controller.isEthanActive()).toEqual(true);
             });
         });
 

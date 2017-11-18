@@ -15,6 +15,9 @@
             <md-nav-item md-nav-sref="rock-paper-scissors-lizard-spock-chuck" name="rock-paper-scissors-lizard-spock-chuck" class="main-menu-items">
                 Chuck Norris
             </md-nav-item>
+            <md-nav-item md-nav-sref="ethan" name="ethan" class="main-menu-items">
+                Ethan
+            </md-nav-item>
             <md-button id="restart-game" ng-click="vm.restartGame($event)">
                 Restart
             </md-button>
@@ -52,6 +55,12 @@
                     </md-button>
                 </md-menu-item>
                 <md-menu-divider ng-if="vm.isRockPaperScissorLizardSpockChuckActive() === false"></md-menu-divider>
+                <md-menu-item ng-if="vm.isEthanActive() === false">
+                    <md-button ng-click="vm.navigateTo('ethan')">
+                        Ethan
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider ng-if="vm.isEthanActive() === false"></md-menu-divider>
                 <md-menu-item>
                     <md-button ng-click="vm.restartGame($event)">
                         Restart Game

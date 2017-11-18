@@ -1,0 +1,10 @@
+<section class="fill-all-height" layout="column" ng-cloak>
+    <!-- menu -->
+    <section>
+        <!-- instantiating the mainMenu component passing as active item the current game title we are in -->
+        <main-menu active-item="vm.gameTitle"></main-menu>
+    </section>
+    <!-- instantiating the rockPaperScissorsGenerator component passing as parameter the current game title and the available choices for this game -->
+    <rock-paper-scissors-generator page-title="vm.gameTitle" available-choices="vm.availableChoices" layout="row" layout-align="center start" class="fill-all-height">
+    </rock-paper-scissors-generator>
+</section>

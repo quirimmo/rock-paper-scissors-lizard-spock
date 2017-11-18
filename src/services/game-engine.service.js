@@ -24,6 +24,7 @@
         this.getRockPaperScissorsSubset = getRockPaperScissorsSubset;
         this.getRockPaperScissorsLizardSpockSubset = getRockPaperScissorsLizardSpockSubset;
         this.getRockPaperScissorsLizardSpockChuckSubset = getRockPaperScissorsLizardSpockChuckSubset;
+        this.getEthanSubset = getEthanSubset;
         this.calculateResult = calculateResult;
         this.getWinText = getWinText;
         this.getLoseText = getLoseText;
@@ -68,6 +69,13 @@
             // I don't love too much inner functions in these methods, even if they are completely allowed
             // They destroy readability of the code, and they cannot be shared in other filter conditions if you need to use the same one again
             return GAME_CONSTANTS.actions.filter(isRockPaperScissorsLizardSpockChuck);
+        }
+
+        function getEthanSubset() {
+            // Passing external function in filter Array method
+            // I don't love too much inner functions in these methods, even if they are completely allowed
+            // They destroy readability of the code, and they cannot be shared in other filter conditions if you need to use the same one again
+            return GAME_CONSTANTS.actions.filter(isEthan);
         }
 
         /**
@@ -293,6 +301,15 @@
             // Although it's simpler/shorter, this code will break if you will add new actions, making the code not reusable easily and hard to increase, 
             // because if you add new elements for a new game, also the current will break 
             return isRockPaperScissorsLizardSpock(element) || element.id === 'chuck';
+        }
+
+        /**
+         * Check if the given action object is one of the subsets. Used for filtering all the defined actions and retrieving just the expected ones (ethan)
+         * @param {Object} element The action Object
+         * @returns {Boolean} A boolean which says if the current element belongs to the current subset
+         */
+        function isEthan(element) {
+            return element.id === 'chuck';
         }
 
         /**

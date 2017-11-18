@@ -146,6 +146,11 @@
                 term: 'kills'
             }],
             losesAgainst: []
+        }, {
+            id: 'ethan',
+            label: 'Ethan',
+            winsAgainst: [],
+            losesAgainst: []
         }]
     });
 
