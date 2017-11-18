@@ -1,9 +1,9 @@
 let MainMenuPage = require('./page-objects/main-menu.page.objects.js');
 let mainMenuPage = new MainMenuPage();
 
-describe('Main Menu', () => {
+fdescribe('Main Menu', () => {
 
-    describe('General', () => {
+    fdescribe('General', () => {
 
         beforeAll(() => {
             browser.get('/');
@@ -13,12 +13,12 @@ describe('Main Menu', () => {
             mainMenuPage.mainMenu.isDisplayed().should.become(true);
         });
 
-        it('should show the 4 menu items', () => {
-            mainMenuPage.mainMenuItems.isDisplayed().should.become([true, true, true, true]);
+        it('should show the 5 menu items', () => {
+            mainMenuPage.mainMenuItems.isDisplayed().should.become([true, true, true, true, true]);
         });
 
-        it('should show the 4 menu labels', () => {
-            mainMenuPage.mainMenuItems.getText().should.become(['MY PROFILE', 'ROCK PAPER SCISSORS', 'ROCK PAPER SCISSORS LIZARD SPOCK', 'CHUCK NORRIS']);
+        it('should show the 5 menu labels', () => {
+            mainMenuPage.mainMenuItems.getText().should.become(['MY PROFILE', 'ROCK PAPER SCISSORS', 'ROCK PAPER SCISSORS LIZARD SPOCK', 'CHUCK NORRIS', 'ETHAN']);
         });
 
         it('should navigate to the Personal Profile page', (done) => {
@@ -45,6 +45,13 @@ describe('Main Menu', () => {
         it('should navigate to the Rock Paper Scissors Lizard Spock Chuck page', (done) => {
             mainMenuPage.mainMenuItems.get(3).click().then(() => {
                 browser.getCurrentUrl().should.become('http://localhost:3000/#!/rock-paper-scissors-lizard-spock-chuck');
+                done();
+            });
+        });
+
+        it('should navigate to the Ethan page', (done) => {
+            mainMenuPage.mainMenuItems.get(4).click().then(() => {
+                browser.getCurrentUrl().should.become('http://localhost:3000/#!/ethan');
                 done();
             });
         });
